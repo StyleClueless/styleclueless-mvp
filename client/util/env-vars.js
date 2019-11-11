@@ -1,0 +1,1 @@
+export const envVars = () => typeof window !== 'undefined' ? window.envVars : process.env

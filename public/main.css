@@ -1,0 +1,33 @@
+:root {
+    --dark-gray: #333;
+}
+
+.baskerville {
+    font-family: "Libre Baskerville", serif;
+}
+
+.roboto {
+    font-family: "Roboto", sans-serif;
+}
+
+.a-dark-gray {
+    transition: background-color 500ms;
+}
+
+.a-dark-gray:active {
+    background-color: var(--dark-gray);
+}
+
+.vh-third {
+    height: calc(100vh  / 3);
+}
+
+@media screen and (min-width: 100em) {
+    .vh-third-vl {
+        height: calc(100vh  / 3);
+    }
+}
+
+.obj-contain {
+    object-fit: contain;
+}

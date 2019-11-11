@@ -1,0 +1,47 @@
+{
+  "name": "styleclueless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "mongod": "mongod --dbpath ./db",
+    "babel-node": "babel-node ./index.js",
+    "nodemon": "nodemon --signal SIGINT --exec babel-node ./index.js",
+    "yarn-parcel": "yarn parcel watch ./client/index.js",
+    "build": "yarn parcel build client/index.js",
+    "dev": "npm run nodemon & npm run yarn-parcel",
+    "start": "npm run download-csvs & npm run babel-node",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "download-csvs": "babel-node ./seed/download-csvs.js"
+  },
+  "nodemonConfig": {
+    "ignore": ["dist/*", "seed/*", "public/*"],
+    "delay": "2500"
+  },
+  "author": "Naor Biton",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.7.1",
+    "koa": "^2.11.0",
+    "koa-mount": "^4.0.0",
+    "koa-react-router": "^4.0.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "mongodb": "^3.3.3",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "dotenv": "^8.2.0",
+    "nodemon": "^1.19.4",
+    "parcel-bundler": "^1.12.4"
+  }
+}

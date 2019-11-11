@@ -1,0 +1,10 @@
+.idea
+node_modules
+db/
+!db/.mongo-location
+seed/download
+.env
+public/ignore
+dist/
+.cache
+yarn-error.log

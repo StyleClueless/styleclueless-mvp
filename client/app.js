@@ -1,0 +1,51 @@
+import React from 'react';
+// import { Route } from 'react-router';
+import { Home } from './routes/home.js'
+import {
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom'
+import { categories } from './categories-config'
+import { ItemsList } from './routes/items-list'
+import { ItemView } from './routes/item-view'
+
+// import Article from '../containers/Article';
+
+export const App = () => (
+  <div className='pv2 h-100 flex flex-column'>
+    <div className='flex justify-center baskerville'>
+      <div className='dib relative bt bb b--dark-gray w-100 w-50-ns'>
+        {['Home'].concat(categories).map(catName => (
+          <Route key={catName} path='/:routeName' children={({ match }) => {
+            const isMatching = !match && catName === 'Home' || (match && catName.toLowerCase() === match.params.routeName)
+
+            return (
+              <div className={'dib tc pv1 w-20 relative' + (isMatching ? ' bg-dark-gray' : '')}>
+                <Link
+                  className={'link dib pv2 w-100 f6 f5-ns ' + (isMatching ? 'white' : 'dark-gray')}
+                  to={catName === 'Home' ? '/' : `/${catName.toLowerCase()}`}
+                >
+                  {catName}
+                </Link>
+              </div>
+            )
+          }} />
+        ))}
+      </div>
+    </div>
+    <div className='flex-auto overflow-auto pv2'>
+      <Switch>
+        <Route path="/:itemsType/:itemCode" component={ItemView} exact />
+        <Route path="/:itemsType" component={ItemsList} exact />
+        <Route path="/" component={Home} exact />
+      </Switch>
+    </div>
+    {/*<ItemsList />*/}
+    <div className='flex justify-center'>
+      <div className='roboto tc dark-gray pv2 bw1 bt bb b--dark-gray w-100 w-50-ns'>
+        StyleClueless™
+      </div>
+    </div>
+  </div>
+)
