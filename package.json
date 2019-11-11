@@ -18,7 +18,11 @@
     "download-csvs": "babel-node ./seed/download-csvs.js"
   },
   "nodemonConfig": {
-    "ignore": ["dist/*", "seed/*", "public/*"],
+    "ignore": [
+      "dist/*",
+      "seed/*",
+      "public/*"
+    ],
     "delay": "2500"
   },
   "author": "Naor Biton",
@@ -43,6 +47,7 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
+    "babel-cli": "^6.26.0",
     "dotenv": "^8.2.0",
     "nodemon": "^1.19.4",
     "parcel-bundler": "^1.12.4"
