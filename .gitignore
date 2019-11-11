@@ -8,3 +8,4 @@ public/ignore
 dist/
 .cache
 yarn-error.log
+lib
