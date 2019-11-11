@@ -10,6 +10,7 @@ dotenv.config()
 
 const dir = __dirname + '/download'
 const mongoImportExec = process.env.NODE_ENV === 'production' ? '/app/vendor/mongoimport/mongoimport' : 'mongoimport'
+const mongoExec = process.env.NODE_ENV === 'production' ? '/app/vendor/mongodb/bin/mongo' : 'mongo'
 
 if (!fs.existsSync(dir)){
   fs.mkdirSync(dir);
@@ -59,7 +60,7 @@ function downloadFileToPath (url, path) {
     await exec(`${mongoImportExec} --uri=${process.env.MONGO_URI} -c=matchingData --type=csv --headerline --drop --file=${dir}/matching.csv`)
     console.log('Matching csv import complete')
 
-    await exec(`mongo ${process.env.MONGO_URI} ./seed/seed-outfits.js`)
+    await exec(`${mongoExec} ${process.env.MONGO_URI} ./seed/seed-outfits.js`)
     console.log('Seed outfits complete')
   } catch (e) {
     console.error(e)

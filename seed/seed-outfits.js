@@ -1,6 +1,6 @@
 // Mongo Script
 
-db = db.getSiblingDB('styleclueless');
+// db = db.getSiblingDB('styleclueless');
 const matchingFields = ['inpt', 'outp1', 'outp2', 'out3']
 const itemClasses = ['top', 'bottom', 'jacket', 'shoes']
 const lookups = matchingFields.map(fieldName => ({
