@@ -8,7 +8,7 @@
     "babel-node": "babel-node ./index.js",
     "nodemon": "nodemon --signal SIGINT --exec babel-node ./index.js",
     "yarn-parcel": "yarn parcel watch ./client/index.js",
-    "build": "yarn parcel build client/index.js",
+    "build": "parcel build client/index.js",
     "dev": "npm run nodemon & npm run yarn-parcel",
     "start": "npm run download-csvs & npm run babel-node",
     "test": "echo \"Error: no test specified\" && exit 1",
