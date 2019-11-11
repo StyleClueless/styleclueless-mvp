@@ -14,10 +14,6 @@ import { getOutfitsBySKU } from './server/outfits'
 
 dotenv.config()
 
-// babelRegister({
-//   presets: ['react']
-// })
-
 const app = new Koa()
 const koaRouter = new KoaRouter()
 const assetsServer = KoaStatic('public')
