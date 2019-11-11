@@ -11,7 +11,7 @@
     "build-client": "npx parcel build client/index.js",
     "build-server": "npx babel index.js -o dist/server.js",
     "build-seed": "npx babel ./seed/download-csvs.js -o dist/seed.js",
-    "build": "npm run build-client && npm run build-server",
+    "build": "npm run build-client && npm run build-server && npm run build-seed",
     "dev": "npm run nodemon & npm run yarn-parcel",
     "start": "node dist/seed.js & node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
