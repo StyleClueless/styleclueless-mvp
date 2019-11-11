@@ -6,8 +6,8 @@ export let db
 
 // Use connect method to connect to the Server
 export const connect = () => {
-  const url = process.env.MONGO_URI.split('/').slice(0,-1).join('/')
-  client = new MongoClient(url, { useUnifiedTopology: true })
+  // const url = process.env.MONGO_URI.split('/').slice(0,-1).join('/')
+  client = new MongoClient(process.env.MONGO_URI, { useUnifiedTopology: true })
   return new Promise((resolve, reject) => {
 
     // Database Name
