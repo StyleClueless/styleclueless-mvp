@@ -13,7 +13,7 @@
     "build-seed": "npx babel ./seed/download-csvs.js -o dist/seed.js",
     "build": "npm run build-client && npm run build-server && npm run build-seed",
     "dev": "npm run nodemon & npm run yarn-parcel",
-    "start": "node dist/seed.js & node lib/server.js",
+    "start": "node dist/seed.js & node lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "download-csvs": "babel-node ./seed/download-csvs.js"
   },

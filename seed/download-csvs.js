@@ -57,6 +57,9 @@ function downloadFileToPath (url, path) {
     console.log('Importing matching csv into Mongo')
     await exec(`mongoimport --uri=${process.env.MONGO_URI} -c=matchingData --type=csv --headerline --drop --file=${dir}/matching.csv`)
     console.log('Matching csv import complete')
+
+    await exec(`mongo ${process.env.MONGO_URI} ./seed/seed-outfits.js`)
+    console.log('Seed outfits complete')
   } catch (e) {
     console.error(e)
   }
