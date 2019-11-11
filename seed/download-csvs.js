@@ -10,8 +10,7 @@ dotenv.config()
 
 const dir = __dirname + '/download'
 const mongoImportExec = process.env.NODE_ENV === 'production' ? '/app/vendor/mongoimport/mongoimport' : 'mongoimport'
-
-const mongoExec = process.env.NODE_ENV === 'production' ? '/app/vendor/mongodb/bin/mongo' : 'mongo'
+const mongoExec = process.env.NODE_ENV === 'production' ? '/app/.heroku/mongo/bin/mongo' : 'mongo'
 
 if (!fs.existsSync(dir)){
   fs.mkdirSync(dir);
