@@ -9,6 +9,7 @@ const fsUnlink = util.promisify(fs.unlink)
 dotenv.config()
 
 const dir = __dirname + '/download'
+const mongoImportExec = process.env.NODE_ENV === 'production' ? '/app/vendor/mongoimport/mongoimport' : 'mongoimport'
 
 if (!fs.existsSync(dir)){
   fs.mkdirSync(dir);
@@ -51,11 +52,11 @@ function downloadFileToPath (url, path) {
     console.log('Matching csv downloaded successfully')
 
     console.log('Importing tagging csv into Mongo')
-    await exec(`mongoimport --uri=${process.env.MONGO_URI} -c=taggingData --type=csv --headerline --drop --file=${dir}/tagging.csv`)
+    await exec(`${mongoImportExec} --uri=${process.env.MONGO_URI} -c=taggingData --type=csv --headerline --drop --file=${dir}/tagging.csv`)
     console.log('Tagging csv import complete')
 
     console.log('Importing matching csv into Mongo')
-    await exec(`mongoimport --uri=${process.env.MONGO_URI} -c=matchingData --type=csv --headerline --drop --file=${dir}/matching.csv`)
+    await exec(`${mongoImportExec} --uri=${process.env.MONGO_URI} -c=matchingData --type=csv --headerline --drop --file=${dir}/matching.csv`)
     console.log('Matching csv import complete')
 
     await exec(`mongo ${process.env.MONGO_URI} ./seed/seed-outfits.js`)
