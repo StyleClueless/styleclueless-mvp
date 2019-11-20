@@ -5,7 +5,27 @@ import { ItemLabel } from '../components/item-label'
 import { envVars } from '../util/env-vars'
 import { CardsWrapper } from '../components/cards-wrapper'
 
+const outfitParts = [
+  {
+    name: 'bottoms',
+    classes: 'bottom-0 left-1 w-60'
+  },
+  {
+    name: 'shirts',
+    classes: 'top-0 left-0 w-50'
+  },
+  {
+    name: 'jackets',
+    classes: 'top-0 right-0 w-60'
+  },
+  {
+    name: 'shoes',
+    classes: 'bottom-0 right-1-ns right-0 w-third'
+  }
+]
+
 export const ItemView = props => {
+  // const outfitParts = JSON.parse(envVars().CATEGORIES_CONFIG)
   const { itemsType, itemCode } = props.match.params
 
   const [outfits, setOutfits] = useState(null)
@@ -30,11 +50,10 @@ export const ItemView = props => {
         <CardsWrapper>
           {outfits.map(outfit => (
             <div className='pa2 mb4 w-50 relative flex flex-column items-center' key={outfit._id}>
-              <div className='w-60-ns w-80 vh-third-vl vh-25 relative'>
-                <OutfitPart outfit={outfit} partName='bottoms' classes='bottom-0 left-1 w-60'/>
-                <OutfitPart outfit={outfit} partName='shirts' classes='top-0 left-0 w-50' />
-                <OutfitPart outfit={outfit} partName='jackets' classes='top-0 right-0 w-60' />
-                <OutfitPart outfit={outfit} partName='shoes' classes='bottom-0 right-1-ns right-0 w-third' />
+              <div className='w-60-ns w-80 h5_5 relative'>
+                {outfitParts.map(part => (
+                  <OutfitPart key={part.name} outfit={outfit} partName={part.name} classes={part.classes} />
+                ))}
               </div>
             </div>
           ))}
@@ -46,12 +65,12 @@ export const ItemView = props => {
 
 const OutfitPart = ({ outfit, partName, classes }) => {
   const dbClass = dbClassMapping[partName]
-  return (
+  return outfit[dbClass] ? (
     <Link className={'link absolute ' + classes} to={`/${partName}/${outfit[dbClass]}`}>
       <img
         className='w-100'
         src={`${envVars().CLOUDINARY_BASE_URL}/${dbClass}/${outfit[dbClass]}.png`}
       />
     </Link>
-  )
+  ) : <div />
 }
