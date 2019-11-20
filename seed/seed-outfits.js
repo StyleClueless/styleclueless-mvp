@@ -1,23 +1,27 @@
 // Mongo Script
 
 // db = db.getSiblingDB('styleclueless');
-const matchingFields = ['inpt', 'outp1', 'outp2', 'out3']
-const itemClasses = ['top', 'bottom', 'jacket', 'shoes']
-const lookups = matchingFields.map(fieldName => ({
-  $lookup: {from: 'taggingData', localField: fieldName, foreignField: 'code', as: `${fieldName}Match`}
-}));
-db.outfitsTemp.drop();
-db.outfits.drop();
-db.matchingData.aggregate([...lookups, { $out: 'outfitsTemp' }]);
+// const matchingFields = ['inpt', 'outp1', 'outp2', 'out3']
+// const itemClasses = ['top', 'bottom', 'jacket', 'shoes']
+// const lookups = matchingFields.map(fieldName => ({
+//   $lookup: {from: 'taggingData', localField: fieldName, foreignField: 'code', as: `${fieldName}Match`}
+// }));
+// db.outfitsTemp.drop();
+// db.outfits.drop();
+// db.matchingData.aggregate([...lookups, { $out: 'outfitsTemp' }]);
+//
+// db.outfitsTemp.find().forEach(doc => {
+//   const newDoc = matchingFields.reduce((all, fieldName) => {
+//     const subDoc = doc[fieldName + 'Match'][0];
+//     all[subDoc['class']] = subDoc.code;
+//     return all;
+//   }, { _id: doc._id })
+//   db.outfitsTemp.save(newDoc)
+// })
 
-db.outfitsTemp.find().forEach(doc => {
-  const newDoc = matchingFields.reduce((all, fieldName) => {
-    const subDoc = doc[fieldName + 'Match'][0];
-    all[subDoc['class']] = subDoc.code;
-    return all;
-  }, { _id: doc._id })
-  db.outfitsTemp.save(newDoc)
-})
+const sampleItem = db.outfitsTemp.findOne();
+
+itemClasses = Object.keys(sampleItem).slice(1)
 
 const groupingObject = itemClasses.reduce((all, cls) => {
   all[cls] = { $first: '$' + cls };
@@ -25,9 +29,17 @@ const groupingObject = itemClasses.reduce((all, cls) => {
 }, {});
 
 groupingObject._id = itemClasses.reduce((all, cls) => {
-  all[cls] = '$' + cls
+  all[cls] = '$' + cls;
   return all;
 }, {})
+
+const removeNACondMaker = fieldName => ({
+  $cond: {
+    if: { $eq: [ "NA", `$${fieldName}` ] },
+    then: "$$REMOVE",
+    else: `$${fieldName}`
+  }
+})
 
 db.outfitsTemp.aggregate([
   // {
@@ -46,6 +58,12 @@ db.outfitsTemp.aggregate([
     $project: {
       _id: 0
     }
+  },
+  {
+    $project: itemClasses.reduce((all, iClass) => {
+      all[iClass] = removeNACondMaker(iClass)
+      return all
+    }, {})
   },
   {$out: 'outfits'}
 ]);
