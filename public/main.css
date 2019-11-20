@@ -22,6 +22,10 @@
     height: calc(100vh  / 3);
 }
 
+.h5_5 {
+    height: 24rem;
+}
+
 @media screen and (min-width: 100em) {
     .vh-third-vl {
         height: calc(100vh  / 3);

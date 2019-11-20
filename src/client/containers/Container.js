@@ -1,4 +1,6 @@
 import React from 'react';
+import { envVars } from '../util/env-vars'
+import { dbClassMapping } from '../categories-config'
 
 const Container = (props) => {
 
@@ -15,7 +17,7 @@ const Container = (props) => {
     </head>
     <body className='h-100 flex flex-column'>
       <div className='flex justify-center pt2 mh3'>
-        <img className='mw6-ns mw-100' src='/public/BB-logo.png' />
+        <img className='mw6-ns mw-100' src={`${envVars().CLOUDINARY_BASE_URL}/brand-logo.png`} />
       </div>
       <div id="app" className='flex-auto'>
         {props.children}
