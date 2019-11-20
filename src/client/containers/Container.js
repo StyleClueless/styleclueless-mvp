@@ -1,6 +1,5 @@
 import React from 'react';
 import { envVars } from '../util/env-vars'
-import { dbClassMapping } from '../categories-config'
 
 const Container = (props) => {
 
