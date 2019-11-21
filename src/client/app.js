@@ -15,7 +15,7 @@ import { ItemView } from './routes/item-view'
 export const App = () => (
   <div className='pv2 h-100 flex flex-column'>
     <div className='flex justify-center baskerville'>
-      <div className='dib relative bt bb b--dark-gray w-100 w-50-ns'>
+      <div className='dib relative bt bb b--dark-gray w-100 w-60-l'>
         {['Home'].concat(categories).map(catName => (
           <Route key={catName} path='/:routeName' children={({ match }) => {
             const isMatching = !match && catName === 'Home' || (match && catName.toLowerCase() === match.params.routeName)
@@ -43,7 +43,7 @@ export const App = () => (
     </div>
     {/*<ItemsList />*/}
     <div className='flex justify-center'>
-      <div className='roboto tc dark-gray pv2 bw1 bt bb b--dark-gray w-100 w-50-ns'>
+      <div className='roboto tc dark-gray pv2 bw1 bt bb b--dark-gray w-100 w-60-l'>
         StyleClueless™
       </div>
     </div>
