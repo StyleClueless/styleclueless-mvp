@@ -22,13 +22,19 @@
     height: calc(100vh  / 3);
 }
 
-.h5_5 {
-    height: 24rem;
+.h4_5 {
+    height: 12rem;
 }
 
 @media screen and (min-width: 100em) {
     .vh-third-vl {
         height: calc(100vh  / 3);
+    }
+}
+
+@media screen and (min-width: 30em) {
+    .h5_5-ns {
+        height: 24rem;
     }
 }
 
