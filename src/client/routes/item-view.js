@@ -40,7 +40,7 @@ export const ItemView = props => {
   return (
     <div>
       <div className='flex justify-center'>
-        <img className='vh-50' src={`${envVars().CLOUDINARY_BASE_URL}/${dbClassMapping[itemsType]}/${itemCode}.png`} />
+        <img className='vh-third' src={`${envVars().CLOUDINARY_BASE_URL}/${dbClassMapping[itemsType]}/${itemCode}.png`} />
       </div>
       <ItemLabel>{itemCode}</ItemLabel>
       <div className='mv3 tc roboto f3 dark-gray'>
