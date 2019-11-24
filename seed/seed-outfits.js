@@ -19,38 +19,50 @@
 //   db.outfitsTemp.save(newDoc)
 // })
 
-const sampleItem = db.outfitsTemp.findOne();
+// const sample
+const sampleItem = db.taggingData.findOne();
 
-itemClasses = Object.keys(sampleItem).slice(1)
+const itemFields = Object.keys(sampleItem).slice(1);
 
-const groupingObject = itemClasses.reduce((all, cls) => {
+db.taggingData.aggregate([
+  {
+    $project: itemFields.reduce((all, field) => {
+      all[field] = {
+        $toString: `$${field}`
+      }
+      return all
+    }, {})
+  },
+  { $out: 'taggingDataTemp'}
+]);
+
+db.taggingDataTemp.renameCollection('taggingData', true);
+
+const sampleOutfit = db.outfitsTemp.findOne();
+
+const outfitClasses = Object.keys(sampleOutfit).slice(1)
+
+const groupingObject = outfitClasses.reduce((all, cls) => {
   all[cls] = { $first: '$' + cls };
   return all;
 }, {});
 
-groupingObject._id = itemClasses.reduce((all, cls) => {
+groupingObject._id = outfitClasses.reduce((all, cls) => {
   all[cls] = '$' + cls;
   return all;
-}, {})
+}, {});
 
 const removeNACondMaker = fieldName => ({
   $cond: {
     if: { $eq: [ "NA", `$${fieldName}` ] },
     then: "$$REMOVE",
-    else: `$${fieldName}`
+    else: {
+      $toString: `$${fieldName}`
+    }
   }
-})
+});
 
 db.outfitsTemp.aggregate([
-  // {
-  //   $group: {
-  //     _id: {top: '$top', bottom: '$bottom', jacket: '$jacket', shoes: '$shoes'},
-  //     top: {$first: '$top'},
-  //     bottom: {$first: '$bottom'},
-  //     jacket: {$first: '$jacket'},
-  //     shoes: {$first: '$shoes'}
-  //   }
-  // },
   {
     $group: groupingObject
   },
@@ -60,7 +72,7 @@ db.outfitsTemp.aggregate([
     }
   },
   {
-    $project: itemClasses.reduce((all, iClass) => {
+    $project: outfitClasses.reduce((all, iClass) => {
       all[iClass] = removeNACondMaker(iClass)
       return all
     }, {})
