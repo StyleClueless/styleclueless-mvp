@@ -20,23 +20,31 @@
 // })
 
 // const sample
-const sampleItem = db.taggingData.findOne();
+// const sampleItem = db.taggingData.findOne();
+//
+// const itemFields = Object.keys(sampleItem).slice(1);
 
-const itemFields = Object.keys(sampleItem).slice(1);
+// db.taggingData.aggregate([
+//   {
+//     $project: itemFields.reduce((all, field) => {
+//       all[field] = {
+//         $concat: [`$${field}`]
+//       }
+//       return all
+//     }, {})
+//   },
+//   { $out: 'taggingDataTemp'}
+// ]);
+//
+// db.taggingDataTemp.renameCollection('taggingData', true);
 
-db.taggingData.aggregate([
-  {
-    $project: itemFields.reduce((all, field) => {
-      all[field] = {
-        $toString: `$${field}`
-      }
-      return all
-    }, {})
-  },
-  { $out: 'taggingDataTemp'}
-]);
+db.taggingData.find().forEach(doc => {
+  Object.keys(doc).slice(1).forEach(key => {
+    doc[key] = doc[key].toString();
+  });
 
-db.taggingDataTemp.renameCollection('taggingData', true);
+  db.taggingData.save(doc);
+});
 
 const sampleOutfit = db.outfitsTemp.findOne();
 
@@ -56,9 +64,7 @@ const removeNACondMaker = fieldName => ({
   $cond: {
     if: { $eq: [ "NA", `$${fieldName}` ] },
     then: "$$REMOVE",
-    else: {
-      $toString: `$${fieldName}`
-    }
+    else: `$${fieldName}`
   }
 });
 
@@ -81,3 +87,11 @@ db.outfitsTemp.aggregate([
 ]);
 
 db.outfitsTemp.drop();
+
+db.outfits.find().forEach(doc => {
+  Object.keys(doc).slice(1).forEach(key => {
+    doc[key] = doc[key].toString();
+  });
+  db.outfits.save(doc);
+});
+
