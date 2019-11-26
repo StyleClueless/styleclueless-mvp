@@ -26,7 +26,7 @@ export const App = () => {
           {['Home'].concat(categories).map(catName => (
             <Route key={catName} path='/:routeName' children={({ match }) => {
               const isMatching = !match && catName === 'Home' || (match && catName.toLowerCase() === match.params.routeName)
-              if (match.params.routeName !== lastRouteName) {
+              if (match && match.params.routeName !== lastRouteName) {
                 lastRouteName = match.params.routerName
                 scrollToTop()
               }
