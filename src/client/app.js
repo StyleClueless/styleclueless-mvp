@@ -17,6 +17,7 @@ export const App = () => {
   let lastRouteName
   const scrollToTop = () => {
     if (scrollEl) scrollEl.scrollTop = 0
+    window.scrollTop = 0
   }
   return (
     <div className='pv2 h-100 flex flex-column'>
