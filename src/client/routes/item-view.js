@@ -25,6 +25,7 @@ const outfitParts = [
 ]
 
 export const ItemView = props => {
+  const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', '/upload/c_scale,h_350,q_auto:good')
   // const outfitParts = JSON.parse(envVars().CATEGORIES_CONFIG)
   const { itemsType, itemCode } = props.match.params
 
@@ -40,7 +41,7 @@ export const ItemView = props => {
   return (
     <div>
       <div className='flex justify-center'>
-        <img className='vh-third' src={`${envVars().CLOUDINARY_BASE_URL}/${dbClassMapping[itemsType]}/${itemCode}.png`} />
+        <img className='vh-third' src={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${itemCode}.png`} />
       </div>
       <ItemLabel>{itemCode}</ItemLabel>
       <div className='mv3 tc roboto f3 dark-gray'>
@@ -64,12 +65,13 @@ export const ItemView = props => {
 }
 
 const OutfitPart = ({ outfit, partName, classes }) => {
+  const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', '/upload/c_scale,h_110,q_auto:good')
   const dbClass = dbClassMapping[partName]
   return outfit[dbClass] ? (
     <Link className={'link absolute ' + classes} to={`/${partName}/${outfit[dbClass]}`}>
       <img
         className='w-100'
-        src={`${envVars().CLOUDINARY_BASE_URL}/${dbClass}/${outfit[dbClass]}.png`}
+        src={`${cloudinaryPath}/${dbClass}/${outfit[dbClass]}.png`}
       />
     </Link>
   ) : <div />

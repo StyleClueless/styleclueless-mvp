@@ -4,7 +4,9 @@ import { ItemCard } from '../components/item-card'
 import { dbClassMapping } from '../categories-config'
 import { envVars } from '../util/env-vars'
 
+const cldTransformation = 'c_scale,h_350,q_auto:good'
 export const ItemsList = props => {
+  const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', `/upload/${cldTransformation}`)
   const [items, setItems] = useState(null)
   const [loadedType, setLoadedType] = useState(null)
   const { itemsType } = props.match.params
@@ -27,7 +29,7 @@ export const ItemsList = props => {
             key={item._id}
             label={item.code}
             href={`/${itemsType}/${item.code}`}
-            imgUrl={`${envVars().CLOUDINARY_BASE_URL}/${dbClassMapping[itemsType]}/${item.code}.png`}
+            imgUrl={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${item.code}.png`}
           />
         ))
       }

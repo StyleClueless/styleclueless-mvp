@@ -4,22 +4,16 @@ import { ItemCard } from '../components/item-card'
 import { CardsWrapper } from '../components/cards-wrapper'
 import { envVars } from '../util/env-vars'
 
-// const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
-
+const cldTransformation = 'c_scale,h_350,q_auto:good'
 export const Home = () => {
-  // const { coverImages, categories } = JSON.parse(envVars().CATEGORIES_CONFIG).reduce((all, cat) => {
-  //   all.categories.push(capitalize(cat.name))
-  //   all.coverImages[cat.name] = cat.coverImage
-  //   return all
-  // }, { coverImages: {}, categories: [] })
-
+  const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', `/upload/${cldTransformation}`)
   return (
     <CardsWrapper>
       {categories.map(cat => (
         <ItemCard
           key={cat}
           href={`/${cat.toLowerCase()}`}
-          imgUrl={`${envVars().CLOUDINARY_BASE_URL}/${dbClassMapping[cat.toLowerCase()]}/cover.png`}
+          imgUrl={`${cloudinaryPath}/${dbClassMapping[cat.toLowerCase()]}/cover.png`}
           label={cat}
         />
       ))}
