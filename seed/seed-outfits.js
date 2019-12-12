@@ -44,7 +44,7 @@ db.taggingData.find().forEach(doc => {
       // doc[key] = doc[key].toString();
       let string_value=doc[key] = doc[key].toString();
       if(string_value.indexOf("Num")!==-1){
-          doc[key] = string_value.match(/\d+/g).map(Number)[0];
+          doc[key] = string_value.match(/\d+/g).map(Number)[0].toString();
       }
       else{
           doc[key] =  string_value;
@@ -101,7 +101,7 @@ db.outfits.find().forEach(doc => {
     // doc[key] = doc[key].toString();
       let string_value=doc[key] = doc[key].toString();
       if(string_value.indexOf("Num")!==-1){
-          doc[key] = string_value.match(/\d+/g).map(Number)[0];
+          doc[key] = string_value.match(/\d+/g).map(Number)[0].toString();
       }
       else{
           doc[key] =  string_value;
