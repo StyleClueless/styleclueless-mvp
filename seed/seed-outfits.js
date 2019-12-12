@@ -90,7 +90,9 @@ db.outfitsTemp.drop();
 
 db.outfits.find().forEach(doc => {
   Object.keys(doc).slice(1).forEach(key => {
-    doc[key] = doc[key].toString();
+    // doc[key] = doc[key].toString();
+      doc[key] = doc[key].toString().match(/\d+/g).map(Number)[0];
+
   });
   db.outfits.save(doc);
 });
