@@ -40,8 +40,15 @@
 
 db.taggingData.find().forEach(doc => {
   Object.keys(doc).slice(1).forEach(key => {
-      doc[key] = doc[key].toString().match(/\d+/g).map(Number)[0];
+      // doc[key] = doc[key].toString().match(/\d+/g).map(Number)[0];
       // doc[key] = doc[key].toString();
+      let string_value=doc[key] = doc[key].toString();
+      if(string_value.indexOf("Num")!==-1){
+          doc[key] = string_value.match(/\d+/g).map(Number)[0];
+      }
+      else{
+          doc[key] =  string_value;
+      }
   });
 
   db.taggingData.save(doc);
@@ -92,7 +99,14 @@ db.outfitsTemp.drop();
 db.outfits.find().forEach(doc => {
   Object.keys(doc).slice(1).forEach(key => {
     // doc[key] = doc[key].toString();
-      doc[key] = doc[key].toString().match(/\d+/g).map(Number)[0];
+      let string_value=doc[key] = doc[key].toString();
+      if(string_value.indexOf("Num")!==-1){
+          doc[key] = string_value.match(/\d+/g).map(Number)[0];
+      }
+      else{
+          doc[key] =  string_value;
+      }
+
 
   });
   db.outfits.save(doc);
