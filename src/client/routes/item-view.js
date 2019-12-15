@@ -70,7 +70,7 @@ const OutfitPart = ({ outfit, partName, classes }) => {
   return outfit[dbClass] ? (
     <Link className={'link absolute ' + classes} to={`/${partName}/${outfit[dbClass]}`}>
       <img
-        className='w-65'
+        className='w-70'
         src={`${cloudinaryPath}/${dbClass}/${outfit[dbClass]}.png`}
       />
     </Link>

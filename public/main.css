@@ -17,6 +17,8 @@
 .a-dark-gray:active {
     background-color: var(--dark-gray);
 }
+.left-4
+{ left:   4rem; }
 
 .vh-third {
     height: calc(100vh  / 3);
