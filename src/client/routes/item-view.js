@@ -8,7 +8,7 @@ import { CardsWrapper } from '../components/cards-wrapper'
 const outfitParts = [
   {
     name: 'bottoms',
-    classes: 'bottom-0 left-1 w3 w4-ns'
+    classes: 'bottom-0 left-4 w3 w4-ns'
   },
   {
     name: 'shirts',
@@ -70,7 +70,7 @@ const OutfitPart = ({ outfit, partName, classes }) => {
   return outfit[dbClass] ? (
     <Link className={'link absolute ' + classes} to={`/${partName}/${outfit[dbClass]}`}>
       <img
-        className='w-100'
+        className='w-65'
         src={`${cloudinaryPath}/${dbClass}/${outfit[dbClass]}.png`}
       />
     </Link>
