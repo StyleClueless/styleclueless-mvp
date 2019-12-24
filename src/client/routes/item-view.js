@@ -65,7 +65,7 @@ export const ItemView = props => {
 }
 
 const OutfitPart = ({ outfit, partName, classes }) => {
-  const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', '/upload/c_scale,h_110,q_auto:good')
+  const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', '/upload/c_scale,h_110,q_auto:good/c_scale,h_380,q_auto:good')
   const dbClass = dbClassMapping[partName]
   return outfit[dbClass] ? (
     <Link className={'link absolute ' + classes} to={`/${partName}/${outfit[dbClass]}`}>
