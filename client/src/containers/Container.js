@@ -11,7 +11,7 @@ const Container = (props) => {
       <link rel="stylesheet" href="https://unpkg.com/tachyons@4/css/tachyons.min.css" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap" />
-      <link rel="stylesheet" href="/public/main.css" />
+      <link rel="stylesheet" href="/client/public/main.css" />
       <script src='/dist/index.js' />
     </head>
     <body className='h-100 flex flex-column'>
