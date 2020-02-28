@@ -1,0 +1,62 @@
+File structure:
+
+docker-compose.yml: define 2 services
+db - the postgres db
+graphql
+
+
+Folder db:
+install.sh - init script for db - here we can run sql on the new db
+this file is mapped to the continaer to "/docker-entrypoint-initdb.d" - the docker image will run this script when db finishes init.(will run once)
+
+
+
+docker usefull:
+
+"get inside" running container:
+docker exec -it CONTAINER_NAME bash example: docker exec -it app bash
+
+show all containers (running and stopped)
+docker ps -a
+
+docker-compose up -d container
+
+docker compose:
+
+stop all services:
+docker-compose -f /home/ubuntu/lotototo/docker/docker-compose.yml down
+
+start all services:
+docker-compose -f /home/ubuntu/lotototo/docker/docker-compose.yml up -d
+
+start all services + rebuild -use this after changing files related to the continaer:
+docker-compose -f /home/ubuntu/lotototo/docker/docker-compose.yml up -d --build
+
+
+PGADMIN:
+to start the pgadmin server run this:
+
+docker run -p 80:80 \
+--name pgadmin \
+-e "PGADMIN_DEFAULT_EMAIL=loash64@gmail.com" \
+-e "PGADMIN_DEFAULT_PASSWORD=Aa123456" \
+-d dpage/pgadmin4
+
+to visit browse to the ec2 public ip
+
+
+
+PASSWORDS:
+
+postgres db:
+username: postgres password: 4CxphzddFf2RAWXZ7Fu95pHTpEsZvGHEZTvqUF4p3SZuXY8kk8vU
+
+pgadmin
+user loash64@gmail.com
+password Aa123456
+
+
+docker-compose -f /home/ubuntu/lotototo/docker/docker-compose.yml up -d
+
+postgraphile with tokens
+command: ["postgraphile", "--connection", $DATABASE_URL,"--token","entry.client_jwt_token", "--secret", "secret5secret", "--host", "0.0.0.0", "--port", "5000", "--schema", "entry", " --default-role","entry_anonymous" , "--watch", "--append-plugins", "postgraphile-plugin-nested-mutations"]

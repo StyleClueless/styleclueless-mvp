@@ -1,0 +1,45 @@
+version: '3'
+services:
+  db:
+    container_name: db
+    image: postgres
+    ports:
+    - "5432:5432"
+    environment:
+    -  POSTGRES_USER=postgres
+    -  POSTGRES_PASSWORD=4CxphzeeFf2RAWXZ7Fu43pHTpEsZvGHEZTvqUF4p3SZuXY8kk8vU
+    volumes:
+    - ./db:/docker-entrypoint-initdb.d
+    - /data/postgresql:/var/lib/postgresql/data
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    depends_on:
+    - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: loash64@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: Aa123456
+    ports:
+    - 8080:80
+  barcode_reader:
+    image: barcode_reader:dev
+    container_name: barcode_reader
+    build:
+      context: /home/ubuntu/styleclueless/docker/barcodeReader
+      dockerfile: /home/ubuntu/styleclueless/docker/barcodeReader/Dockerfile
+    ports:
+    - 8090:8080
+  hasura:
+    container_name: hasura
+    image: hasura/graphql-engine:v1.0.0-beta.1
+    ports:
+    - '2323:8080'
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:4CxphzeeFf2RAWXZ7Fu43pHTpEsZvGHEZTvqUF4p3SZuXY8kk8vU@db:5432/styleclueless_back_end_production
+    #          HASURA_GRAPHQL_ACCESS_KEY: lior123456
+    #          HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key": "MCk9nkfH7JLLc4q8x2rTK7C5E9Zv4prj"}'
+    command:
+    - graphql-engine
+    - serve
+    - --enable-console

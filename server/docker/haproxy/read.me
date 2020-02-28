@@ -1,0 +1,35 @@
+haproxy config path : /etc/haproxy/haproxy.cfg
+cert path : /etc/haproxy/cert.pem
+
+
+generating SSL certificates:
+https://medium.com/@utkarsh_verma/how-to-obtain-a-wildcard-ssl-certificate-from-lets-encrypt-and-setup-nginx-to-use-wildcard-cfb050c8b33f
+
+In godaddy configure record types:
+A @ IP-OF-MACHINE
+A * IP-OF-MACHINE
+CNAME www @
+
+then to generate the ssl certificate run the following command:
+sudo certbot --server https://acme-v02.api.letsencrypt.org/directory -d *.lotototo.live -d lotototo.live --manual --preferred-challenges dns-01 certonly
+wait few mins!!!!
+
+
+Add the TXT record to godaddy after running the command e.g:
+TXT _acme-challenge VALUE-COMMAND
+
+after certbot finishes we need to merge the certs to one file and put it in the haproxy config dir
+
+cat /etc/letsencrypt/live/lotototo.live-0001/fullchain.pem > /etc/haproxy/cert.pem && \
+cat /etc/letsencrypt/live/lotototo.live-0001/privkey.pem >> /etc/haproxy/cert.pem
+
+
+certbot certificates - to see all certificates status
+
+sudo certbot renew --cert-name lotototo.live --dry-run
+
+
+to renew certificate:
+/home/ubuntu/certbot-auto renew && \
+cat /etc/letsencrypt/live/lotototo.live-0001/fullchain.pem > /etc/haproxy/cert.pem && \
+cat /etc/letsencrypt/live/lotototo.live-0001/privkey.pem >> /etc/haproxy/cert.pem
