@@ -18,7 +18,7 @@ CREATE TABLE public.tagging
     CONSTRAINT tagging_card_id_fkey FOREIGN KEY (company_id)
         REFERENCES public.companies (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
+        ON DELETE NO ACTION
 )
 WITH (
     OIDS = FALSE

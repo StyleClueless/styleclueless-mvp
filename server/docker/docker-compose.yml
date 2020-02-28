@@ -17,7 +17,7 @@ services:
     depends_on:
     - db
     environment:
-      PGADMIN_DEFAULT_EMAIL: loash64@gmail.com
+      PGADMIN_DEFAULT_EMAIL: zobis2@gmail.com
       PGADMIN_DEFAULT_PASSWORD: Aa123456
     ports:
     - 8080:80

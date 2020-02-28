@@ -13,8 +13,7 @@ CREATE TABLE public.clients
     updated_at timestamp without time zone NOT NULL,
     deleted boolean DEFAULT false,
     CONSTRAINT clients_pkey PRIMARY KEY (id),
-    CONSTRAINT "UNIQUE_client" UNIQUE (email)
-,
+    CONSTRAINT "UNIQUE_client" UNIQUE (email),
     CONSTRAINT fk_clients_company_id FOREIGN KEY (company_id)
         REFERENCES public.companies (id) MATCH SIMPLE
         ON UPDATE NO ACTION
