@@ -9,3 +9,4 @@ dist/
 .cache
 yarn-error.log
 lib
+client/build/
