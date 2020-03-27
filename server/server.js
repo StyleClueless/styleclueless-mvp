@@ -35,7 +35,13 @@ const server = https.createServer(httpsOptions, app);
 
 
 app.use(express.static(path.join(__dirname, '../client//public/')))
-
+const logger = function(req, res, next) {
+    const log={headers:req.headers,params:req.params,body:req.body,originalUrl:req.originalUrl}
+    console.log("GOT REQUEST !=>" + JSON.stringify(log.originalUrl) );
+    // console.log("GOT REQUEST !=>" + JSON.stringify(log) );
+    next(); // Passing the request to the next handler in the stack.
+}
+app.use(logger);
 
 const port =3000;
 
