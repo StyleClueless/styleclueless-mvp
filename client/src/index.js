@@ -3,12 +3,18 @@ import { App } from './app.js'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 
-window.onload = () => {
-  ReactDOM.render(
+
+ReactDOM.render(
     <BrowserRouter>
-      <App />
+        <App />
     </BrowserRouter>,
-    document.getElementById("app")
-  )
-}
+    document.getElementById("root")
+)
+
+// ReactDOM.render(
+//     <App>
+//     </App>,
+//     document.getElementById("root")
+// )
+
 
