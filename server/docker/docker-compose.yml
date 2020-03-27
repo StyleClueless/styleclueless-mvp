@@ -35,6 +35,33 @@ services:
     - graphql-engine
     - serve
     - --enable-console
+  nginx:
+    restart: always
+    image: nginx:latest
+    volumes:
+    - ./nginx/:/etc/nginx/
+    depends_on:
+    - backend
+  styleclueless.backend:
+    volumes:
+    - /temp/:/temp/
+    - /home/ubuntu/styleclueless/client/:/usr/src/client/
+    entrypoint: node index.js
+    container_name: backend
+    restart: always
+    build:
+      context: ../
+    image: styleclueless.backend:dev
+#  styleclueless.frontend:
+#      container_name: frontend
+#      build:
+#        context: ../../client
+#        dockerfile: Dockerfile
+#      image: styleclueless.frontend:dev
+#      ports:
+#      - "3000:3000"
+#      volumes:
+#      - ../../client:/usr/src/app
 #AWS_ACCES_KEY  AKIAQPMQ2HDZUU4W7HQS
 #AWS_SECRET_KEY  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
 #AWS_HOSTED_ZONE_INSTANCE_ID Z2YG7FHHC4M32Q

@@ -54,4 +54,7 @@ outfits :
     "bottom": "6128711114"
 }
 
+www.styleclueless.com.
+bucket:
 
+s3-website-ap-southeast-1.amazonaws.com.
