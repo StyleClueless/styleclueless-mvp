@@ -1,0 +1,5 @@
+upstream styleCluesLess {
+    server 127.0.0.1:3000;
+    keepalive 8;
+}
+user  ubuntu;
