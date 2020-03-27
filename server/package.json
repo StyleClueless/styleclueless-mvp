@@ -15,7 +15,8 @@
     "dev": "npm run nodemon & npm run yarn-parcel",
     "start": "node dist/seed.js && node lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "babel-node ./seed/download-csvs.js"
+    "seed": "babel-node ./seed/download-csvs.js",
+    "cluster": "pm2 kill && pm2 start processes.json&& pm2 logs"
   },
   "nodemonConfig": {
     "ignore": [
