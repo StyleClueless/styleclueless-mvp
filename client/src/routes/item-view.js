@@ -47,19 +47,19 @@ export const ItemView = props => {
       <div className='mv3 tc roboto f3 dark-gray'>
         Pick an outfit to match
       </div>
-      {outfits && (
-        <CardsWrapper>
-          {outfits.map(outfit => (
-            <div className='pa2 mb4 w-50 relative flex flex-column items-center' key={outfit._id}>
-              <div className='w4 w5-ns h4 h5-ns relative'>
-                {outfitParts.map(part => (
-                  <OutfitPart key={part.name} outfit={outfit} partName={part.name} classes={part.classes} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </CardsWrapper>
-      )}
+      {/*{outfits && (*/}
+        {/*<CardsWrapper>*/}
+          {/*{outfits.map(outfit => (*/}
+            {/*<div className='pa2 mb4 w-50 relative flex flex-column items-center' key={outfit._id}>*/}
+              {/*<div className='w4 w5-ns h4 h5-ns relative'>*/}
+                {/*{outfitParts.map(part => (*/}
+                  {/*<OutfitPart key={part.name} outfit={outfit} partName={part.name} classes={part.classes} />*/}
+                {/*))}*/}
+              {/*</div>*/}
+            {/*</div>*/}
+          {/*))}*/}
+        {/*</CardsWrapper>*/}
+      {/*)}*/}
     </div>
   )
 }
