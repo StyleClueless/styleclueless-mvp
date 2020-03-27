@@ -30,8 +30,8 @@ const httpsOptions = {
     rejectUnauthorized:false // in order to do request from fake ssl react js camera caputure
 }
 
-const server = https.createServer(httpsOptions, app);
-
+// const server = https.createServer(httpsOptions, app);
+const server=app;
 
 
 app.use(express.static(path.join(__dirname, '../client//public/')))
