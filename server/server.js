@@ -34,7 +34,8 @@ const httpsOptions = {
 const server=app;
 
 
-app.use(express.static(path.join(__dirname, '../client//public/')))
+// app.use(express.static('../client//public/'));
+app.use(express.static('../client/build/'));
 const logger = function(req, res, next) {
     const log={headers:req.headers,params:req.params,body:req.body,originalUrl:req.originalUrl}
     console.log("GOT REQUEST !=>" + JSON.stringify(log.originalUrl) );
