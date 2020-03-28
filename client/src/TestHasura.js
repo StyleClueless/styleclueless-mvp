@@ -8,7 +8,7 @@ class TestHasura extends Component {
 
     async componentWillMount() {
         console.log('x');
-        debugger;
+        // debugger;
         const TEST_QUERY = gql`
    query MyQuery {
   clients {
@@ -24,7 +24,7 @@ class TestHasura extends Component {
 }
 `;
         try {
-            const {data} = await this.props.client.query({
+            const data = await this.props.client.query({
                 query: TEST_QUERY,
                 variables: {count_id: this.state.count_id},
                 fetchPolicy: 'network-only',

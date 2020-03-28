@@ -1,10 +1,11 @@
-import ApolloClient, { createNetworkInterface } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
-import { WebSocketLink } from 'apollo-link-ws';
-import { SubscriptionClient } from 'subscriptions-transport-ws';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { split } from 'apollo-link';
-import { getMainDefinition } from 'apollo-utilities';
+import ApolloClient, {createNetworkInterface} from 'apollo-client';
+import {HttpLink} from 'apollo-link-http';
+import {WebSocketLink} from 'apollo-link-ws';
+import {SubscriptionClient} from 'subscriptions-transport-ws';
+import {InMemoryCache} from 'apollo-cache-inmemory';
+import {split} from 'apollo-link';
+import {getMainDefinition} from 'apollo-utilities';
+import ApolloClientBoost  from "apollo-boost";
 
 const scheme = proto => {
     return window.location.protocol === 'https:' ? `${proto}s` : proto;
@@ -30,17 +31,22 @@ const mkWsLink = uri => {
 // Make HttpLink
 console.log('CREATING GRAPH HTTP WITH=>' + GRAPHQL_ENDPOINT);
 console.log('CREATING GRAPH WEBSOCKET WITH=>' + WEBSOCKET_ENDPOINT);
+const httpConfig={
+    uri: GRAPHQL_ENDPOINT, fetchOptions: {
+        mode: 'cors',
+    }
+};
 
-const httpLink = new HttpLink({ uri: GRAPHQL_ENDPOINT });
-console.log(httpLink);
+const httpLink = new HttpLink(httpConfig,);
+console.log(JSON.stringify(httpLink)+JSON.stringify(httpConfig));
 
 const wsLink = mkWsLink(GRAPHQL_ENDPOINT);
 const link = split(
     // split based on operation type
-    ({ query }) => {
+    ({query}) => {
         console.log('qiuery=>');
         console.log(query);
-        const { kind, operation } = getMainDefinition(query);
+        const {kind, operation} = getMainDefinition(query);
         return kind === 'OperationDefinition' && operation === 'subscription';
     },
     wsLink,
@@ -61,3 +67,9 @@ export const apollo_client = new ApolloClient({
         addTypename: false,
     }),
 });
+// export const  apollo_client = new ApolloClientBoost({
+//     uri: GRAPHQL_ENDPOINT,
+//     fetchOptions: {
+//         mode: 'no-cors',
+//     },
+// });
