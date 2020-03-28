@@ -26,7 +26,7 @@ class TestHasura extends Component {
         try {
             const data = await this.props.client.query({
                 query: TEST_QUERY,
-                variables: {count_id: this.state.count_id},
+                variables: {},
                 fetchPolicy: 'network-only',
             });
             console.log(data);
@@ -44,11 +44,11 @@ class TestHasura extends Component {
     render() {
 
         return (
-            <div>
-                <ApolloConsumer>
 
-                </ApolloConsumer>
+            <div>
+
             </div>
+
         );
     }
 }

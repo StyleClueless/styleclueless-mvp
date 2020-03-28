@@ -25,6 +25,8 @@ export const App = () => {
     if (typeof window !== 'undefined') window.scrollTop = 0
   }
   return (
+      <ApolloProvider client={apollo_client}>
+
     <div className='pv2 h-100 flex flex-column'>
    <TestHasura/>
         <div className='flex justify-center baskerville'>
@@ -66,6 +68,7 @@ export const App = () => {
 
 
     </div>
+      </ApolloProvider>
 
 
       )

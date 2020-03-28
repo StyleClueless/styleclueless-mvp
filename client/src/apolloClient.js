@@ -23,7 +23,7 @@ const mkWsLink = uri => {
     console.log(uri);
     const splitUri = uri.split('//');
     const subClient = new SubscriptionClient(WEBSOCKET_ENDPOINT, {
-        reconnect: true,
+        reconnect: false,
     });
     return new WebSocketLink(subClient);
 };
@@ -32,15 +32,23 @@ const mkWsLink = uri => {
 console.log('CREATING GRAPH HTTP WITH=>' + GRAPHQL_ENDPOINT);
 console.log('CREATING GRAPH WEBSOCKET WITH=>' + WEBSOCKET_ENDPOINT);
 const httpConfig={
-    uri: GRAPHQL_ENDPOINT, fetchOptions: {
+    uri: GRAPHQL_ENDPOINT,
+    // credentials: 'include',fetchOptions: {
         mode: 'cors',
-    }
+    // },  headers: {
+    //     "Access-Control-Allow-Origin": "http://localhost:3006",
+    //     "Access-Control-Allow-Methods": "POST",
+    //     'Access-Control-Allow-Headers': 'application/json'
+    //     //"Access-Control-Allow-Credentials" : true
+    //     //"X-CSRFToken": Cookies.get('csrftoken')
+    // }
 };
 
 const httpLink = new HttpLink(httpConfig,);
 console.log(JSON.stringify(httpLink)+JSON.stringify(httpConfig));
 
 const wsLink = mkWsLink(GRAPHQL_ENDPOINT);
+// const wsLink=null;
 const link = split(
     // split based on operation type
     ({query}) => {
@@ -56,7 +64,7 @@ console.log('LINK=>');
 console.log(link);
 const networkInterface = createNetworkInterface({
     uri: GRAPHQL_ENDPOINT,
-    cors: true,
+    opts:{cors: true},
 });
 
 // Instantiate client
@@ -67,7 +75,7 @@ export const apollo_client = new ApolloClient({
         addTypename: false,
     }),
 });
-// export const  apollo_client = new ApolloClientBoost({
+// export const  apollo_client2 = new ApolloClientBoost({
 //     uri: GRAPHQL_ENDPOINT,
 //     fetchOptions: {
 //         mode: 'no-cors',

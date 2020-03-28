@@ -8,13 +8,13 @@ import {apollo_client} from "./apolloClient";
 
 
 ReactDOM.render(
-    <ApolloProvider client={apollo_client}>
 
     <BrowserRouter>
 
         <App />
-    </BrowserRouter>
-    </ApolloProvider>
+
+
+</BrowserRouter>
     ,
     document.getElementById("root")
 )
