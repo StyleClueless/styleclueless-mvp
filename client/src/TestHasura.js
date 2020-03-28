@@ -10,19 +10,18 @@ class TestHasura extends Component {
         console.log('x');
         debugger;
          const TEST_QUERY = gql`
-    query getHishGadLogsByCountId($count_id: uuid!) {
-        hishgad_logs(where: { count_id: { _eq: $count_id } }) {
-            client_id
-            count_id
-            created_at
-            deleted
-            first_card
-            id
-            opened
-            second_card
-            updated_at
-        }
-    }
+   query MyQuery {
+  clients {
+    created_at
+    deleted
+    email
+    id
+    password
+    salt
+    updated_at
+    company_id
+  }
+}
 `;
         const { data } = await this.props.client.query({
             query: TEST_QUERY,
