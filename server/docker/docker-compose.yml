@@ -38,6 +38,7 @@ services:
   nginx:
     restart: always
     image: nginx:latest
+    container_name: nginx
     volumes:
     - ./nginx/:/etc/nginx/
     depends_on:
