@@ -13,6 +13,7 @@ import { categories } from './categories-config'
 import { ItemsList } from './routes/items-list'
 import { ItemView } from './routes/item-view'
 import { withApollo } from 'react-apollo';
+import TestHasura from "./TestHasura";
 
 // import Article from '../containers/Article';
 
@@ -24,9 +25,8 @@ export const App = () => {
     if (typeof window !== 'undefined') window.scrollTop = 0
   }
   return (
-      // withApollo(
     <div className='pv2 h-100 flex flex-column'>
-
+   <TestHasura/>
         <div className='flex justify-center baskerville'>
         <div className='dib relative bt bb b--dark-gray w-100 w-60-l'>
           {['Home'].concat(categories).map(catName => (
@@ -67,6 +67,6 @@ export const App = () => {
 
     </div>
 
-    )
-  // )
+
+      )
 }
