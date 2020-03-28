@@ -1,14 +1,18 @@
 import React from 'react';
 // import { Route } from 'react-router';
+import { ApolloConsumer } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo';
+import { apollo_client } from './apolloClient';
 import { Home } from './routes/home.js'
 import {
-  Switch,
-  Route,
-  Link
+    Switch,
+    Route,
+    Link, BrowserRouter
 } from 'react-router-dom'
 import { categories } from './categories-config'
 import { ItemsList } from './routes/items-list'
 import { ItemView } from './routes/item-view'
+import { withApollo } from 'react-apollo';
 
 // import Article from '../containers/Article';
 
@@ -20,8 +24,10 @@ export const App = () => {
     if (typeof window !== 'undefined') window.scrollTop = 0
   }
   return (
+      // withApollo(
     <div className='pv2 h-100 flex flex-column'>
-      <div className='flex justify-center baskerville'>
+
+        <div className='flex justify-center baskerville'>
         <div className='dib relative bt bb b--dark-gray w-100 w-60-l'>
           {['Home'].concat(categories).map(catName => (
             <Route key={catName} path='/:routeName' children={({ match }) => {
@@ -57,6 +63,10 @@ export const App = () => {
           StyleClueless™
         </div>
       </div>
+
+
     </div>
-  )
+
+    )
+  // )
 }
