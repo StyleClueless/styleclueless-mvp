@@ -42,7 +42,7 @@ services:
     - ./nginx/:/etc/nginx/
     depends_on:
     - backend
-  styleclueless.backend:
+  backend:
     volumes:
     - /temp/:/temp/
     - /home/ubuntu/styleclueless/client/:/usr/src/client/
@@ -52,7 +52,7 @@ services:
     build:
       context: ../
     image: styleclueless.backend:dev
-#  styleclueless.frontend:
+#  frontend:
 #      container_name: frontend
 #      build:
 #        context: ../../client
