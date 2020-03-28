@@ -75,9 +75,9 @@ export const apollo_client = new ApolloClient({
         addTypename: false,
     }),
 });
-// export const  apollo_client2 = new ApolloClientBoost({
-//     uri: GRAPHQL_ENDPOINT,
-//     fetchOptions: {
-//         mode: 'no-cors',
-//     },
-// });
+export const  apollo_client2 = new ApolloClientBoost({
+    uri: GRAPHQL_ENDPOINT,
+    fetchOptions: {
+        mode: 'no-cors',
+    },
+});
