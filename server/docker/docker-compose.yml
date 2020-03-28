@@ -28,7 +28,7 @@ services:
     - '2323:8080'
     restart: always
     environment:
-      HASURA_GRAPHQL_CORS_DOMAIN: *
+      HASURA_GRAPHQL_CORS_DOMAIN: "*"
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:4CxphzeeFf2RAWXZ7Fu43pHTpEsZvGHEZTvqUF4p3SZuXY8kk8vU@db:5432/styleclueless_back_end_production
     #          HASURA_GRAPHQL_ACCESS_KEY: lior123456
     #          HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key": "MCk9nkfH7JLLc4q8x2rTK7C5E9Zv4prj"}'
