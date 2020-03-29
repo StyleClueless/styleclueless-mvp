@@ -1,0 +1,1136 @@
+[
+{
+    "_id": {
+        "$oid": "5e802a411a186691e02464bb"
+    },
+    "code": "3100130200",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464bc"
+    },
+    "code": "3121965800",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464bd"
+    },
+    "code": "3121991197",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464be"
+    },
+    "code": "3121931000",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464bf"
+    },
+    "code": "3121950500",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464c0"
+    },
+    "code": "3121980200",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464c1"
+    },
+    "code": "3121991199",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "neutralWear"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464c2"
+    },
+    "code": "3121985800",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "sportCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464c3"
+    },
+    "code": "3151241085",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "industrialCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464c4"
+    },
+    "code": "3121930700",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464c5"
+    },
+    "code": "3121930200",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464c6"
+    },
+    "code": "3151301723",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "semiSafe",
+    "style": "sportCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464c7"
+    },
+    "code": "3160600200",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464c8"
+    },
+    "code": "3160710200",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464c9"
+    },
+    "code": "3160931702",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "semiSafe",
+    "style": "sportCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464ca"
+    },
+    "code": "3160840800",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464cb"
+    },
+    "code": "3160935800",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "sportCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464cc"
+    },
+    "code": "3191311199",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "neutralWear"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464cd"
+    },
+    "code": "3280181085",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464ce"
+    },
+    "code": "3280150100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464cf"
+    },
+    "code": "3280151085",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464d0"
+    },
+    "code": "3191301110",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "neutralWear"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464d1"
+    },
+    "code": "3151306361",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "semiSafe",
+    "style": "sportCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464d2"
+    },
+    "code": "3151245700",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "industrialCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464d3"
+    },
+    "code": "3151261085",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "industrialCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464d4"
+    },
+    "code": "3151266361",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "semiSafe",
+    "style": "industrialCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464d5"
+    },
+    "code": "3151246361",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "semiSafe",
+    "style": "industrialCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464d6"
+    },
+    "code": "3151248400",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "semiSafe",
+    "style": "industrialCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464d7"
+    },
+    "code": "3280150900",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464d8"
+    },
+    "code": "3280177400",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464d9"
+    },
+    "code": "3280170100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464da"
+    },
+    "code": "3280180100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464db"
+    },
+    "code": "3280187400",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464dc"
+    },
+    "code": "3280200200",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464dd"
+    },
+    "code": "3280150200",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464de"
+    },
+    "code": "3280165999",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464df"
+    },
+    "code": "3280170900",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464e0"
+    },
+    "code": "3280170200",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464e1"
+    },
+    "code": "3280175999",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464e2"
+    },
+    "code": "3280171085",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464e3"
+    },
+    "code": "3280545999",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464e4"
+    },
+    "code": "3280210900",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464e5"
+    },
+    "code": "3280255999",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464e6"
+    },
+    "code": "3280260900",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464e7"
+    },
+    "code": "3280230100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464e8"
+    },
+    "code": "3280290100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464e9"
+    },
+    "code": "3280280200",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464ea"
+    },
+    "code": "3280320200",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464eb"
+    },
+    "code": "3280306800",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464ec"
+    },
+    "code": "3280337400",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464ed"
+    },
+    "code": "3280340100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464ee"
+    },
+    "code": "3280351085",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464ef"
+    },
+    "code": "3280360100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464f0"
+    },
+    "code": "3280370200",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464f1"
+    },
+    "code": "3280395999",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464f2"
+    },
+    "code": "3280411100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464f3"
+    },
+    "code": "3280426800",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464f4"
+    },
+    "code": "3280536700",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464f5"
+    },
+    "code": "3280430700",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464f6"
+    },
+    "code": "3280599400",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464f7"
+    },
+    "code": "3280565800",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464f8"
+    },
+    "code": "3280650500",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464f9"
+    },
+    "code": "3280601000",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464fa"
+    },
+    "code": "3280671000",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "sportCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464fb"
+    },
+    "code": "3280660200",
+    "demography": "boys",
+    "class": "top",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464fc"
+    },
+    "code": "3280720100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464fd"
+    },
+    "code": "3280690100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464fe"
+    },
+    "code": "3280875800",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e02464ff"
+    },
+    "code": "3280881000",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246500"
+    },
+    "code": "3280705700",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246501"
+    },
+    "code": "3280770700",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246502"
+    },
+    "code": "3280920200",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246503"
+    },
+    "code": "3280730200",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246504"
+    },
+    "code": "3471740100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246505"
+    },
+    "code": "3400070200",
+    "demography": "boys",
+    "class": "top",
+    "design": "plain",
+    "shade": "safe",
+    "style": "funCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246506"
+    },
+    "code": "3471676800",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246507"
+    },
+    "code": "3471688600",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246508"
+    },
+    "code": "3471690200",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246509"
+    },
+    "code": "3280860500",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024650a"
+    },
+    "code": "3280760100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024650b"
+    },
+    "code": "3280895700",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024650c"
+    },
+    "code": "3280780600",
+    "demography": "boys",
+    "class": "top",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024650d"
+    },
+    "code": "3280850100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024650e"
+    },
+    "code": "3280910900",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "sportCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024650f"
+    },
+    "code": "3471707400",
+    "demography": "boys",
+    "class": "top",
+    "design": "plain",
+    "shade": "colour",
+    "style": "funCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246510"
+    },
+    "code": "3471710100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246511"
+    },
+    "code": "3471721085",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246512"
+    },
+    "code": "6122130700",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "sportCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246513"
+    },
+    "code": "3471765700",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246514"
+    },
+    "code": "6122172700",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "semiSafe",
+    "style": "sportCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246515"
+    },
+    "code": "6122165800",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246516"
+    },
+    "code": "6351850100",
+    "demography": "boys",
+    "class": "top",
+    "design": "plain",
+    "shade": "safe",
+    "style": "industrialCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246517"
+    },
+    "code": "9820540200",
+    "demography": "boys",
+    "class": "shoes",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246518"
+    },
+    "code": "3280632600",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e0246519"
+    },
+    "code": "6122181199",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "neutralWear"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024651a"
+    },
+    "code": "3280900100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024651b"
+    },
+    "code": "3280190100",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024651c"
+    },
+    "code": "3280223000",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024651d"
+    },
+    "code": "3280318600",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "comfySport"
+},{
+    "_id": {
+        "$oid": "5e802a411a186691e024651e"
+    },
+    "code": "3280930700",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "sportCasual"
+},
+
+{
+    "_id": {
+        "$oid": "5e802a411a186691e024651f"
+    },
+    "code": "6122140200",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "comfySport"
+}
+ ,
+{
+    "_id": {
+        "$oid": "5e802a411a186691e0246520"
+    },
+    "code": "9961601000",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+}
+ ,
+{
+    "_id": {
+        "$oid": "5e802a411a186691e0246521"
+    },
+    "code": "6352140800",
+    "demography": "boys",
+    "class": "top",
+    "design": "plain",
+    "shade": "safe",
+    "style": "industrialCasual"
+}
+ ,
+{
+    "_id": {
+        "$oid": "5e802a411a186691e0246522"
+    },
+    "code": "9961590700",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+}
+ ,
+{
+    "_id": {
+        "$oid": "5e802a411a186691e0246523"
+    },
+    "code": "9820551085",
+    "demography": "boys",
+    "class": "shoes",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+}
+ ,
+{
+    "_id": {
+        "$oid": "5e802a411a186691e0246524"
+    },
+    "code": "3160940227",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+}
+ ,
+{
+    "_id": {
+        "$oid": "5e802a411a186691e0246525"
+    },
+    "code": "6352150800",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "industrialCasual"
+}
+ ,
+{
+    "_id": {
+        "$oid": "5e802a411a186691e0246526"
+    },
+    "code": "6122191199",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "neutralWear"
+}
+ ,
+{
+    "_id": {
+        "$oid": "5e802a411a186691e0246527"
+    },
+    "code": "6122191110",
+    "demography": "boys",
+    "class": "bottom",
+    "design": "plain",
+    "shade": "safe",
+    "style": "sportCasual"
+}
+ ,
+{
+    "_id": {
+        "$oid": "5e802a411a186691e0246528"
+    },
+    "code": "6600200200",
+    "demography": "boys",
+    "class": "jacket",
+    "design": "plain",
+    "shade": "safe",
+    "style": "sportCasual"
+}
+ ,
+{
+    "_id": {
+        "$oid": "5e802a411a186691e0246529"
+    },
+    "code": "9961571000",
+    "demography": "boys",
+    "class": "top",
+    "design": "multicolour",
+    "shade": "NA",
+    "style": "funCasual"
+}
+
+]
