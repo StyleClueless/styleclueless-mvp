@@ -7,6 +7,7 @@ CREATE TABLE public.tagging
     company_id uuid NOT NULL,
     code  character varying default NULL,
     demography  character varying default NULL,
+    url   character varying NOT NULL,
     class  character varying default NULL,
     design  character varying default NULL,
     shade  character varying default NULL,

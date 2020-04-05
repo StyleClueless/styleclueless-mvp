@@ -8,6 +8,7 @@ const cldTransformation = 'c_scale,h_350,q_auto:good'
 export const Home = () => {
   const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', `/upload/${cldTransformation}`)
   return (
+
     <CardsWrapper>
       {categories.map(cat => (
         <ItemCard
