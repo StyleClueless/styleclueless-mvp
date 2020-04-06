@@ -26,9 +26,9 @@ export const App = () => {
   }
   return (
       <ApolloProvider client={apollo_client}>
+          <TestHasura/>
 
-    <div className='pv2 h-100 flex flex-column'>
-   <TestHasura/>
+    <div style={{display:'none'}} className='pv2 h-100 flex flex-column'>
         <div className='flex justify-center baskerville'>
         <div className='dib relative bt bb b--dark-gray w-100 w-60-l'>
           {['Home'].concat(categories).map(catName => (

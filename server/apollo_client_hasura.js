@@ -74,13 +74,21 @@ mutation insertTagging($code: String!, $demography: String, $classI: String, $st
 
 
         const insert_to_hasura_tagging = all_tagging.map((tagging_insert_info, i) => async () => {
-            const {
-                data_insert_info
-            } = await client.mutate({
-                mutation: INSERT_TAGGING,
-                variables: tagging_insert_info,
-            });
-            return data_insert_info;
+            try{
+                console.log(tagging_insert_info);
+                const {
+                    data_insert_info
+                } = await client.mutate({
+                    mutation: INSERT_TAGGING,
+                    variables: tagging_insert_info,
+                });
+                return data_insert_info;
+            }
+            catch (e) {
+                console.error(e);
+                return {e};
+            }
+
         });
         for (let i = 0; i < insert_to_hasura_tagging.length; i++) {
             await insert_to_hasura_tagging[i]();

@@ -1,22 +1,19 @@
 -- Table: public.tagging
 
 -- DROP TABLE public.tagging;
-CREATE TABLE public.tagging
+CREATE TABLE public.tagging_import
 (
     id uuid NOT NULL DEFAULT gen_random_uuid(),
     company_id uuid NOT NULL,
     code  character varying default NULL,
-    demography  character varying default NULL,
     url   character varying NOT NULL,
-    class  character varying default NULL,
-    design  character varying default NULL,
-    shade  character varying default NULL,
-    style  character varying default NULL,
+    type  character varying default NULL,
+    gender  character varying default NULL,
     deleted boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    CONSTRAINT tagging_pkey PRIMARY KEY (company_id,code),
-    CONSTRAINT tagging_company_id_fkey FOREIGN KEY (company_id)
+    CONSTRAINT tagging_import_pkey PRIMARY KEY (company_id,code),
+    CONSTRAINT tagging_import_company_id_fkey FOREIGN KEY (company_id)
         REFERENCES public.companies (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
@@ -33,7 +30,7 @@ ALTER TABLE public.tagging
 
 -- DROP INDEX public.index_tagging_on_client_id;
 
-CREATE INDEX index_tagging_on_code
-    ON public.tagging USING btree
+CREATE INDEX index_tagging_import_on_code
+    ON public.tagging_import USING btree
     (code)
     TABLESPACE pg_default;
