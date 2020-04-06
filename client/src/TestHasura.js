@@ -5,6 +5,8 @@ import gql from 'graphql-tag';
 import {CardsWrapper} from "./components/cards-wrapper";
 import CSVReader from 'react-csv-reader'
 import {CsvToHtmlTable} from 'react-csv-to-table';
+import {Palette} from 'react-palette';
+
 ////this is to build new component of TAGGING SYSTEM
 const sampleDataConst = `
 Model,mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb
@@ -119,11 +121,22 @@ class TestHasura extends Component {
        const newUrl=url.substring(0,n+1)+scaleString+url.substring(n+1)
         console.log(tag);
         return (
-        <div>
+        <div key={new Date().getTime()}>
             {tag.code}
 
             <div>            <img src={newUrl}></img>
             </div>
+            {/*<Palette src={newUrl}>*/}
+                {/*{({ data, loading, error }) => (*/}
+                    {/*<div style={{ color: data.vibrant }}>*/}
+                            {/*Text with the vibrant color*/}
+                        {/*/!*{error&& <div style={{color:'red'}}>*!/*/}
+                            {/*/!*{error}*!/*/}
+                        {/*/!*</div>}*!/*/}
+                    {/*</div>*/}
+
+                {/*)}*/}
+            {/*</Palette>*/}
         </div>
         )
 }
