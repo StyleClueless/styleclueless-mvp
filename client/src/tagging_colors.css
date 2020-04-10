@@ -1,0 +1,49 @@
+
+.select {
+    -webkit-appearance: button;
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -webkit-user-select: none;
+    background-position: center right;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    color: #555;
+    font-size: inherit;
+    margin: 0;
+    overflow: hidden;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.opt {
+    background: #ffffff;
+}
+
+.select .opt:checked,
+.select .opt:focus {
+    -webkit-text-fill-color: #ffffff;
+    color: #ffffff;
+}
+
+.opt_red {
+    color: #ff0000;
+}
+
+.select_red .opt:checked,
+.select_red .opt:focus {
+    background: linear-gradient(#ff0000, #ff0000);
+
+}
+
+.opt_yellow {
+    color: #FFFF00;
+}
+
+.select_yellow .opt:checked,
+.select_yellow .opt:focus {
+    background: linear-gradient(#333333, #FFFF00);
+
+}

@@ -28,8 +28,15 @@ export const App = () => {
     return (
         <ApolloProvider client={apollo_client}>
             <TestHasura/>
-            <SelectHighlighted
-           />
+            <div >
+                TAGGING TAGGING
+
+
+                <SelectHighlighted color={'red'}
+                />
+                <SelectHighlighted color={'yellow'}
+                />
+            </div>
             <div style={{display: 'none'}} className='pv2 h-100 flex flex-column'>
                 <div className='flex justify-center baskerville'>
                     <div className='dib relative bt bb b--dark-gray w-100 w-60-l'>
