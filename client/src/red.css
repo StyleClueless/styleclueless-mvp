@@ -1,0 +1,12 @@
+.opt {
+    background: #ffffff;
+    color: #ff0000;
+}
+
+.select .opt:checked,
+.select .opt:focus {
+    background: linear-gradient(#ff0000, #ff0000);
+    -webkit-text-fill-color: #ffffff;
+    color: #ffffff;
+}
+

@@ -1,3 +1,7 @@
+
+import React from 'react'
+import styles from './red.css'; // Import css modules stylesheet as styles
+
 const css=
 
 
@@ -32,15 +36,17 @@ class SelectHighlighted extends React.Component {
     }
 
     render () {
-        const {options_array,color}=this.props?this.props:{};
+        // let {options_array,color}=this.props?this.props:{};
+        // color='red';
         return (
-            <select className="select" size={5} value={this.state.option} onChange={this.handleOptionsChange}>
-                <option className="opt" value='1'>Option 1</option>
-                <option className="opt" value='2'>Option 2</option>
-                <option className="opt" value='3'>Option 3</option>
-                <option className="opt" value='4'>Option 4</option>
-                <option className="opt" value='5'>Option 5</option>
+            <select className={styles.select} size={5} value={this.state.option} onChange={this.handleOptionsChange}>
+                <option className={styles.opt} value='1'>Option 1</option>
+                <option className={styles.opt} value='2'>Option 2</option>
+                <option className={styles.opt} value='3'>Option 3</option>
+                <option className={styles.opt} value='4'>Option 4</option>
+                <option className={styles.opt} value='5'>Option 5</option>
             </select>
         );
     }
 }
+export default SelectHighlighted;
