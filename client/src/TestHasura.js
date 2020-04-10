@@ -103,7 +103,7 @@ class TestHasura extends Component {
 
         const db_structure = json.map(element => {
             const {sku, type, gender, url} = element;
-            const db_insert_row = {code: sku, company_id: "061e449f-04d7-4898-a1a8-b3d8a052b328", type, gender, url}
+            const db_insert_row = { sku, company_id: "061e449f-04d7-4898-a1a8-b3d8a052b328", type, gender, url}
             return db_insert_row;
         })
         insertImportToDb(this.props.client, db_structure)
@@ -230,12 +230,12 @@ const getTaggingImport=async(client)=>{
 }
 const insertImportToDb = async (client, db_insert_array) => {
     const INSERT_TAGGING_IMPORT_HASURA = gql`
-mutation insertTaggingImport($company_id: uuid, $gender: String, $code: String!, $type: String!, $url: String!) {
-  insert_tagging_import(objects: {code: $code, company_id: $company_id, gender: $gender, type: $type, updated_at: "now()", url: $url, created_at: "now()"}, on_conflict: {constraint: tagging_import_pkey, update_columns: updated_at}) {
+mutation insertTaggingImport($company_id: uuid, $gender: String, $sku: String!, $type: String!, $url: String!) {
+  insert_tagging_import(objects: {sku: $sku, company_id: $company_id, gender: $gender, type: $type, updated_at: "now()", url: $url, created_at: "now()"}, on_conflict: {constraint: tagging_import_pkey, update_columns: updated_at}) {
     affected_rows
     returning {
       id
-      code
+      sku
       company_id
       updated_at
       created_at
