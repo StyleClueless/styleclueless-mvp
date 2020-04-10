@@ -7,6 +7,7 @@ CREATE TABLE public.tagging_import
     company_id uuid NOT NULL,
     sku  character varying default NULL,
     url   character varying NOT NULL,
+    s3_url   character varying default NULL,
     type  character varying default NULL,
     gender  character varying default NULL,
     deleted boolean DEFAULT false,

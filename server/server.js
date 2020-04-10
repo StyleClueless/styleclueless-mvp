@@ -12,7 +12,6 @@ app.use(promBundle({includeMethod: true, includePath:true}))
 app.use(cors());
 
 app.use(compression())
-app.use(express.static(path.join(__dirname, './analyzerDashboard/build/')))
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json({limit: 1024 * 1024 * 20, type: 'application/json'});
@@ -43,6 +42,7 @@ const logger = function(req, res, next) {
     next(); // Passing the request to the next handler in the stack.
 }
 app.use(logger);
+app.use('/tagging_import/add', require('./addTaggingImportProcess'))
 
 const port =3000;
 

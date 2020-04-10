@@ -6,14 +6,14 @@ const InMemoryCache = require('apollo-cache-inmemory').InMemoryCache;
 const mongoOutfit = require('./fox_boys_outfits_mongodb_output');
 const mongoTagging = require('./fox_boys_taggingdata_mongodb_output');
 const uri = "http://www.styleclueless.com/v1/graphql/"
-const client = new ApolloClient({
+export const apolloClient = new ApolloClient({
     link: createHttpLink({
         uri: uri,
         fetch: fetch
     }),
     cache: new InMemoryCache()
 });
-const doHasuraRequest = async () => {
+export const doHasuraRequest = async () => {
 
     const TEST_QUERY = gql`
    query MyQuery {
@@ -30,7 +30,7 @@ const doHasuraRequest = async () => {
 }
 `;
     try {
-        const data = await client.query({
+        const data = await apolloClient.query({
             query: TEST_QUERY,
             variables: {},
             fetchPolicy: 'network-only',
@@ -122,4 +122,4 @@ mutation insertTagging($code: String!, $demography: String, $classI: String, $st
 //     console.log(job);
 // })
 //
-doHasuraRequest();
+// doHasuraRequest();

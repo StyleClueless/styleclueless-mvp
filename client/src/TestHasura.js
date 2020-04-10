@@ -6,7 +6,8 @@ import {CardsWrapper} from "./components/cards-wrapper";
 import CSVReader from 'react-csv-reader'
 import {CsvToHtmlTable} from 'react-csv-to-table';
 import {Palette} from 'react-palette';
-
+import  axios from "axios";
+const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'www.styleclueless.com/';
 ////this is to build new component of TAGGING SYSTEM
 const sampleDataConst = `
 Model,mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb
@@ -29,7 +30,32 @@ Lincoln Continental,10.4,8,460,215,3,5.424,17.82,0,0,3,4
 Chrysler Imperial,14.7,8,440,230,3.23,5.345,17.42,0,0,3,4
 Fiat 128,32.4,4,78.7,66,4.08,2.2,19.47,1,1,4,1
 `;
-
+ const postRequest = async (url,body) => {
+    try {
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Access-Control-Allow-Origin': '*',
+            },
+        };
+        let rawResponse = await axios.post(
+            BASE_URL+ url,
+            body,
+            axiosConfig
+        );
+        let content = '';
+        if (rawResponse.status < 200 || rawResponse.status >= 300) {
+            console.error(JSON.stringify(rawResponse));
+            throw new Error('Dupelicate Company or Email');
+        }
+        if (rawResponse !== null && rawResponse !== undefined) {
+            content = rawResponse.data;
+        }
+        return content;
+    } catch (e) {
+        console.error('GLOBAL POST REQUEST ERROR' + e);
+    }
+};
 class TestHasura extends Component {
     state = {dataProvider: null, sampleData: [], tagging_import: []};
 
@@ -106,16 +132,19 @@ class TestHasura extends Component {
             const db_insert_row = { sku, company_id: "061e449f-04d7-4898-a1a8-b3d8a052b328", type, gender, url}
             return db_insert_row;
         })
-        insertImportToDb(this.props.client, db_structure)
+        const send_to_server= postRequest('tagging_import/add',db_structure)
+        console.log(send_to_server);
+        // insertImportToDb(this.props.client, db_structure)
     }
     fetchTaggingInfo=async()=>{
         const tagging_import=await getTaggingImport(this.props.client);
         this.setState({tagging_import});
     }
     renderTagging=(tag)=>{
-        const scaleFactor=150;
+        const base_url='http://styleclueless-raw.s3-website-ap-southeast-1.amazonaws.com/';
+        const scaleFactor=300;
         const scaleString=scaleFactor+'x'+scaleFactor+'/';
-        const url=tag.url;
+        const url=base_url+tag.s3_url;
 
        const n = url.lastIndexOf("/");
        const newUrl=url.substring(0,n+1)+scaleString+url.substring(n+1)
@@ -211,7 +240,8 @@ const getTaggingImport=async(client)=>{
 
     query getTaggingImport {
         tagging_import {
-            code
+            sku
+            s3_url
             company_id
             id
             type
@@ -227,48 +257,4 @@ const getTaggingImport=async(client)=>{
     console.log(data);
     const {tagging_import}=data;
     return tagging_import;
-}
-const insertImportToDb = async (client, db_insert_array) => {
-    const INSERT_TAGGING_IMPORT_HASURA = gql`
-mutation insertTaggingImport($company_id: uuid, $gender: String, $sku: String!, $type: String!, $url: String!) {
-  insert_tagging_import(objects: {sku: $sku, company_id: $company_id, gender: $gender, type: $type, updated_at: "now()", url: $url, created_at: "now()"}, on_conflict: {constraint: tagging_import_pkey, update_columns: updated_at}) {
-    affected_rows
-    returning {
-      id
-      sku
-      company_id
-      updated_at
-      created_at
-    }
-  }
-}
-`;
-
-    const insert_to_hasura_tagging = db_insert_array.map((tagging_insert_info, i) => async () => {
-        try {
-            console.log(tagging_insert_info);
-            const
-                data_insert_info
-                    = await client.mutate({
-                    mutation: INSERT_TAGGING_IMPORT_HASURA,
-                    variables: tagging_insert_info,
-                });
-            console.log(data_insert_info);
-            return data_insert_info;
-        }
-        catch (e) {
-            console.error(e);
-            return {e};
-        }
-
-    });
-    let return_values = [];
-    for (let i = 0; i < insert_to_hasura_tagging.length; i++) {
-        const return_value = await insert_to_hasura_tagging[i]();
-        return_values[i] = return_value;
-    }
-    console.log(return_values);
-
-    console.log(insert_to_hasura_tagging);
-    return insert_to_hasura_tagging;
 }
