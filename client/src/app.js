@@ -15,6 +15,10 @@ import {ItemView} from './routes/item-view'
 import {withApollo} from 'react-apollo';
 import TestHasura from "./TestHasura";
 import SelectHighlighted from "./SelectHighlighted";
+import Tagging from "./Tagging";
+import {Box, Container} from "bloomer";
+import 'bulma/css/bulma.css';
+
 
 // import Article from '../containers/Article';
 
@@ -25,19 +29,13 @@ export const App = () => {
         if (scrollEl) scrollEl.scrollTop = 0
         if (typeof window !== 'undefined') window.scrollTop = 0
     }
+
     return (
         <ApolloProvider client={apollo_client}>
-            <TestHasura/>
-            <div >
-                TAGGING TAGGING
-
-
-                <SelectHighlighted color={'red'}
-                />
-                <SelectHighlighted color={'yellow'}
-                />
-            </div>
-            <div style={{display: 'none'}} className='pv2 h-100 flex flex-column'>
+            {/*<Container>*/}
+                {/*<Box>Hello World!</Box>*/}
+            {/*</Container>,*/}
+            <div style={{display: 'block'}} className='pv2 h-100 flex flex-column'>
                 <div className='flex justify-center baskerville'>
                     <div className='dib relative bt bb b--dark-gray w-100 w-60-l'>
                         {['Home'].concat(categories).map(catName => (
@@ -65,9 +63,13 @@ export const App = () => {
                     scrollEl = el
                 }}>
                     <Switch>
-                        <Route path="/:itemsType/:itemCode" component={ItemView} exact/>
-                        <Route path="/:itemsType" component={ItemsList} exact/>
-                        <Route path="/" component={Home} exact/>
+                        <Route path="/tagging/:tagging_id" component={Tagging} exact/>
+
+                        {/*<Route path="/:itemsType/:itemCode" component={ItemView} exact/>*/}
+                        {/*<Route path="/:itemsType" component={ItemsList} exact/>*/}
+                        {/*<Route path="/" component={Home} exact/>*/}
+                        <Route path="/test/" component={TestHasura} exact/>
+
                     </Switch>
                 </div>
                 {/*<ItemsList />*/}

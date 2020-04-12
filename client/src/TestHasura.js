@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {withApollo, ApolloConsumer} from 'react-apollo';
+// import { useHistory } from 'react-router-dom';
 
 import gql from 'graphql-tag';
 import {CardsWrapper} from "./components/cards-wrapper";
@@ -7,6 +8,7 @@ import CSVReader from 'react-csv-reader'
 import {CsvToHtmlTable} from 'react-csv-to-table';
 import {Palette} from 'react-palette';
 import  axios from "axios";
+import {renderS3UrlFromPrefix} from "./utils";
 const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'www.styleclueless.com/';
 ////this is to build new component of TAGGING SYSTEM
 const sampleDataConst = `
@@ -56,8 +58,10 @@ Fiat 128,32.4,4,78.7,66,4.08,2.2,19.47,1,1,4,1
         console.error('GLOBAL POST REQUEST ERROR' + e);
     }
 };
+
 class TestHasura extends Component {
     state = {dataProvider: null, sampleData: [], tagging_import: []};
+     // history = useHistory();
 
     async componentWillMount() {
         console.log('x');
@@ -141,18 +145,15 @@ class TestHasura extends Component {
         this.setState({tagging_import});
     }
     renderTagging=(tag)=>{
-        const base_url='http://styleclueless-raw.s3-website-ap-southeast-1.amazonaws.com/';
-        const scaleFactor=300;
-        const scaleString=scaleFactor+'x'+scaleFactor+'/';
-        const url=base_url+tag.s3_url;
-
-       const n = url.lastIndexOf("/");
-       const newUrl=url.substring(0,n+1)+scaleString+url.substring(n+1)
+        const newUrl=renderS3UrlFromPrefix(tag.s3_url);
+        // const redirectRoute='/tagging/'+tag.sku;
+        const redirectRoute='/tagging/'+tag.id;
+        // const redirectRoute='/tagging/';
         console.log(tag);
         return (
-        <div key={new Date().getTime()}>
-            {tag.code}
+        <div onClick={() =>window.location.href=redirectRoute  } key={new Date().getTime()}>
 
+            <h1>ID:{tag.sku}</h1>
             <div>            <img src={newUrl}></img>
             </div>
             {/*<Palette src={newUrl}>*/}

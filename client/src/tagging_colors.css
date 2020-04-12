@@ -19,7 +19,7 @@
     white-space: nowrap;
 }
 .opt {
-    background: #ffffff;
+    /*background: #ffffff;*/
 }
 
 .select .opt:checked,
