@@ -11,15 +11,15 @@ const scheme = proto => {
     return window.location.protocol === 'https:' ? `${proto}s` : proto;
 };
 const HASURA_GRAPHQL_ENGINE_HOSTNAME = 'www.styleclueless.com';
-// const GRAPHQL_ENDPOINT = `${scheme(
-//     'http'
-// )}://${HASURA_GRAPHQL_ENGINE_HOSTNAME}/v1/graphql`;
-// const WEBSOCKET_ENDPOINT = `${scheme(
-//     'ws'
-// )}://${HASURA_GRAPHQL_ENGINE_HOSTNAME}/v1/graphql`;
-const GRAPHQL_ENDPOINT = `
-    http://${HASURA_GRAPHQL_ENGINE_HOSTNAME}/v1/graphql`;
-const WEBSOCKET_ENDPOINT = `ws://${HASURA_GRAPHQL_ENGINE_HOSTNAME}/v1/graphql`;
+const GRAPHQL_ENDPOINT = `${scheme(
+    'http'
+)}://${HASURA_GRAPHQL_ENGINE_HOSTNAME}/v1/graphql`;
+const WEBSOCKET_ENDPOINT = `${scheme(
+    'ws'
+)}://${HASURA_GRAPHQL_ENGINE_HOSTNAME}/v1/graphql`;
+// const GRAPHQL_ENDPOINT = `
+//     http://${HASURA_GRAPHQL_ENGINE_HOSTNAME}/v1/graphql`;
+// const WEBSOCKET_ENDPOINT = `ws://${HASURA_GRAPHQL_ENGINE_HOSTNAME}/v1/graphql`;
 
 // Make WebSocketLink with appropriate url
 const mkWsLink = uri => {
