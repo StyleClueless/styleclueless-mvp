@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.2",
   "scripts": {
+    "installAll": "cd docker && docker-compose down && cd ../../client && npm i && npm run build && cd ../server/docker && docker-compose up",
     "mongod": "mongod --dbpath ./db",
     "babel-node": "babel-node ./src/index.js",
     "nodemon": "nodemon --signal SIGINT --exec npx babel-node ./src/index.js",

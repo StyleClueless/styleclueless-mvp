@@ -8,7 +8,8 @@ import {getMainDefinition} from 'apollo-utilities';
 import ApolloClientBoost  from "apollo-boost";
 
 const scheme = proto => {
-    return window.location.protocol === 'https:' ? `${proto}s` : proto;
+    return window.location.protocol === 'https:' ? `${proto}` : proto;
+    // return window.location.protocol === 'https:' ? `${proto}s` : proto;
 };
 const HASURA_GRAPHQL_ENGINE_HOSTNAME = 'www.styleclueless.com';
 const GRAPHQL_ENDPOINT = `${scheme(
