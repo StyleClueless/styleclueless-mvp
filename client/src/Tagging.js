@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {withApollo, ApolloConsumer, ApolloProvider} from 'react-apollo';
-import {Palette} from 'react-palette';
+// import {Palette} from 'react-palette';
+// import Color from 'color-thief-react';
 
 import {
     Card,
@@ -19,6 +20,8 @@ import {
 import gql from 'graphql-tag';
 import SelectHighlighted from "./SelectHighlighted";
 import {renderS3UrlFromPrefix, taggingOptions} from "./utils";
+import {renderPalette} from "./palette";
+// import ColorExtractor from "react-color-extractor/src/ColorExtractor";
 
 
 class Tagging extends Component {
@@ -118,13 +121,28 @@ mutation insertTagging($tagging_import_id: uuid, $style: String, $class: String!
         const {item, taggingOptionsTagging} = this.state;
         console.log(taggingOptionsTagging);
         const imageUrl=item ? renderS3UrlFromPrefix(item.s3_url) : '';
+        // const RenderPalette=renderPalette('https://s.gravatar.com/avatar/b9534af76521f9544f5d6bea6207bf94?size=496&default=retro');
+        // const RenderPalette=
+        //     <Color crossOrigin={true} src={imageUrl}>
+        //         {({ data, loading, error }) => (
+        //             <div style={{ color: data }}>
+        //                 Text with the predominant color
+        //             </div>
+        //         )}
+        //     </Color>;
+        // const RenderPalette=<ColorExtractor getColors={colors => console.log(colors)}>
+        //     <img src={imageUrl} alt={imageUrl} style={{ width: 700, height: 500 }} />
+        // </ColorExtractor>
+
         return (
 
             <div key={imageUrl+ Math.random()}>
                 TAGGING TAGGING COMPONENET
 
-                <div  key={imageUrl+new Date().getTime()} style={{textAlign: 'center'}}><img src={imageUrl}></img>
 
+                <div  key={imageUrl+new Date().getTime()} style={{textAlign: 'center'}}>
+                    <img src={imageUrl}></img>
+                    {/*{RenderPalette}*/}
                     {/*<Palette src={imageUrl}>*/}
                         {/*{({ data, loading, error }) => (*/}
                             {/*<div style={{ color: data.vibrant }}>*/}
@@ -152,7 +170,7 @@ mutation insertTagging($tagging_import_id: uuid, $style: String, $class: String!
                 {/*/>*/}
                 <Columns>
                     <Button isColor='info' render={
-                        props => <Column onClick={this.updateInDb} hasTextAlign='centered'><p {...props}>Button</p>
+                        props => <Column onClick={this.updateInDb} hasTextAlign='centered'><p {...props}>Update Tagging</p>
                         </Column>
                     }/>
                     {/*<Column>*/}
