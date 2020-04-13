@@ -6,7 +6,6 @@ import gql from 'graphql-tag';
 import {CardsWrapper} from "./components/cards-wrapper";
 import CSVReader from 'react-csv-reader'
 import {CsvToHtmlTable} from 'react-csv-to-table';
-import {Palette} from 'react-palette';
 import  axios from "axios";
 import {renderS3UrlFromPrefix} from "./utils";
 const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'www.styleclueless.com/';
@@ -155,18 +154,9 @@ class TestHasura extends Component {
 
             <h1>ID:{tag.sku}</h1>
             <div>            <img src={newUrl}></img>
-            </div>
-            {/*<Palette src={newUrl}>*/}
-                {/*{({ data, loading, error }) => (*/}
-                    {/*<div style={{ color: data.vibrant }}>*/}
-                            {/*Text with the vibrant color*/}
-                        {/*/!*{error&& <div style={{color:'red'}}>*!/*/}
-                            {/*/!*{error}*!/*/}
-                        {/*/!*</div>}*!/*/}
-                    {/*</div>*/}
 
-                {/*)}*/}
-            {/*</Palette>*/}
+            </div>
+
         </div>
         )
 }

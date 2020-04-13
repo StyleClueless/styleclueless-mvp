@@ -48,6 +48,7 @@ mutation updateS3UrlForTaggingImport($id: uuid!, $s3_url: String!) {
 
 `;
 
+
 const INSERT_TAGGING_IMPORT_HASURA = gql`
 mutation insertTaggingImport($company_id: uuid, $gender: String, $sku: String!, $type: String!, $url: String!) {
   insert_tagging_import(objects: {sku: $sku, company_id: $company_id, gender: $gender, type: $type, updated_at: "now()", url: $url, created_at: "now()"}, on_conflict: {constraint: tagging_import_pkey, update_columns: updated_at}) {

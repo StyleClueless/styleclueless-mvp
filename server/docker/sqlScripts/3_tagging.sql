@@ -3,7 +3,7 @@
 -- DROP TABLE public.tagging;
 CREATE TABLE public.tagging
 (
-    id uuid NOT NULL DEFAULT gen_random_uuid(),
+--    id uuid NOT NULL DEFAULT gen_random_uuid(),
     tagging_import_id uuid NOT NULL,
     demography  character varying default NULL,
     class  character varying default NULL,
@@ -13,7 +13,7 @@ CREATE TABLE public.tagging
     deleted boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    CONSTRAINT tagging_pkey PRIMARY KEY (id),
+    CONSTRAINT tagging_pkey PRIMARY KEY (tagging_import_id),
     CONSTRAINT tagging_tagging_import_id_fkey FOREIGN KEY (tagging_import_id)
         REFERENCES public.tagging_import (id) MATCH SIMPLE
         ON UPDATE NO ACTION
