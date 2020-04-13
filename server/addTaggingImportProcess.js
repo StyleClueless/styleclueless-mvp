@@ -95,6 +95,7 @@ export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
         const return_value = await insert_to_hasura_tagging[i]();
         return_values[i] = return_value;
     }
+    console.log(return_values);
     return return_values;
 }
 

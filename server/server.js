@@ -34,7 +34,11 @@ const server=app;
 
 
 // app.use(express.static('../client//public/'));
-app.use(express.static('../client/build/'));
+const clientBuild='../client/build/';
+app.use('/static', express.static(path.join(__dirname, clientBuild+'static')));
+app.get('*', function(req, res) {
+    res.sendFile('index.html', {root: path.join(__dirname, clientBuild)});
+});
 const logger = function(req, res, next) {
     const log={headers:req.headers,params:req.params,body:req.body,originalUrl:req.originalUrl}
     console.log("GOT REQUEST !=>" + JSON.stringify(log.originalUrl) );
