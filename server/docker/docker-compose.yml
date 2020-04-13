@@ -11,16 +11,16 @@ services:
     volumes:
     - ./db:/docker-entrypoint-initdb.d
     - /data/postgresql:/var/lib/postgresql/data
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    depends_on:
-    - db
-    environment:
-      PGADMIN_DEFAULT_EMAIL: zobis2@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: Aa123456
-    ports:
-    - 8080:80
+#  pgadmin:
+#    container_name: pgadmin
+#    image: dpage/pgadmin4
+#    depends_on:
+#    - db
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: zobis2@gmail.com
+#      PGADMIN_DEFAULT_PASSWORD: Aa123456
+#    ports:
+#    - 8080:80
   hasura:
     container_name: hasura
     image: hasura/graphql-engine:v1.0.0-beta.1
