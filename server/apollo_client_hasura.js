@@ -5,7 +5,7 @@ const createHttpLink = require('apollo-link-http').createHttpLink;
 const InMemoryCache = require('apollo-cache-inmemory').InMemoryCache;
 const mongoOutfit = require('./fox_boys_outfits_mongodb_output');
 const mongoTagging = require('./fox_boys_taggingdata_mongodb_output');
-const uri = "http://www.styleclueless.com/v1/graphql/"
+const uri = "https://www.styleclueless.com/v1/graphql/"
 export const apolloClient = new ApolloClient({
     link: createHttpLink({
         uri: uri,

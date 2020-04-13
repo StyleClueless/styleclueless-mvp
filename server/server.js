@@ -34,6 +34,8 @@ const server=app;
 
 
 // app.use(express.static('../client//public/'));
+app.use('/tagging_import/add', require('./addTaggingImportProcess'))
+
 const clientBuild='../client/build/';
 app.use('/static', express.static(path.join(__dirname, clientBuild+'static')));
 app.get('*', function(req, res) {
@@ -46,7 +48,6 @@ const logger = function(req, res, next) {
     next(); // Passing the request to the next handler in the stack.
 }
 app.use(logger);
-app.use('/tagging_import/add', require('./addTaggingImportProcess'))
 
 const port =3000;
 
