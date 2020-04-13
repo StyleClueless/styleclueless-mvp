@@ -10,3 +10,5 @@ dist/
 yarn-error.log
 lib
 client/build/
+client/yarn.lock
+client/package-lock.json
