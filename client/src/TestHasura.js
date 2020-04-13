@@ -8,7 +8,7 @@ import CSVReader from 'react-csv-reader'
 import {CsvToHtmlTable} from 'react-csv-to-table';
 import  axios from "axios";
 import {renderS3UrlFromPrefix} from "./utils";
-const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'www.styleclueless.com/';
+const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'https://www.styleclueless.com/';
 ////this is to build new component of TAGGING SYSTEM
 const sampleDataConst = `
 Model,mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb
