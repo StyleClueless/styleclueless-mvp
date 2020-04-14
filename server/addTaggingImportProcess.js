@@ -6,11 +6,9 @@ const router = require('express').Router();
 const gql = require('graphql-tag');
 
 router.post('/', async function (req, res) {
-    // const label = utils.consoleLabel('/getUserImageById ');
-    // console.time(label);
+    const label = consoleLabel('/ADDTAGINGIMPORT PROCESS POST ');
+    console.time(label);
     try {
-        const label = consoleLabel('/ADDTAGINGIMPORT PROCESS POST ');
-        console.time(label);
         const body = req.body || '';
         const add_to_db = await insertImportToDb(body);
         console.log(add_to_db);
@@ -91,7 +89,7 @@ mutation insertTaggigImportBulk($objects: [tagging_import_insert_input!]!) {
 
 export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
     console.log("uploadFilesToS3AndUpdateDbUrl"+JSON.stringify(id_urls));
-    const label = consoleLabel('insertImportToDb');
+    const label = consoleLabel('uploadFilesToS3AndUpdateDbUrl');
     console.time(label);
     const path="FOX/";
     const client = apolloClient;
@@ -101,15 +99,14 @@ export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
             const s3_filename=path+sku+'.jpg';
             console.log(`${url } fetch and upload to ${s3_filename}` )
             const upload_file_to_s3_from_buffer=await upload(url,s3_filename)
-            ///todo : update url in db...
-            // return upload_file_to_s3_from_buffer;
+
             const
                 data_update_s3_path_in_db
                     = await client.mutate({
                     mutation: UPADTE_S3_URL,
                     variables: {id,s3_url:s3_filename},
                 });
-            console.log(data_update_s3_path_in_db);
+            // console.log(data_update_s3_path_in_db);
             return {data_update_s3_path_in_db,upload_file_to_s3_from_buffer};
         }
         catch (e) {
