@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {withApollo, ApolloConsumer} from 'react-apollo';
 // import { useHistory } from 'react-router-dom';
 
-import gql from 'graphql-tag';
 import {CardsWrapper} from "./components/cards-wrapper";
 import CSVReader from 'react-csv-reader'
 import {CsvToHtmlTable} from 'react-csv-to-table';
 import  axios from "axios";
-import {renderS3UrlFromPrefix} from "./utils";
+import {global_company_id, renderS3UrlFromPrefix} from "./utils";
+import {GET_TAGGING_IMPORT, TEST_QUERY} from "./hasura_qls";
 const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'https://www.styleclueless.com/';
 ////this is to build new component of TAGGING SYSTEM
 const sampleDataConst = `
@@ -65,20 +65,7 @@ class TestHasura extends Component {
     async componentWillMount() {
         console.log('x');
         // debugger;
-        const TEST_QUERY = gql`
-   query MyQuery {
-  clients {
-    created_at
-    deleted
-    email
-    id
-    password
-    salt
-    updated_at
-    company_id
-  }
-}
-`;
+
         try {
             const data = await this.props.client.query({
                 query: TEST_QUERY,
@@ -132,7 +119,7 @@ class TestHasura extends Component {
 
         const db_structure = json.map(element => {
             const {sku, type, gender, url} = element;
-            const db_insert_row = { sku, company_id: "061e449f-04d7-4898-a1a8-b3d8a052b328", type, gender, url}
+            const db_insert_row = { sku, company_id: global_company_id, type, gender, url}
             return db_insert_row;
         })
         const send_to_server= postRequest('tagging_import/add',db_structure)
@@ -227,24 +214,12 @@ var csvJSON = function (csv) {
 }
 const getTaggingImport=async(client)=>{
 
-    const GET_TAGGING_IMPORT = gql`
 
-    query getTaggingImport {
-        tagging_import {
-            sku
-            s3_url
-            company_id
-            id
-            type
-            url
-        }
-    }
-`;
-    const {data} = await client.query({
-        query: GET_TAGGING_IMPORT,
-        variables: {},
-        fetchPolicy: 'network-only',
-    });
+        const {data} = await client.query({
+            query: GET_TAGGING_IMPORT,
+            variables: {},
+            fetchPolicy: 'network-only',
+        });
     console.log(data);
     const {tagging_import}=data;
     return tagging_import;

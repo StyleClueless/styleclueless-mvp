@@ -1,8 +1,11 @@
 export const categories = [
   'Shirts',
-  'Jackets',
-  'Bottoms',
-  'Shoes'
+  'Jacket',
+  'Bottom',
+  'Shoes',
+    'One-piece',
+    'Accessories'
+
 ]
 
 export const dbClassMapping = {

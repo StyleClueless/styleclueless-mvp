@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {withApollo, ApolloConsumer, ApolloProvider} from 'react-apollo';
 // import {Palette} from 'react-palette';
 // import Color from 'color-thief-react';
+// import { SnackbarProvider, withSnackbar } from 'notistack';
+import 'bulma/css/bulma.css';
 
 import {
     Card,
@@ -74,6 +76,9 @@ query getTaggingImport($id: uuid!) {
             }
         }
         // this.setState({taggingOptionsTagging:JSON.parse(JSON.stringify(newTag))});
+        this.props.enqueueSnackbar(item.id + titleToUpdate + value, {
+            variant: 'success',
+        });
         this.setState({taggingOptionsTagging: newTag});
     }
     updateInDb = async () => {
@@ -96,6 +101,9 @@ mutation insertTagging($tagging_import_id: uuid, $style: String, $class: String!
 `;
         const {item, taggingOptionsTagging} = this.state;
         const jsonObject = {};
+        this.props.enqueueSnackbar("updating " +item.id, {
+            variant: 'success',
+        });
         try {
             taggingOptionsTagging.forEach(tagging_option => {
                 const {title, selected} = tagging_option;
@@ -109,6 +117,7 @@ mutation insertTagging($tagging_import_id: uuid, $style: String, $class: String!
                     variables: jsonObject,
                 });
             console.log(returning);
+
             window.location.href = '/test'
             return returning;
         }

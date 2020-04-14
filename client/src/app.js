@@ -1,6 +1,4 @@
 import React from 'react';
-// import { Route } from 'react-router';
-import {ApolloConsumer} from 'react-apollo';
 import {ApolloProvider} from 'react-apollo';
 import {apollo_client} from './apolloClient';
 import {Home} from './routes/home.js'
@@ -12,16 +10,8 @@ import {
 import {categories} from './categories-config'
 import {ItemsList} from './routes/items-list'
 import {ItemView} from './routes/item-view'
-import {withApollo} from 'react-apollo';
 import TestHasura from "./TestHasura";
-import SelectHighlighted from "./SelectHighlighted";
 import Tagging from "./Tagging";
-import {Box, Container} from "bloomer";
-import 'bulma/css/bulma.css';
-
-
-// import Article from '../containers/Article';
-
 export const App = () => {
     let scrollEl
     let lastRouteName
@@ -63,12 +53,14 @@ export const App = () => {
                     scrollEl = el
                 }}>
                     <Switch>
+                        <Route path="/test/" component={TestHasura} exact/>
+
                         <Route path="/tagging/:tagging_id" component={Tagging} exact/>
 
-                        {/*<Route path="/:itemsType/:itemCode" component={ItemView} exact/>*/}
-                        {/*<Route path="/:itemsType" component={ItemsList} exact/>*/}
+                        <Route path="/:itemsType/:itemCode" exact render={(props) => (<ItemView client={apollo_client} {...props}/>)} />
+                        <Route path="/:itemsType" exact render={(props) => (<ItemsList client={apollo_client} {...props}/>)}/>
+                        <Route path="/" exact  render={(props) => (<Home test="hi" client={apollo_client}{...props}/>)} />
                         {/*<Route path="/" component={Home} exact/>*/}
-                        <Route path="/test/" component={TestHasura} exact/>
 
                     </Switch>
                 </div>
