@@ -9,6 +9,7 @@ export const renderS3UrlFromPrefix = (s3_url) => {
     const newUrl = url.substring(0, n + 1) + scaleString + url.substring(n + 1)
     return newUrl
 }
+
 const colors = ['black', 'Dark', 'Light', 'White', 'Primary', 'Link', 'Info', 'Success', 'Warning', 'Danger']
 export const taggingOptions
     =
