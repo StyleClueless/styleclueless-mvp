@@ -7,7 +7,7 @@ import CSVReader from 'react-csv-reader'
 import {CsvToHtmlTable} from 'react-csv-to-table';
 import  axios from "axios";
 import {global_company_id, renderS3UrlFromPrefix} from "./utils";
-import {GET_TAGGING_IMPORT, TEST_QUERY} from "./hasura_qls";
+import {GET_ALL_COMPANIES, GET_TAGGING, GET_TAGGING_IMPORT, TEST_QUERY} from "./hasura_qls";
 const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'https://www.styleclueless.com/';
 ////this is to build new component of TAGGING SYSTEM
 const sampleDataConst = `
@@ -59,7 +59,7 @@ Fiat 128,32.4,4,78.7,66,4.08,2.2,19.47,1,1,4,1
 };
 
 class TestHasura extends Component {
-    state = {dataProvider: null, sampleData: [], tagging_import: []};
+    state = {dataProvider: null,companies:[] ,sampleData: [], tagging_import: []};
      // history = useHistory();
 
     async componentWillMount() {
@@ -67,12 +67,13 @@ class TestHasura extends Component {
         // debugger;
 
         try {
-            const data = await this.props.client.query({
-                query: TEST_QUERY,
+            const {data:{companies}} = await this.props.client.query({
+                query: GET_ALL_COMPANIES,
                 variables: {},
                 fetchPolicy: 'network-only',
             });
-            console.log(data);
+            console.log(companies);
+            this.setState({companies})
         }
         catch (e) {
             console.error(e);
@@ -140,6 +141,15 @@ class TestHasura extends Component {
         <div onClick={() =>window.location.href=redirectRoute  } key={new Date().getTime()}>
 
             <h1>ID:{tag.sku}</h1>
+            {
+                tag.design&&tag.design.length>0 &&
+                <div>
+                    {tag.design}
+                    <h1 style={{color:'green'}} >TAGGED!</h1>
+                </div>
+
+
+            }
             <div>            <img src={newUrl}></img>
 
             </div>
@@ -216,11 +226,11 @@ const getTaggingImport=async(client)=>{
 
 
         const {data} = await client.query({
-            query: GET_TAGGING_IMPORT,
+            query: GET_TAGGING,
             variables: {},
             fetchPolicy: 'network-only',
         });
     console.log(data);
-    const {tagging_import}=data;
-    return tagging_import;
+    const {tagging}=data;
+    return tagging;
 }

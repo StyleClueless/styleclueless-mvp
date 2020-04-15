@@ -23,6 +23,7 @@ import gql from 'graphql-tag';
 import SelectHighlighted from "./SelectHighlighted";
 import {renderS3UrlFromPrefix, taggingOptions} from "./utils";
 import {renderPalette} from "./palette";
+import {INSERT_TAGGING_HASURA, TAGGING_BY_PK, UPDATE_TAGGING} from "./hasura_qls";
 // import ColorExtractor from "react-color-extractor/src/ColorExtractor";
 
 
@@ -33,29 +34,12 @@ class Tagging extends Component {
         console.log('TAGGING MOUNTED');
         console.log(this.props);
         const db_id = this.props.match.params.tagging_id;
-        const GET_TAGGING_IMPORT_BY_PK = gql`
-
-query getTaggingImport($id: uuid!) {
-  tagging_import_by_pk(id: $id) {
-    company_id
-    created_at
-    gender
-    deleted
-    id
-    s3_url
-    sku
-    type
-    updated_at
-    url
-  }
-}
-`;
-        const {data: {tagging_import_by_pk}} = await this.props.client.query({
-            query: GET_TAGGING_IMPORT_BY_PK,
+        const {data: {tagging_by_pk}} = await this.props.client.query({
+            query: TAGGING_BY_PK,
             variables: {id: db_id},
             fetchPolicy: 'network-only',
         });
-        this.setState({item: tagging_import_by_pk});
+        this.setState({item: tagging_by_pk});
         // debugger;
 
     }
@@ -76,44 +60,28 @@ query getTaggingImport($id: uuid!) {
             }
         }
         // this.setState({taggingOptionsTagging:JSON.parse(JSON.stringify(newTag))});
-        this.props.enqueueSnackbar(item.id + titleToUpdate + value, {
-            variant: 'success',
-        });
+        // this.props.enqueueSnackbar(item.id + titleToUpdate + value, {
+        //     variant: 'success',
+        // });
         this.setState({taggingOptionsTagging: newTag});
     }
-    updateInDb = async () => {
-        const INSERT_TAGGING_HASURA = gql`
-mutation insertTagging($tagging_import_id: uuid, $style: String, $class: String!, $design: String!, $demography: String!) {
-  insert_tagging(objects: {style: $style, tagging_import_id:
-    $tagging_import_id, demography: $demography, design: $design,
-    created_at: "now()", class: $class, updated_at: "now()"}, 
-    on_conflict: {constraint: tagging_pkey, update_columns: [class, 
-      demography,design,style,updated_at]}) {
-    returning {
-      tagging_import_id
-      updated_at
-      created_at
-    }
-  }
-}
 
-
-`;
+updateInDb = async () => {
         const {item, taggingOptionsTagging} = this.state;
         const jsonObject = {};
-        this.props.enqueueSnackbar("updating " +item.id, {
-            variant: 'success',
-        });
+        // this.props.enqueueSnackbar("updating " +item.id, {
+        //     variant: 'success',
+        // });
         try {
             taggingOptionsTagging.forEach(tagging_option => {
                 const {title, selected} = tagging_option;
                 jsonObject[title] = selected;
             })
-            jsonObject['tagging_import_id'] = item.id;
+            jsonObject['tagging_id'] = item.id;
             const
-                {data: {insert_tagging: {returning}}}
+                {data: {update_tagging: {returning}}}
                     = await this.props.client.mutate({
-                    mutation: INSERT_TAGGING_HASURA,
+                    mutation: UPDATE_TAGGING,
                     variables: jsonObject,
                 });
             console.log(returning);

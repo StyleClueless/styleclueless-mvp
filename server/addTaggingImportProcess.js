@@ -23,9 +23,10 @@ router.post('/', async function (req, res) {
                 return {id:null, url:null,sku:null,e};
             }
         })
+        res.send(add_to_db);
+        ///todo : add here worker....
         const upload_to_s3_update_db=await uploadFilesToS3AndUpdateDbUrl(ids_urls);
         console.log(upload_to_s3_update_db);
-        res.send(add_to_db);
     }
     catch (e) {
         console.error(e);
@@ -37,8 +38,8 @@ router.post('/', async function (req, res) {
 
 module.exports = router;
 const UPADTE_S3_URL = gql`
-mutation updateS3UrlForTaggingImport($id: uuid!, $s3_url: String!) {
-    update_tagging_import(where: {id: {_eq: $id}}, _set: {s3_url: $s3_url}) {
+mutation updateS3UrlForTagging($id: uuid!, $s3_url: String!) {
+    update_tagging(where: {id: {_eq: $id}}, _set: {s3_url: $s3_url,updated_at:"now()"}) {
         returning {
             s3_url
             id
@@ -67,18 +68,18 @@ mutation insertTaggingImport($company_id: uuid, $gender: String, $sku: String!, 
 }
 `;
 const BULK_INSERT_TAGGING_IMPORT_HASURA = gql`
-mutation insertTaggigImportBulk($objects: [tagging_import_insert_input!]!) {
-    insert_tagging_import(objects: $objects, on_conflict: {constraint: tagging_import_pkey,
-        update_columns: [updated_at, created_at, url, url, gender, type]}) {
+mutation insertTaggigImportBulk($objects: [tagging_insert_input!]!) {
+    insert_tagging(objects: $objects, on_conflict: {constraint: tagging_pkey,
+        update_columns: [updated_at, created_at, url, url, demography,class]}) {
         returning {
             id
             deleted
-            gender
+            class
             created_at
             company_id
             s3_url
             sku
-            type
+            demography
             updated_at
             url
         }
@@ -130,9 +131,16 @@ export const insertImportToDb = async (db_insert_array) => {
     console.time(label);
     let return_values = [];
     const client = apolloClient;
-
+    const timestamp=new Date().toISOString();
     db_insert_array=db_insert_array.map(item=>{
-        const newItem = Object.assign({}, item, { created_at: new Date().toISOString(),updated_at:new Date().toISOString() });
+        // const newItem = Object.assign({}, item, {
+        //     class:item.type,demography:item.gender,
+        //     imported_at: timestamp,created_at: timestamp,updated_at:timestamp });
+        const newItem={
+            company_id:item.company_id,
+            sku:item.sku,url:item.url,
+        class:item.type,demography:item.gender,
+            imported_at: timestamp,created_at: timestamp,updated_at:timestamp }
         return newItem
     })
     try {
@@ -144,7 +152,7 @@ export const insertImportToDb = async (db_insert_array) => {
                 variables: {objects:db_insert_array},
             });
         console.log(bulk_data_insert_info);
-        return_values=bulk_data_insert_info.data.insert_tagging_import.returning;
+        return_values=bulk_data_insert_info.data.insert_tagging.returning;
         // return bulk_data_insert_info;
     }
     catch (e) {

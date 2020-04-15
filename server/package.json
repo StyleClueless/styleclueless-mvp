@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.2",
   "scripts": {
+    "restart":"npm run dockerCleanImages && npm run installAll",
     "dockerCleanImages":"yes Y | docker image prune -a",
     "dockerCleanAll":"yes Y |  docker system prune --all",
     "installAll": "cd docker && docker-compose down && cd ../../client && npm i && npm run build && cd ../server/docker && docker-compose -f docker-compose.yml up -d --build && docker-compose up",

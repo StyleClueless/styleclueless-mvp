@@ -57,9 +57,9 @@ export const App = () => {
 
                         <Route path="/tagging/:tagging_id" component={Tagging} exact/>
 
-                        <Route path="/:itemsType/:itemCode" exact render={(props) => (<ItemView client={apollo_client} {...props}/>)} />
-                        <Route path="/:itemsType" exact render={(props) => (<ItemsList client={apollo_client} {...props}/>)}/>
-                        <Route path="/" exact  render={(props) => (<Home test="hi" client={apollo_client}{...props}/>)} />
+                        {/*<Route path="/:itemsType/:itemCode" exact render={(props) => (<ItemView client={apollo_client} {...props}/>)} />*/}
+                        {/*<Route path="/:itemsType" exact render={(props) => (<ItemsList client={apollo_client} {...props}/>)}/>*/}
+                        {/*<Route path="/" exact  render={(props) => (<Home test="hi" client={apollo_client}{...props}/>)} />*/}
                         {/*<Route path="/" component={Home} exact/>*/}
 
                     </Switch>

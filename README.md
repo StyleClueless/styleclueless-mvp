@@ -58,3 +58,4 @@ www.styleclueless.com.
 bucket:
 
 s3-website-ap-southeast-1.amazonaws.com.
+https://hasura.io/blog/working-with-schemaless-data-with-graphql-on-postgres-574a1ee2e87f/

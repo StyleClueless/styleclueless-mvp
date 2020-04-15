@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+export const GET_ALL_COMPANIES = gql`
+query getAllCompanies {
+    companies {
+        created_at
+        id
+        logo_url
+        company_name
+        updated_at
+    }
+}
+`;
 export const TEST_QUERY = gql`
    query MyQuery {
   clients {
@@ -15,18 +26,27 @@ export const TEST_QUERY = gql`
 }
 `;
 
-export const GET_TAGGING_IMPORT = gql`
+export const GET_TAGGING= gql`
 
-    query getTaggingImport {
-        tagging_import {
-            sku
-            s3_url
-            company_id
-            id
-            type
-            url
-        }
-    }
+query getTaggings {
+  tagging {
+    sku
+    s3_url
+    company_id
+    id
+    class
+    demography
+    url
+    shade
+    style
+    created_at
+    deleted
+    design
+    imported_at
+    updated_at
+  }
+}
+
 `;
 export const GET_ALL_COMPANY_TAGGING = gql`
 
@@ -77,6 +97,55 @@ query getAllCompanyTagging($company_id: uuid!,$type:String!) {
             updated_at
             url
         }
+    }
+}
+`;
+export const UPDATE_TAGGING = gql`
+mutation updateTagging($tagging_id: uuid, $style: String, $class: String!, $design: String!, $demography: String!) {
+    update_tagging(where: {id: {_eq: $tagging_id}}, _set: {class: $class, demography: $demography, design: $design, updated_at: "now()", style: $style}) {
+        returning {
+            updated_at
+            style
+            shade
+            design
+            class
+            demography
+        }
+    }
+}
+
+`;
+export const INSERT_TAGGING_HASURA = gql`
+mutation insertTagging($tagging_import_id: uuid, $style: String, $class: String!, $design: String!, $demography: String!) {
+  insert_tagging(objects: {style: $style, tagging_import_id:
+    $tagging_import_id, demography: $demography, design: $design,
+    created_at: "now()", class: $class, updated_at: "now()"}, 
+    on_conflict: {constraint: tagging_pkey, update_columns: [class, 
+      demography,design,style,updated_at]}) {
+    returning {
+      tagging_import_id
+      updated_at
+      created_at
+    }
+  }
+}
+
+
+`;
+
+export const TAGGING_BY_PK = gql`
+query getTaggingImport($id: uuid!) {
+    tagging_by_pk(id: $id) {
+        company_id
+        created_at
+        class
+        deleted
+        id
+        s3_url
+        sku
+        demography
+        updated_at
+        url
     }
 }
 `;
