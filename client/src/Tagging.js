@@ -86,7 +86,7 @@ updateInDb = async () => {
                 });
             console.log(returning);
 
-            window.location.href = '/test'
+            window.location.href = '/onBoarding/'
             return returning;
         }
         catch (e) {
@@ -113,11 +113,11 @@ updateInDb = async () => {
 
         return (
 
-            <div key={imageUrl+ Math.random()}>
+            <div key={Math.random()*15000}>
                 TAGGING TAGGING COMPONENET
 
 
-                <div  key={imageUrl+new Date().getTime()} style={{textAlign: 'center'}}>
+                <div  key={imageUrl+new Date().getTime() +Math.random()} style={{textAlign: 'center'}}>
                     <img src={imageUrl}></img>
                     {/*{RenderPalette}*/}
                     {/*<Palette src={imageUrl}>*/}

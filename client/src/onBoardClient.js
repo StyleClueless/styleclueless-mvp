@@ -8,29 +8,9 @@ import {CsvToHtmlTable} from 'react-csv-to-table';
 import  axios from "axios";
 import {global_company_id, renderS3UrlFromPrefix} from "./utils";
 import {GET_ALL_COMPANIES, GET_TAGGING, GET_TAGGING_IMPORT, TEST_QUERY} from "./hasura_qls";
+import {Link} from "react-router-dom";
 const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'https://www.styleclueless.com/';
 ////this is to build new component of TAGGING SYSTEM
-const sampleDataConst = `
-Model,mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb
-Mazda RX4,21,6,160,110,3.9,2.62,16.46,0,1,4,4
-Mazda RX4 Wag,21,6,160,110,3.9,2.875,17.02,0,1,4,4
-Datsun 710,22.8,4,108,93,3.85,2.32,18.61,1,1,4,1
-Hornet 4 Drive,21.4,6,258,110,3.08,3.215,19.44,1,0,3,1
-Hornet Sportabout,18.7,8,360,175,3.15,3.44,17.02,0,0,3,2
-Valiant,18.1,6,225,105,2.76,3.46,20.22,1,0,3,1
-Duster 360,14.3,8,360,245,3.21,3.57,15.84,0,0,3,4
-Merc 240D,24.4,4,146.7,62,3.69,3.19,20,1,0,4,2
-Merc 230,22.8,4,140.8,95,3.92,3.15,22.9,1,0,4,2
-Merc 280,19.2,6,167.6,123,3.92,3.44,18.3,1,0,4,4
-Merc 280C,17.8,6,167.6,123,3.92,3.44,18.9,1,0,4,4
-Merc 450SE,16.4,8,275.8,180,3.07,4.07,17.4,0,0,3,3
-Merc 450SL,17.3,8,275.8,180,3.07,3.73,17.6,0,0,3,3
-Merc 450SLC,15.2,8,275.8,180,3.07,3.78,18,0,0,3,3
-Cadillac Fleetwood,10.4,8,472,205,2.93,5.25,17.98,0,0,3,4
-Lincoln Continental,10.4,8,460,215,3,5.424,17.82,0,0,3,4
-Chrysler Imperial,14.7,8,440,230,3.23,5.345,17.42,0,0,3,4
-Fiat 128,32.4,4,78.7,66,4.08,2.2,19.47,1,1,4,1
-`;
  const postRequest = async (url,body) => {
     try {
         let axiosConfig = {
@@ -58,22 +38,17 @@ Fiat 128,32.4,4,78.7,66,4.08,2.2,19.47,1,1,4,1
     }
 };
 
-class TestHasura extends Component {
-    state = {dataProvider: null,companies:[] ,sampleData: [], tagging_import: []};
+class onBoardClient extends Component {
+    state = {dataProvider: null,company_id:null,sampleData: [], tagging_import: []};
      // history = useHistory();
 
     async componentWillMount() {
-        console.log('x');
+        console.log('xxxxx');
         // debugger;
 
         try {
-            const {data:{companies}} = await this.props.client.query({
-                query: GET_ALL_COMPANIES,
-                variables: {},
-                fetchPolicy: 'network-only',
-            });
-            console.log(companies);
-            this.setState({companies})
+            const company_id = this.props.match.params.company_id;
+            this.setState({company_id})
         }
         catch (e) {
             console.error(e);
@@ -120,7 +95,7 @@ class TestHasura extends Component {
 
         const db_structure = json.map(element => {
             const {sku, type, gender, url} = element;
-            const db_insert_row = { sku, company_id: global_company_id, type, gender, url}
+            const db_insert_row = { sku, company_id: this.state.company_id, type, gender, url}
             return db_insert_row;
         })
         const send_to_server= postRequest('tagging_import/add',db_structure)
@@ -128,23 +103,28 @@ class TestHasura extends Component {
         // insertImportToDb(this.props.client, db_structure)
     }
     fetchTaggingInfo=async()=>{
-        const tagging_import=await getTaggingImport(this.props.client);
+        const {company_id} = this.state;
+        const tagging_import=await getTaggingImport(this.props.client,company_id);
         this.setState({tagging_import});
     }
     renderTagging=(tag)=>{
+        const {company_id}=this.state;
         const newUrl=renderS3UrlFromPrefix(tag.s3_url);
         // const redirectRoute='/tagging/'+tag.sku;
-        const redirectRoute='/tagging/'+tag.id;
+        const redirectRoute='/onBoarding/tagging/'+tag.id;
         // const redirectRoute='/tagging/';
         console.log(tag);
         return (
+
+            <Link to={`/OnBoarding/Tagging/${company_id}/${tag.id}/`}>
+
         <div onClick={() =>window.location.href=redirectRoute  } key={new Date().getTime()}>
 
             <h1>ID:{tag.sku}</h1>
             {
-                tag.design&&tag.design.length>0 &&
+                tag.style&&tag.style.length>0 &&
                 <div>
-                    {tag.design}
+                    {tag.style}
                     <h1 style={{color:'green'}} >TAGGED!</h1>
                 </div>
 
@@ -155,6 +135,7 @@ class TestHasura extends Component {
             </div>
 
         </div>
+            </Link>
         )
 }
 
@@ -162,7 +143,7 @@ class TestHasura extends Component {
         const {sampleData,tagging_import} = this.state;
         return (
 
-            <div>
+            <div  style={{textAlign:'center', marginBottm:"8%"}}>
                 <div>
                     <a onClick={this.insertTableToDb} >!insertTableToDb !</a>
                     <CSVReader onFileLoaded={(data, fileInfo) => this.renderCsv(data, fileInfo)}>
@@ -198,7 +179,7 @@ class TestHasura extends Component {
     }
 }
 
-export default withApollo(TestHasura);
+export default withApollo(onBoardClient);
 var csvJSON = function (csv) {
 
     var lines = csv.split("\n")
@@ -222,12 +203,10 @@ var csvJSON = function (csv) {
 
     return result // JavaScript object
 }
-const getTaggingImport=async(client)=>{
-
-
+const getTaggingImport=async(client,company_id)=>{
         const {data} = await client.query({
             query: GET_TAGGING,
-            variables: {},
+            variables: {company_id},
             fetchPolicy: 'network-only',
         });
     console.log(data);

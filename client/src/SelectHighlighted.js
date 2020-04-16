@@ -28,15 +28,8 @@ class SelectHighlighted extends React.Component {
         const option_className='opt '+'opt_'+color;
         const select_className='select '+'select_'+color;
         return (
-            <div style={{width:'100%',height:'100%','marginBottom':'10%',  'textAlign': 'center'}}>
+            <div style={{width:'100%',height:'100%','marginBottom':'3%',  'textAlign': 'center'}}>
                 <h1>{title}</h1>
-                {/*<select  className={select_className} size={5} value={this.state.option} onChange={this.handleOptionsChange}>*/}
-                {/*<option className={option_className} value='1'>Option 1</option>*/}
-                {/*<option className={option_className} value='2'>Option 2</option>*/}
-                {/*<option className={option_className}value='3'>Option 3</option>*/}
-                {/*<option className={option_className} value='4'>Option 4</option>*/}
-                {/*<option className={option_className} value='5'>Option 5</option>*/}
-            {/*</select>*/}
                 {options_array?options_array.map(option=>
                     <div key={option}>
                         {/*<h1>{option}</h1>*/}

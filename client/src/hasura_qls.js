@@ -28,8 +28,8 @@ export const TEST_QUERY = gql`
 
 export const GET_TAGGING= gql`
 
-query getTaggings {
-  tagging {
+query getTaggings($company_id:uuid!) {
+  tagging(where: {company_id: {_eq: $company_id}}) {
     sku
     s3_url
     company_id
