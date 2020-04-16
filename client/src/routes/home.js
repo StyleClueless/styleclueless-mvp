@@ -6,7 +6,8 @@ import { envVars } from '../util/env-vars'
 
 const cldTransformation = 'c_scale,h_350,q_auto:good'
 export const Home = props => {
-  console.log(props);
+    console.log(props);
+    console.log('home MOUNT');
   const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', `/upload/${cldTransformation}`)
   return (
 
@@ -14,7 +15,7 @@ export const Home = props => {
       {categories.map(cat => (
         <ItemCard
           key={cat}
-          href={`/${cat.toLowerCase()}`}
+          href={`/store/${cat.toLowerCase()}`}
           imgUrl={`${cloudinaryPath}/${dbClassMapping[cat.toLowerCase()]}/cover.png`}
           label={cat}
         />
