@@ -3,7 +3,7 @@ import {withApollo, ApolloConsumer, ApolloProvider} from 'react-apollo';
 // import {Palette} from 'react-palette';
 // import Color from 'color-thief-react';
 // import { SnackbarProvider, withSnackbar } from 'notistack';
-// import 'bulma/css/bulma.css';
+import 'bulma/css/bulma.css';
 
 import {
     Card,
@@ -86,7 +86,7 @@ updateInDb = async () => {
                 });
             console.log(returning);
 
-            window.location.href = '/onBoarding/'
+            // window.location.href = '/onBoarding/'
             return returning;
         }
         catch (e) {

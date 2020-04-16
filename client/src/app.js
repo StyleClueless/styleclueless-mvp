@@ -13,6 +13,7 @@ import {ItemView} from './routes/item-view'
 import onBoardClient from "./onBoardClient";
 import Tagging from "./Tagging";
 import onBoardingDashboard from "./onBoardingDashboard";
+
 export const App = () => {
     let scrollEl
     let lastRouteName
@@ -57,7 +58,7 @@ export const App = () => {
                 }}>
                     <Switch>
 
-                        <Route exact path="/onBoarding/" component={onBoardingDashboard} exact/>
+                        <Route exact path="/StartOnBoarding/" component={onBoardingDashboard} exact/>
                         <Route exact path="/onBoardingCompany/:company_id" component={onBoardClient} exact/>
 
                         <Route exact path="/OnBoarding/Tagging/:company_id/:tagging_id" component={Tagging} exact/>

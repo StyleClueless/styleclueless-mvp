@@ -118,7 +118,7 @@ class onBoardClient extends Component {
 
             <Link to={`/OnBoarding/Tagging/${company_id}/${tag.id}/`}>
 
-        <div onClick={() =>window.location.href=redirectRoute  } key={new Date().getTime()}>
+        <div  key={new Date().getTime()}>
 
             <h1>ID:{tag.sku}</h1>
             {

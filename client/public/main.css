@@ -17,11 +17,13 @@
 .a-dark-gray:active {
     background-color: var(--dark-gray);
 }
-.left-4
-{ left:   4rem; }
+
+.left-4 {
+    left: 4rem;
+}
 
 .vh-third {
-    height: calc(100vh  / 3);
+    height: calc(100vh / 3);
 }
 
 .h4_5 {
@@ -30,7 +32,7 @@
 
 @media screen and (min-width: 100em) {
     .vh-third-vl {
-        height: calc(100vh  / 3);
+        height: calc(100vh / 3);
     }
 }
 
@@ -40,6 +42,35 @@
     }
 }
 
-.obj-contain {
-    object-fit: contain;
-}
+/*.obj-contain {*/
+    /*object-fit: contain;*/
+/*}*/
+
+/*.realtive {*/
+    /*position: relative;*/
+/*}*/
+
+/*.pa2 {*/
+    /*padding: .5rem*/
+
+/*}*/
+
+/*.w-50 {*/
+    /*width: 50%;*/
+/*}*/
+
+/*.link {*/
+    /*text-decoration: none*/
+/*}*/
+
+/*.item-center {*/
+    /*align-items: center*/
+/*}*/
+
+/*.flex-column {*/
+    /*flex-direction: column;*/
+/*}*/
+
+/*.flex {*/
+    /*display: flex*/
+/*}*/
