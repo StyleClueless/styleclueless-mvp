@@ -42,7 +42,7 @@ export const App = () => {
                         <div className={'dib tc pv1 w-20 relative' + (isMatching ? ' bg-dark-gray' : '')}>
                         <Link
                         className={'link dib pv2 w-100 f6 f5-ns ' + (isMatching ? 'white' : 'dark-gray')}
-                        to={catName === 'Home' ? '/' : `/${catName.toLowerCase()}`}
+                        to={catName === 'Home' ? '/' : `/store/${catName.toLowerCase()}`}
                         >
                         {catName}
                         </Link>
