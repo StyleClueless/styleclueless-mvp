@@ -4,7 +4,7 @@ import {withApollo, ApolloConsumer, ApolloProvider} from 'react-apollo';
 // import Color from 'color-thief-react';
 // import { SnackbarProvider, withSnackbar } from 'notistack';
 import 'bulma/css/bulma.css';
-import { SnackbarProvider, withSnackbar } from 'notistack';
+import { withSnackbar } from 'notistack';
 
 import {
     Card,

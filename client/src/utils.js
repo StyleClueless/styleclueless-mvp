@@ -54,3 +54,14 @@ export const taggingOptions
     }
     ];
 export const global_company_id="061e449f-04d7-4898-a1a8-b3d8a052b328";
+export const  isUrlValid=(userInput)=> {
+    debugger;
+    var expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+    var regex = new RegExp(expression);
+    let res=userInput.match(regex);
+    // let res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    if(res == null)
+        return false;
+    else
+        return true;
+}

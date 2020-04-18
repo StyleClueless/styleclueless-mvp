@@ -6,9 +6,11 @@ import {CardsWrapper} from "./components/cards-wrapper";
 import CSVReader from 'react-csv-reader'
 import {CsvToHtmlTable} from 'react-csv-to-table';
 import  axios from "axios";
-import {global_company_id, renderS3UrlFromPrefix} from "./utils";
+import {global_company_id, isUrlValid, renderS3UrlFromPrefix} from "./utils";
 import {GET_ALL_COMPANIES, GET_TAGGING, GET_TAGGING_IMPORT, TEST_QUERY} from "./hasura_qls";
 import {Link} from "react-router-dom";
+import { withSnackbar } from 'notistack';
+
 const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'https://www.styleclueless.com/';
 ////this is to build new component of TAGGING SYSTEM
  const postRequest = async (url,body) => {
@@ -89,7 +91,16 @@ class onBoardClient extends Component {
     insertTableToDb = async () => {
         const {sampleData} = this.state;
         let json = csvJSON(sampleData);
-        json = json.filter(f => f.type !== undefined);
+        json = json.filter(f => f.type !== undefined || f.url!==undefined); //first filter
+        json=json.forEach(obj=>{ ///check regex for url's
+            const {url,type}=obj;
+            if(!isUrlValid(url)){
+                this.props.enqueueSnackbar("url is not valid "+ url+"-> please fix csv.", {
+                    variant: 'warning',
+                });
+                return;
+            }
+        })
         if(!json||!json.length>0){return;}
         console.log(json);
 
@@ -179,7 +190,7 @@ class onBoardClient extends Component {
     }
 }
 
-export default withApollo(onBoardClient);
+export default withApollo(withSnackbar(onBoardClient));
 var csvJSON = function (csv) {
 
     var lines = csv.split("\n")
