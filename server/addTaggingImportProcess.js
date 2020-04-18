@@ -139,7 +139,7 @@ export const insertImportToDb = async (db_insert_array) => {
         const newItem={
             company_id:item.company_id,
             sku:item.sku,url:item.url,
-        class:item.type,demography:item.gender,
+        class:item.class,demography:item.demography,
             imported_at: timestamp,created_at: timestamp,updated_at:timestamp }
         return newItem
     })
