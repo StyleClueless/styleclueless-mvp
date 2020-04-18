@@ -4,6 +4,7 @@ import {withApollo, ApolloConsumer, ApolloProvider} from 'react-apollo';
 // import Color from 'color-thief-react';
 // import { SnackbarProvider, withSnackbar } from 'notistack';
 import 'bulma/css/bulma.css';
+import { SnackbarProvider, withSnackbar } from 'notistack';
 
 import {
     Card,
@@ -33,6 +34,9 @@ class Tagging extends Component {
     async componentWillMount() {
         console.log('TAGGING MOUNTED');
         console.log(this.props);
+        this.props.enqueueSnackbar("testthis", {
+            variant: 'success',
+        });
         const db_id = this.props.match.params.tagging_id;
         const {data: {tagging_by_pk}} = await this.props.client.query({
             query: TAGGING_BY_PK,
@@ -60,9 +64,9 @@ class Tagging extends Component {
             }
         }
         // this.setState({taggingOptionsTagging:JSON.parse(JSON.stringify(newTag))});
-        // this.props.enqueueSnackbar(item.id + titleToUpdate + value, {
-        //     variant: 'success',
-        // });
+        this.props.enqueueSnackbar(item.id + titleToUpdate + value, {
+            variant: 'success',
+        });
         this.setState({taggingOptionsTagging: newTag});
     }
 
@@ -112,7 +116,6 @@ updateInDb = async () => {
         // </ColorExtractor>
 
         return (
-
             <div key={Math.random()*15000}>
                 TAGGING TAGGING COMPONENET
 
@@ -158,10 +161,9 @@ updateInDb = async () => {
                     {/*</Column>*/}
                 </Columns>
             </div>
-
         );
     }
 }
 
 
-export default withApollo(Tagging);
+export default withApollo(withSnackbar(Tagging));

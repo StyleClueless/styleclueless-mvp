@@ -13,6 +13,7 @@ import {ItemView} from './routes/item-view'
 import onBoardClient from "./onBoardClient";
 import Tagging from "./Tagging";
 import onBoardingDashboard from "./onBoardingDashboard";
+import { SnackbarProvider, withSnackbar } from 'notistack';
 
 export const App = () => {
     let scrollEl
@@ -23,6 +24,8 @@ export const App = () => {
     }
 
     return (
+        <SnackbarProvider maxSnack={3}>
+
         <ApolloProvider client={apollo_client}>
             {/*<Switch>*/}
 
@@ -81,7 +84,7 @@ export const App = () => {
 
             </div>
         </ApolloProvider>
-
+        </SnackbarProvider>
 
     )
 }
