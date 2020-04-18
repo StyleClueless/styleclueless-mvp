@@ -19,7 +19,7 @@ export const taggingOptions
     [
         {
             title: 'demography',
-            selected:'top',
+
             values:
                 [
                     "top"

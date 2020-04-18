@@ -94,6 +94,9 @@ updateInDb = async () => {
             return returning;
         }
         catch (e) {
+            this.props.enqueueSnackbar("couldnt insert to db - make sure all of the items are selected!", {
+                variant: 'warning',
+            });
             console.error(e);
         }
     }
@@ -136,10 +139,16 @@ updateInDb = async () => {
                     {/*</Palette>*/}
                 </div>
                 {taggingOptionsTagging.map((tagging_option, i) => {
+                    let selected='';
+                    if(item!==null && item[tagging_option.title]){
+                         selected=item[tagging_option.title];
+                        console.log('sel'+selected);
+
+                    }
                     console.log(tagging_option);
                     return <div key={new Date().getTime()}>
                         {i}
-                        <SelectHighlighted selected={tagging_option.selected} options_array={tagging_option.values}
+                        <SelectHighlighted selected={selected!==''?selected:tagging_option.selected} options_array={tagging_option.values}
                                            title={tagging_option.title}
                                            updateParent={this.updateValue}
                                            color={tagging_option.color}

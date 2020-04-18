@@ -10,6 +10,7 @@ import {global_company_id, isUrlValid, renderS3UrlFromPrefix} from "./utils";
 import {GET_ALL_COMPANIES, GET_TAGGING, GET_TAGGING_IMPORT, TEST_QUERY} from "./hasura_qls";
 import {Link} from "react-router-dom";
 import { withSnackbar } from 'notistack';
+import {Button, Column, Columns} from "bloomer";
 
 const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'https://www.styleclueless.com/';
 ////this is to build new component of TAGGING SYSTEM
@@ -122,6 +123,9 @@ class onBoardClient extends Component {
     fetchTaggingInfo=async()=>{
         const {company_id} = this.state;
         const tagging_import=await getTaggingImport(this.props.client,company_id);
+        this.props.enqueueSnackbar("got from db "+ tagging_import.length+" items ", {
+            variant: 'succes',
+        });
         this.setState({tagging_import});
     }
     renderTagging=(tag)=>{
@@ -162,18 +166,35 @@ class onBoardClient extends Component {
 
             <div  style={{textAlign:'center', marginBottm:"8%"}}>
                 <div>
-                    <a onClick={this.insertTableToDb} >!insertTableToDb !</a>
+                    <Columns>
+                        {/*<a onClick={this.fetchTaggingInfo} >!getTAGGINGFROMDB !</a>*/}
+
+
+                        <Column  hasTextAlign='centered'>
+                            <Button onClick={this.fetchTaggingInfo} isColor='success' isOutlined>Get Imported Items Of Client</Button>
+                        </Column>
+                    </Columns>
+                    <h2>import items from csv
+                    </h2>
+
                     <CSVReader onFileLoaded={(data, fileInfo) => this.renderCsv(data, fileInfo)}>
 
                     </CSVReader>
-                    {sampleData && sampleData.length > 0 &&
-                    <CsvToHtmlTable
-                        data={sampleData}
-                        csvDelimiter=","
-                    />}
-                </div>
-                <a onClick={this.fetchTaggingInfo} >!getTAGGINGFROMDB !</a>
 
+
+
+                </div>
+                {sampleData && sampleData.length > 0 &&
+                    <div>
+                <CsvToHtmlTable
+                    data={sampleData}
+                    csvDelimiter=","
+                />
+                        <Column  hasTextAlign='centered'>
+                            <Button onClick={this.insertTableToDb} isColor='alert' isOutlined>insertTableToDb</Button>
+                        </Column>
+                    </div>
+                }
                 {tagging_import&&tagging_import.length > 0 &&
                 <div>   {
                     tagging_import.map(
