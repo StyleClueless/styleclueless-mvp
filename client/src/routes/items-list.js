@@ -3,26 +3,21 @@ import {withApollo} from "react-apollo";
 import {ItemCard} from "../components/item-card";
 import {global_company_id, renderS3UrlFromPrefix} from "../utils";
 import {CardsWrapper} from "../components/cards-wrapper";
-import {GET_TAGGING} from "../hasura_qls";
+import {GET_TAGGING, GET_TAGGING_BY_CLASS} from "../hasura_qls";
 
 
 class ItemsList extends Component {
 
-    state = { items: []};
+    state = {items: []};
 
     async componentWillMount() {
-        console.log('ItemsList');
-        const {client}=this.props;
+        const {client} = this.props;
         const itemsType = this.props.match.params.itemsType;
+        console.log(' rendering ItemsList for' + itemsType);
+
         try {
-            const {data} = await client.query({
-                query: GET_TAGGING,
-                variables: {company_id:global_company_id},
-                fetchPolicy: 'network-only',
-            });
-            console.log(data);
-            const {tagging}=data;
-            this.setState({items:tagging,itemsType});
+            const tagging =await this.getItems(client, itemsType);
+            this.setState({items: tagging, itemsType});
         }
         catch (e) {
             console.error(e);
@@ -30,25 +25,49 @@ class ItemsList extends Component {
 
     }
 
+    getItems = async (client, itemsType) => {
+        const {data} = await client.query({
+            query: GET_TAGGING_BY_CLASS,
+            variables: {company_id: global_company_id, class: itemsType},
+            fetchPolicy: 'network-only',
+        });
+        console.log(data);
+        const {tagging} = data;
+        return tagging;
+    }
+
+  async  componentDidUpdate(prevProps, prevState, snapshot) {
+        const itemsType = this.props.match.params.itemsType;
+        console.log("componentDidUpdate " + itemsType);
+        console.log("componentDidUpdate " + JSON.stringify(prevState));
+        if (itemsType !== prevState.itemsType &&  prevState.items.length>=0) {
+            const {client} = this.props;
+            // window.location.href=this.props.match.url;
+            const tagging =await this.getItems(client, itemsType);
+            this.setState({items: tagging, itemsType});
+        }
+        // console.log("componentDidUpdate " +JSON.stringify(prevProps));
+    }
+
     componentWillUnmount() {
 
     }
 
     render() {
-        const {items,itemsType} = this.state;
+        const {items, itemsType} = this.state;
         return (
 
             <div>
 
                 <CardsWrapper>
                     {
-                        items&& items.map(item => (
+                        items && items!==undefined && items.map(item => (
                             <ItemCard
                                 key={item.id}
                                 label={item.sku}
                                 href={`/${itemsType}/${item.id}`}
                                 // imgUrl={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${item.code}.png`}
-                                imgUrl={renderS3UrlFromPrefix(item.s3_url,350)}
+                                imgUrl={renderS3UrlFromPrefix(item.s3_url, 350)}
                             />
                         ))
                     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {ApolloProvider} from 'react-apollo';
 import {apollo_client} from './apolloClient';
-import {Home} from './routes/home.js'
+import Home from './routes/home.js'
 import {
     Switch,
     Route,
@@ -19,6 +19,7 @@ export const App = () => {
     let scrollEl
     let lastRouteName
     const scrollToTop = () => {
+        console.log('scroolontop')
         if (scrollEl) scrollEl.scrollTop = 0
         if (typeof window !== 'undefined') window.scrollTop = 0
     }
@@ -38,17 +39,17 @@ export const App = () => {
                         {['Home'].concat(categories).map(catName => (
                         <Route key={catName} path='/:routeName' children={({match}) => {
                         const isMatching = !match && catName === 'Home' || (match && catName.toLowerCase() === match.params.routeName)
-                        if (match && match.params.routeName !== lastRouteName) {
-                        lastRouteName = match.params.routerName
-                        scrollToTop()
-                        }
+                        // if (match && match.params.routeName !== lastRouteName) {
+                        // lastRouteName = match.params.routerName
+                        // scrollToTop()
+                        // }
                         return (
                         <div className={'dib tc pv1 w-20 relative' + (isMatching ? ' bg-dark-gray' : '')}>
                         <Link
                         className={'link dib pv2 w-100 f6 f5-ns ' + (isMatching ? 'white' : 'dark-gray')}
                         to={catName === 'Home' ? '/' : `/store/${catName.toLowerCase()}`}
                         >
-                        {catName}
+                        {catName.charAt(0).toUpperCase()+catName.slice(1)}
                         </Link>
                         </div>
                         )
@@ -68,8 +69,8 @@ export const App = () => {
                         {/*<Route path="/store/:itemsType/:itemCode" exact render={(props) => (<ItemView client={apollo_client} {...props}/>)} />*/}
                         {/*<Route path="/store/:itemsType" exact render={(props) => (<ItemsList client={apollo_client} {...props}/>)}/>*/}
                         {/*<Route path="/" exact  render={(props) => (<Home test="hi" client={apollo_client}{...props}/>)} /> */}
-                        <Route path="/store/:itemsType/:itemCode" exact  render={(props) => (<ItemView test="hi"  client={apollo_client} {...props}/>)} />
-                        <Route path="/store/:itemsType" exact render={(props) => (<ItemsList test="hi"  client={apollo_client} {...props}/>)}/>
+                        {/*<Route path="/store/:itemsType/:itemCode" exact  render={(props) => (<ItemView test="hi"  client={apollo_client} {...props}/>)} />*/}
+                        <Route path="/store/:itemsType"  render={(props) => (<ItemsList test="hi"  client={apollo_client} {...props}/>)}/>
                         <Route path="/" exact  render={(props) => (<Home test="hi" client={apollo_client}{...props}/>)} />
                     </Switch>
                 </div>

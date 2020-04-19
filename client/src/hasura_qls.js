@@ -26,6 +26,15 @@ export const TEST_QUERY = gql`
 }
 `;
 
+export const GET_TAGGING_URLS= gql`
+query getTaggingUrl($company_id: uuid!) {
+    tagging(where: {company_id: {_eq: $company_id}}, distinct_on: class) {
+        s3_url
+    class
+    }
+}
+`;
+
 export const GET_TAGGING= gql`
 
 query getTaggings($company_id:uuid!) {
@@ -47,6 +56,27 @@ query getTaggings($company_id:uuid!) {
   }
 }
 
+`;
+export const GET_TAGGING_BY_CLASS= gql`
+
+query getTaggings($company_id: uuid!,$class:String!) {
+  tagging(where: {company_id: {_eq: $company_id}, class: {_eq: $class}}) {
+    sku
+    s3_url
+    company_id
+    id
+    class
+    demography
+    url
+    shade
+    style
+    created_at
+    deleted
+    design
+    imported_at
+    updated_at
+  }
+}
 `;
 export const GET_ALL_COMPANY_TAGGING = gql`
 
@@ -150,3 +180,4 @@ query getTaggingImport($id: uuid!) {
     }
 }
 `;
+
