@@ -26,7 +26,7 @@ const outfitParts = [
 
 export const ItemView = props => {
   console.log(props);
-  console.log('itemvi')
+  console.log('itemview')
   const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', '/upload/c_scale,h_350,q_auto:good')
   // const outfitParts = JSON.parse(envVars().CATEGORIES_CONFIG)
   const { itemsType, itemCode } = props.match.params

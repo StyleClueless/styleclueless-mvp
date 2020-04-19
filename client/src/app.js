@@ -39,10 +39,10 @@ export const App = () => {
                         {['Home'].concat(categories).map(catName => (
                         <Route key={catName} path='/:routeName' children={({match}) => {
                         const isMatching = !match && catName === 'Home' || (match && catName.toLowerCase() === match.params.routeName)
-                        // if (match && match.params.routeName !== lastRouteName) {
-                        // lastRouteName = match.params.routerName
-                        // scrollToTop()
-                        // }
+                        if (match && match.params.routeName !== lastRouteName) {
+                        lastRouteName = match.params.routerName
+                        scrollToTop()
+                        }
                         return (
                         <div className={'dib tc pv1 w-20 relative' + (isMatching ? ' bg-dark-gray' : '')}>
                         <Link
@@ -69,8 +69,8 @@ export const App = () => {
                         {/*<Route path="/store/:itemsType/:itemCode" exact render={(props) => (<ItemView client={apollo_client} {...props}/>)} />*/}
                         {/*<Route path="/store/:itemsType" exact render={(props) => (<ItemsList client={apollo_client} {...props}/>)}/>*/}
                         {/*<Route path="/" exact  render={(props) => (<Home test="hi" client={apollo_client}{...props}/>)} /> */}
-                        {/*<Route path="/store/:itemsType/:itemCode" exact  render={(props) => (<ItemView test="hi"  client={apollo_client} {...props}/>)} />*/}
-                        <Route path="/store/:itemsType"  render={(props) => (<ItemsList test="hi"  client={apollo_client} {...props}/>)}/>
+                        <Route path="/store/:itemsType/:itemCode"  exact render={(props) => (<ItemView test="hi"  client={apollo_client} {...props}/>)} />
+                        <Route path="/store/:itemsType" exact render={(props) => (<ItemsList test="hi"  client={apollo_client} {...props}/>)}/>
                         <Route path="/" exact  render={(props) => (<Home test="hi" client={apollo_client}{...props}/>)} />
                     </Switch>
                 </div>

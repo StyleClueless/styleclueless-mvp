@@ -1,5 +1,6 @@
 export const company_id = "061e449f-04d7-4898-a1a8-b3d8a052b328"
 export const renderS3UrlFromPrefix = (s3_url, scale_factor = 300) => {
+    if(s3_url===null || s3_url==='null')return '';
     const base_url = 'http://styleclueless-raw.s3-website-ap-southeast-1.amazonaws.com/';
     const scaleFactor = scale_factor;
     let scaleString = "";

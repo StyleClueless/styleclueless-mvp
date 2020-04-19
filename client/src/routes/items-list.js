@@ -65,7 +65,7 @@ class ItemsList extends Component {
                             <ItemCard
                                 key={item.id}
                                 label={item.sku}
-                                href={`/${itemsType}/${item.id}`}
+                                href={`/store/${itemsType}/${item.id}`}
                                 // imgUrl={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${item.code}.png`}
                                 imgUrl={renderS3UrlFromPrefix(item.s3_url, 350)}
                             />
