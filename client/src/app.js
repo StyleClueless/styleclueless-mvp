@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 import {categories} from './categories-config'
 import ItemsList from './routes/items-list'
-import {ItemView} from './routes/item-view'
+import ItemView from './routes/item-view'
 import onBoardClient from "./onBoardClient";
 import Tagging from "./Tagging";
 import onBoardingDashboard from "./onBoardingDashboard";

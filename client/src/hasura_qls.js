@@ -35,6 +35,23 @@ query getTaggingUrl($company_id: uuid!) {
 }
 `;
 
+export const ALL_OUTFITS_BY_TAGGING_ID= gql`
+
+query allOutfitsByTaggingId($tagging_id: uuid!) {
+  outfits(where: {tagging_id: {_eq: $tagging_id}}) {
+    id
+    tagging_id
+    outfit
+  }
+  tagging(where: {id: {_eq: $tagging_id}}) {
+    class
+    design
+    s3_url
+  }
+}
+
+
+`;
 export const GET_TAGGING= gql`
 
 query getTaggings($company_id:uuid!) {
