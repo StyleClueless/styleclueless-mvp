@@ -4,7 +4,7 @@ import {withApollo, ApolloConsumer, ApolloProvider} from 'react-apollo';
 // import Color from 'color-thief-react';
 // import { SnackbarProvider, withSnackbar } from 'notistack';
 import 'bulma/css/bulma.css';
-import { withSnackbar } from 'notistack';
+import {withSnackbar} from 'notistack';
 
 import {
     Card,
@@ -22,14 +22,15 @@ import {
 
 import gql from 'graphql-tag';
 import SelectHighlighted from "./SelectHighlighted";
-import {renderS3UrlFromPrefix, taggingOptions} from "./utils";
+import {renderS3UrlFromPrefix, taggingOptions, timeoutPromise} from "./utils";
 import {renderPalette} from "./palette";
 import {INSERT_TAGGING_HASURA, TAGGING_BY_PK, UPDATE_TAGGING} from "./hasura_qls";
+
 // import ColorExtractor from "react-color-extractor/src/ColorExtractor";
 
 
 class Tagging extends Component {
-    state = {item: null, taggingOptionsTagging: taggingOptions};
+    state = {item: null, taggingOptionsTagging: []};
 
     async componentWillMount() {
         console.log('TAGGING MOUNTED');
@@ -43,8 +44,22 @@ class Tagging extends Component {
             variables: {id: db_id},
             fetchPolicy: 'network-only',
         });
-        this.setState({item: tagging_by_pk});
-        // debugger;
+        const taggingOptionsTaggingFromItem = taggingOptions.map((tagging_option, i) => {
+            let selected = '';
+            if (tagging_by_pk !== null && tagging_by_pk[tagging_option.title]) {
+                selected = tagging_by_pk[tagging_option.title];
+                console.log('sel' + selected);
+
+            }
+            return Object.assign({}, tagging_option, { selected });
+        }
+
+        );
+        this.setState({
+            item: tagging_by_pk,
+            taggingOptionsTagging: taggingOptionsTaggingFromItem
+        });
+
 
     }
 
@@ -70,7 +85,7 @@ class Tagging extends Component {
         this.setState({taggingOptionsTagging: newTag});
     }
 
-updateInDb = async () => {
+    updateInDb = async () => {
         const {item, taggingOptionsTagging} = this.state;
         const jsonObject = {};
         // this.props.enqueueSnackbar("updating " +item.id, {
@@ -89,9 +104,13 @@ updateInDb = async () => {
                     variables: jsonObject,
                 });
             console.log(returning);
+            this.props.enqueueSnackbar("updated Tagging - GOING BACK TO MAIN!", {
+                variant: 'warning',
+            });
+            await timeoutPromise(3000);
+            this.props.history.goBack();
 
-            // window.location.href = '/onBoarding/'
-            return returning;
+            // return returning;
         }
         catch (e) {
             this.props.enqueueSnackbar("couldnt insert to db - make sure all of the items are selected!", {
@@ -104,7 +123,7 @@ updateInDb = async () => {
     render() {
         const {item, taggingOptionsTagging} = this.state;
         console.log(taggingOptionsTagging);
-        const imageUrl=item ? renderS3UrlFromPrefix(item.s3_url) : '';
+        const imageUrl = item ? renderS3UrlFromPrefix(item.s3_url) : '';
         // const RenderPalette=renderPalette('https://s.gravatar.com/avatar/b9534af76521f9544f5d6bea6207bf94?size=496&default=retro');
         // const RenderPalette=
         //     <Color crossOrigin={true} src={imageUrl}>
@@ -119,36 +138,31 @@ updateInDb = async () => {
         // </ColorExtractor>
 
         return (
-            <div key={Math.random()*15000}>
+            <div key={Math.random() * 15000}>
                 TAGGING TAGGING COMPONENET
 
 
-                <div  key={imageUrl+new Date().getTime() +Math.random()} style={{textAlign: 'center'}}>
+                <div key={imageUrl + new Date().getTime() + Math.random()} style={{textAlign: 'center'}}>
                     <img src={imageUrl}></img>
                     {/*{RenderPalette}*/}
                     {/*<Palette src={imageUrl}>*/}
-                        {/*{({ data, loading, error }) => (*/}
-                            {/*<div style={{ color: data.vibrant }}>*/}
-                                {/*Text with the vibrant color*/}
-                                {/*{error&& <div style={{color:'red'}}>*/}
-                                {/*{error}*/}
-                                {/*</div>}*/}
-                            {/*</div>*/}
+                    {/*{({ data, loading, error }) => (*/}
+                    {/*<div style={{ color: data.vibrant }}>*/}
+                    {/*Text with the vibrant color*/}
+                    {/*{error&& <div style={{color:'red'}}>*/}
+                    {/*{error}*/}
+                    {/*</div>}*/}
+                    {/*</div>*/}
 
-                        {/*)}*/}
+                    {/*)}*/}
                     {/*</Palette>*/}
                 </div>
                 {taggingOptionsTagging.map((tagging_option, i) => {
-                    let selected='';
-                    if(item!==null && item[tagging_option.title]){
-                         selected=item[tagging_option.title];
-                        console.log('sel'+selected);
-
-                    }
                     console.log(tagging_option);
                     return <div key={new Date().getTime()}>
                         {i}
-                        <SelectHighlighted selected={selected!==''?selected:tagging_option.selected} options_array={tagging_option.values}
+                        <SelectHighlighted selected={tagging_option&&tagging_option.selected !== '' ? tagging_option.selected : undefined}
+                                           options_array={tagging_option.values}
                                            title={tagging_option.title}
                                            updateParent={this.updateValue}
                                            color={tagging_option.color}
@@ -159,7 +173,8 @@ updateInDb = async () => {
                 {/*/>*/}
                 <Columns>
                     <Button isColor='info' render={
-                        props => <Column onClick={this.updateInDb} hasTextAlign='centered'><p {...props}>Update Tagging</p>
+                        props => <Column onClick={this.updateInDb} hasTextAlign='centered'><p {...props}>Update
+                            Tagging</p>
                         </Column>
                     }/>
                     {/*<Column>*/}

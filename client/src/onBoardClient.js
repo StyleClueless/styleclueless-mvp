@@ -38,6 +38,7 @@ const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3000/':'
         return content;
     } catch (e) {
         console.error('GLOBAL POST REQUEST ERROR' + e);
+        throw new Error(e);
     }
 };
 
@@ -92,14 +93,14 @@ class onBoardClient extends Component {
     insertTableToDb = async () => {
         const {sampleData} = this.state;
         let json = csvJSON(sampleData);
-        json = json.filter(f => f.demography !== undefined && f.url!==undefined); //first filter
+        json = json.filter(f => f.sku!==undefined &&  f.class!==undefined && f.demography !== undefined && f.url!==undefined); //first filter
 
         if(!json||!json.length>0){
             this.props.enqueueSnackbar("no valid lines to enter to db - fix csv , headers are [sku, demography, url,class]", {
                 variant: 'warning',
             });
             return;}
-        json=json.forEach(obj=>{ ///check regex for url's
+       json.forEach(obj=>{ ///check regex for url's
             const {url,type}=obj;
             if(!isUrlValid(url)){
                 this.props.enqueueSnackbar("url is not valid "+ url+"-> please fix csv.", {
@@ -110,14 +111,29 @@ class onBoardClient extends Component {
         })
 
         console.log(json);
-
         const db_structure = json.map(element => {
             const {sku, demography, url} = element;
             const db_insert_row = { sku, company_id: this.state.company_id, demography, class:element['class'], url}
             return db_insert_row;
         })
-        const send_to_server= postRequest('tagging_import/add',db_structure)
-        console.log(send_to_server);
+
+        try{
+            this.props.enqueueSnackbar("importing started!! ", {
+                variant: 'warning',
+            });
+            const send_to_server= await postRequest('tagging_import/add',db_structure)
+            console.log(send_to_server);
+            this.props.enqueueSnackbar("importing finished!! imported !=>"+ send_to_server?send_to_server.length:0, {
+                variant: 'success',
+            });
+        }
+        catch
+            (e){
+            this.props.enqueueSnackbar("importing failed due to "+e, {
+                variant: 'danger',
+            });
+        }
+
         // insertImportToDb(this.props.client, db_structure)
     }
     fetchTaggingInfo=async()=>{

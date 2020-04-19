@@ -27,7 +27,7 @@ class SelectHighlighted extends React.Component {
         const {options_array,color,title,selected}=this.props?this.props:{};
         // const option_className='opt '+'opt_'+color;
         // const select_className='select '+'select_'+color;
-        debugger;
+        // debugger;
         return (
             <div style={{width:'100%',height:'100%','marginBottom':'3%',  'textAlign': 'center'}}>
                 <h1>{title}</h1>

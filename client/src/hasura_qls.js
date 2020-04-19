@@ -101,9 +101,10 @@ query getAllCompanyTagging($company_id: uuid!,$type:String!) {
 }
 `;
 export const UPDATE_TAGGING = gql`
-mutation updateTagging($tagging_id: uuid, $style: String, $class: String!, $design: String!, $demography: String!) {
-    update_tagging(where: {id: {_eq: $tagging_id}}, _set: {class: $class, demography: $demography, design: $design, updated_at: "now()", style: $style}) {
+mutation updateTagging($tagging_id: uuid, $style: String,$shade: String, $class: String!, $design: String!, $demography: String!) {
+    update_tagging(where: {id: {_eq: $tagging_id}}, _set: {class: $class, demography: $demography,shade: $shade, design: $design, updated_at: "now()", style: $style}) {
         returning {
+            id
             updated_at
             style
             shade

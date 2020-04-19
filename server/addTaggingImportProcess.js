@@ -16,8 +16,8 @@ router.post('/', async function (req, res) {
             try{
                 // const {data: {insert_tagging_import: {returning}}} = hasura_insert;
                 // const {id, url,sku} = returning[0];
-                const {id, url,sku} = hasura_insert;
-                return {id, url,sku};
+                const {id, url,sku,company_id} = hasura_insert;
+                return {id, url,sku,company_id};
             }
             catch (e){
                 return {id:null, url:null,sku:null,e};
@@ -92,11 +92,11 @@ export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
     console.log("uploadFilesToS3AndUpdateDbUrl"+JSON.stringify(id_urls));
     const label = consoleLabel('uploadFilesToS3AndUpdateDbUrl');
     console.time(label);
-    const path="FOX/";
     const client = apolloClient;
     const insert_to_hasura_tagging = id_urls.map((tagging_insert_info, i) => async () => {
         try {
-            const {url,sku,id} = tagging_insert_info;
+            const {url,sku,id,company_id} = tagging_insert_info;
+            const path=`${company_id }/`;
             const s3_filename=path+sku+'.jpg';
             console.log(`${url } fetch and upload to ${s3_filename}` )
             const upload_file_to_s3_from_buffer=await upload(url,s3_filename)
