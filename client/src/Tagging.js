@@ -88,7 +88,7 @@ class Tagging extends Component {
     }
 
     updateInDb = async () => {
-        let {item, taggingOptionsTagging,tagging_info} = this.state;
+        let {item, taggingOptionsTagging, tagging_info} = this.state;
         const jsonObject = {};
 
         // this.props.enqueueSnackbar("updating " +item.id, {
@@ -97,8 +97,8 @@ class Tagging extends Component {
         try {
             taggingOptionsTagging.forEach(tagging_option => {
                 let {title, selected} = tagging_option;
-                if(selected.length<=0){
-                    selected=null;
+                if (selected.length <= 0) {
+                    selected = null;
                 }
                 jsonObject[title] = selected;
             })
@@ -111,11 +111,11 @@ class Tagging extends Component {
                 });
             console.log(returning);
 
-            const {untagged_array}=tagging_info
+            const {untagged_array} = tagging_info
             debugger;
-            const new_untagged_array=untagged_array.filter(untagged_item=>untagged_item.id!==item.id)
-            tagging_info.untagged_array=new_untagged_array;
-            if(new_untagged_array.length>0){
+            const new_untagged_array = untagged_array.filter(untagged_item => untagged_item.id !== item.id)
+            tagging_info.untagged_array = new_untagged_array;
+            if (new_untagged_array.length > 0) {
                 this.props.enqueueSnackbar("Finished Item Tagging - Moving To Next Item!", {
                     variant: 'warning',
                 });
@@ -123,7 +123,7 @@ class Tagging extends Component {
                 this.props.history.push(`/OnBoarding/Tagging/${JSON.stringify(tagging_info)}/${untagged_array[0].id}/`);
 
             }
-            else{
+            else {
                 this.props.enqueueSnackbar("Finished Tagging - GOING BACK TO MAIN!", {
                     variant: 'success',
                 });
@@ -165,17 +165,15 @@ class Tagging extends Component {
                 {/*TAGGING TAGGING COMPONENET*/}
 
 
-
                 {/*<SelectHighlighted options_array={['no_shade','moreShade','blat']}  title={'shade'} updateParent={this.updateValue} color={'primary'}*/}
                 {/*/>*/}
                 <Columns>
+
                     <div key={imageUrl + new Date().getTime() + Math.random()} style={{textAlign: 'center'}}>
-                        <img src={imageUrl}></img>
-                        <Button isColor='info' render={
-                            props => <Column onClick={this.updateInDb} hasTextAlign='centered'><p {...props}>Update
-                                Tagging</p>
-                            </Column>
-                        }/>
+                        <Column>
+                            <img src={imageUrl}></img>
+                        </Column>
+
                         {/*{RenderPalette}*/}
                         {/*<Palette src={imageUrl}>*/}
                         {/*{({ data, loading, error }) => (*/}
@@ -202,6 +200,19 @@ class Tagging extends Component {
                             />
                         </div>
                     })}
+                    <Button isColor='info' render={
+                        props => <Column onClick={this.updateInDb} hasTextAlign='centered'><p {...props}>Update
+                            Tagging</p>
+                        </Column>
+                    }/>
+                    {tagging_info &&
+                    <Column>
+                        {/*<h1>*/}
+                            {/*Company : {tagging_info.company_id}*/}
+                        {/*</h1>*/}
+                        <h2> Number Of Total Items : {tagging_info.number_of_item}</h2><h3>Tagged Items
+                        : {tagging_info.number_of_tagged}</h3></Column>
+                    }
 
                     {/*<Column>*/}
                     {/*<Button isColor='warning' isLoading>isLoading={true}</Button>*/}
@@ -209,13 +220,7 @@ class Tagging extends Component {
                     {/*<Column hasTextAlign='centered'>*/}
                     {/*<Button isColor='success' isOutlined>isOutlined</Button>*/}
                     {/*</Column>*/}
-                    {tagging_info &&
-                    <div>
-                        <h1>
-                            Company : {tagging_info.company_id}
-                        </h1>
-                        <h2> Number Of Total Items : {tagging_info.number_of_item}</h2><h3>Tagged Items : {tagging_info.number_of_tagged}</h3></div>
-                    }
+
                 </Columns>
             </div>
         );

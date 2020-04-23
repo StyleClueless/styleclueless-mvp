@@ -4,13 +4,13 @@ import { dbClassMapping } from '../categories-config'
 import { ItemLabel } from '../components/item-label'
 import { envVars } from '../util/env-vars'
 import { CardsWrapper } from '../components/cards-wrapper'
-import {ALL_OUTFITS_BY_TAGGING_ID, GET_TAGGING_BY_CLASS} from "../hasura_qls";
+import {ALL_OUTFITS_BY_TAGGING_ID, GET_ALL_TAGGING_FROM_OUTFIT, GET_TAGGING_BY_CLASS} from "../hasura_qls";
 import {global_company_id, renderS3UrlFromPrefix} from "../utils";
 import {ItemCard} from "../components/item-card";
 import {withApollo} from "react-apollo";
 class ItemView extends Component {
 
-    state = {outfits: []};
+    state = {outfits: {},outfitDictionary:{}};
 
     async componentWillMount() {
         const {client} = this.props;
@@ -18,9 +18,9 @@ class ItemView extends Component {
         console.log(' rendering ITEMVIEW for' + itemCode);
 
         try {
-            const {outfits,tagging} =await this.getOutfits(client, itemCode);
+            const {outfits,tagging,outfitDictionary} =await this.getOutfits(client, itemCode);
             let all_ids=[];
-            this.setState({outfits: outfits,item:tagging[0]});
+            this.setState({outfitDictionary,outfits: outfits[0],item:tagging[0]});
         }
         catch (e) {
             console.error(e);
@@ -36,7 +36,18 @@ class ItemView extends Component {
         });
         console.log(data);
         const {outfits,tagging} = data;
-        return {outfits,tagging};
+        const getOutfits = await client.query({
+            query: GET_ALL_TAGGING_FROM_OUTFIT,
+            variables: {outfits: outfits.outfit},
+            fetchPolicy: 'network-only',
+        });
+        console.log(getOutfits.data.tagging);
+        const outfitInfo=getOutfits.data?getOutfits.data.tagging:[];
+        let outfitDictionary={};
+        outfitInfo.forEach(function(prop,index) {
+            outfitDictionary[prop.id] = prop;
+        });
+        return {outfits,tagging,outfitDictionary};
     }
 
     async  componentDidUpdate(prevProps, prevState, snapshot) {
@@ -49,7 +60,9 @@ class ItemView extends Component {
     }
 
     render() {
-        const {outfits, item,itemCode} = this.state;
+        const {outfits, item,itemCode,outfitDictionary} = this.state;
+        const {id,outfit,tagging_id}=outfits;
+        debugger;
         return (
         <div>
             <div className='flex justify-center'>
@@ -60,15 +73,23 @@ class ItemView extends Component {
             <div className='mv3 tc roboto f3 dark-gray'>
                 Pick an outfit to match
             </div>
-            {outfits && (
+            {outfit &&outfit && (
             <CardsWrapper>
-            {outfits.map(outfit => (
-            <div className='pa2 mb4 w-50 relative flex flex-column items-center' key={outfit}>
-                {outfit.id}
+            {outfit.map(outfitId => (
+            <div className='pa2 mb4 w-50 relative flex flex-column items-center' key={outfitId}>
+
             <div className='w4 w5-ns h4 h5-ns relative'>
             {/*{outfit.outfit&&outfit.outfit.map(part => (*/}
-            {/*<OutfitPart key={part} outfit={outfit} partName={part} classes={part} />*/}
             {/*))}*/}
+
+                {outfitDictionary &&outfitDictionary[outfitId]&&
+                <div>
+                    <OutfitPart  outfit={outfitDictionary[outfitId]} />
+
+                    {/*{outfitDictionary[outfitId].id}*/}
+                </div>
+
+                }
             </div>
             </div>
             ))}
@@ -80,17 +101,23 @@ class ItemView extends Component {
 }
 
 export default withApollo(ItemView);
+const options =["top"
+    , "bottom"
+    , "shoes"
+    , "jacket"
+    , "onepiece"
+    , "accessories"]
 const outfitParts = [
   {
-    name: 'bottoms',
+    name: 'bottom',
     classes: 'bottom-0 left-4 w3 w4-ns'
   },
   {
-    name: 'shirts',
+    name: 'top',
     classes: 'top-0 left-0 w3 w4-ns'
   },
   {
-    name: 'jackets',
+    name: 'jacket',
     classes: 'top-0 right-0 w3 w4-ns'
   },
   {
@@ -98,16 +125,28 @@ const outfitParts = [
     classes: 'bottom-0 right-1-ns right-0 w2 w3-ns'
   }
 ]
+let outfitPartsDictionary={};
+outfitParts.forEach((item,i)=>{
 
+    outfitPartsDictionary[item.name]=item;
+})
 
-const OutfitPart = ({ outfit, partName, classes }) => {
-  const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', '/upload/c_scale,h_110,q_auto:good/c_scale,h_380,q_auto:good')
+const OutfitPart = ({ outfit }) => {
+    let classes='';
+    let partName='';
+    let {id}=outfit;
+    let itemClass=outfit.class;
+    debugger;
+   let imgUrl=outfit&&outfit.s3_url?renderS3UrlFromPrefix(outfit.s3_url,110):''
+
+    const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', '/upload/c_scale,h_110,q_auto:good/c_scale,h_380,q_auto:good')
   const dbClass = dbClassMapping[partName]
-  return outfit[dbClass] ? (
-    <Link className={'link absolute ' + classes} to={`/${partName}/${outfit[dbClass]}`}>
+  return outfit ? (
+    <Link id={id} className={'link absolute ' + outfitPartsDictionary[itemClass].classes} to={`/store/${itemClass}/${id}`}>
       <img
         className='w-70'
         // src={`${cloudinaryPath}/${dbClass}/${outfit[dbClass]}.png`}
+          src={imgUrl}
       />
     </Link>
   ) : <div />

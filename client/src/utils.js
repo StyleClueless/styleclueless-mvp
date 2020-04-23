@@ -61,7 +61,7 @@ export const taggingOptions
                 [
                     "safe", "semiSafe", "colour"
                 ],
-            color: 'danger'
+            color: 'light'
         }
     ];
 export const global_company_id = "061e449f-04d7-4898-a1a8-b3d8a052b328";

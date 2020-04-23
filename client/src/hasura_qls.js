@@ -34,6 +34,20 @@ query getTaggingUrl($company_id: uuid!) {
     }
 }
 `;
+export const GET_ALL_TAGGING_FROM_OUTFIT= gql`
+query allOutfitsByTaggingIds($outfits:[uuid!]) {
+  tagging(where: {id: {_in:$outfits }}) {
+    class
+    id
+    design
+    shade
+    style
+    s3_url
+    deleted
+  }
+}
+
+`;
 
 export const ALL_OUTFITS_BY_TAGGING_ID= gql`
 
@@ -187,6 +201,9 @@ query getTaggingImport($id: uuid!) {
         company_id
         created_at
         class
+        design
+        shade
+        style
         deleted
         id
         s3_url

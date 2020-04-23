@@ -19,36 +19,28 @@ export const makeRandomOutfits = async () => {
         //         variables: {company_id:global_company_id},
         //     });
         // console.log(bulk_data_insert_info)
+        const outfitsArray=["c5ebd32b-a617-4d5c-b681-278c852d7d9f",
+            "7c93b626-34d3-4468-a3b1-e040bcf73550",
+            "7c93b626-34d3-4468-a3b1-e040bcf73550","7c93b626-34d3-4468-a3b1-e040bcf73550"];
         const array=[
-            {        tagging_id: "81dbd0ae-0458-4657-9c89-292c887558d0",
-                outfit:{
-                    t:"81dbd0ae-0458-4657-9c89-292c887558d0",b:"336f87b4-9b20-47d2-a962-c268c13e14e8",j:"ceeca7ab-1782-44e4-b552-36a36614400b",o:"2e390016-eb1e-4285-b204-7b4ee7fabba0"
-
-                }
+            {        tagging_id: "c5ebd32b-a617-4d5c-b681-278c852d7d9f",
+                outfit:
+                outfitsArray
+            ,"created_at":"now()",
+                "updated_at":"now()",
+            },
+            {        tagging_id: "7c93b626-34d3-4468-a3b1-e040bcf73550",
+                outfit: outfitsArray
                 ,     "created_at":"now()",
                 "updated_at":"now()",
             },
-            {        tagging_id: "81dbd0ae-0458-4657-9c89-292c887558d0",
-                outfit:{
-                    o:"81dbd0ae-0458-4657-9c89-292c887558d0",t:"336f87b4-9b20-47d2-a962-c268c13e14e8",b:"ceeca7ab-1782-44e4-b552-36a36614400b",j:"2e390016-eb1e-4285-b204-7b4ee7fabba0"
-
-                }
+            {        tagging_id: "7c93b626-34d3-4468-a3b1-e040bcf73550",
+                outfit:  outfitsArray
                 ,     "created_at":"now()",
                 "updated_at":"now()",
             },
-            {        tagging_id: "81dbd0ae-0458-4657-9c89-292c887558d0",
-                outfit:{
-                    b:"81dbd0ae-0458-4657-9c89-292c887558d0",j:"336f87b4-9b20-47d2-a962-c268c13e14e8",o:"ceeca7ab-1782-44e4-b552-36a36614400b",t:"2e390016-eb1e-4285-b204-7b4ee7fabba0"
-
-                }
-                ,     "created_at":"now()",
-                "updated_at":"now()",
-            },
-            {        tagging_id: "81dbd0ae-0458-4657-9c89-292c887558d0",
-                outfit:{
-                    j:"81dbd0ae-0458-4657-9c89-292c887558d0",o:"336f87b4-9b20-47d2-a962-c268c13e14e8",t:"ceeca7ab-1782-44e4-b552-36a36614400b",b:"2e390016-eb1e-4285-b204-7b4ee7fabba0"
-
-                }
+            {        tagging_id: "97ae159e-3007-484a-b08f-f25491366e71",
+                outfit: outfitsArray
                 ,     "created_at":"now()",
                 "updated_at":"now()",
             }
@@ -73,7 +65,7 @@ export const makeRandomOutfits = async () => {
 
             ,
             fetchPolicy: 'no-cache',
-        });        console.log(data);
+        });        console.log(returning);
 
 
         // return bulk_data_insert_info;
