@@ -144,8 +144,10 @@ class onBoardClient extends Component {
         });
         this.setState({tagging_import});
     }
-    renderTagging=(tag)=>{
+    renderTagging=(tag,tagged_array,untagged_array)=>{
         const {company_id}=this.state;
+        const number_of_items=tagged_array.length+untagged_array.length;
+        const tagging_info={company_id,number_of_item:number_of_items,number_of_tagged:tagged_array.length,untagged_array:untagged_array}
         const newUrl=renderS3UrlFromPrefix(tag.s3_url);
         // const redirectRoute='/tagging/'+tag.sku;
         const redirectRoute='/onBoarding/tagging/'+tag.id;
@@ -153,7 +155,7 @@ class onBoardClient extends Component {
         console.log(tag);
         return (
 
-            <Link to={`/OnBoarding/Tagging/${company_id}/${tag.id}/`}>
+            <Link to={`/OnBoarding/Tagging/${JSON.stringify(tagging_info)}/${tag.id}/`}>
 
         <div  key={new Date().getTime()}>
 
@@ -178,6 +180,8 @@ class onBoardClient extends Component {
 
     render() {
         const {sampleData,tagging_import} = this.state;
+        const tagged_array=tagging_import.filter(tag=>tag.style&&tag.style.length>0);
+        const untagged_array=tagging_import.filter(tag=>!tag.style||tag.style.length===0).map(item=>( {id:item.id}))
         return (
 
             <div  style={{textAlign:'center', marginBottm:"8%"}}>
@@ -214,7 +218,7 @@ class onBoardClient extends Component {
                 {tagging_import&&tagging_import.length > 0 &&
                 <div>   {
                     tagging_import.map(
-                        (tag)=>this.renderTagging(tag)
+                        (tag)=>this.renderTagging(tag,tagged_array,untagged_array)
 
                     )
 

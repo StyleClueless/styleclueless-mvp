@@ -65,7 +65,7 @@ export const App = () => {
                         <Route exact path="/StartOnBoarding/" component={onBoardingDashboard} exact/>
                         <Route exact path="/onBoardingCompany/:company_id" component={onBoardClient} exact/>
 
-                        <Route exact path="/OnBoarding/Tagging/:company_id/:tagging_id" component={Tagging} exact/>
+                        <Route exact path="/OnBoarding/Tagging/:tagging_info/:tagging_id" component={Tagging} exact/>
                         {/*<Route path="/store/:itemsType/:itemCode" exact render={(props) => (<ItemView client={apollo_client} {...props}/>)} />*/}
                         {/*<Route path="/store/:itemsType" exact render={(props) => (<ItemsList client={apollo_client} {...props}/>)}/>*/}
                         {/*<Route path="/" exact  render={(props) => (<Home test="hi" client={apollo_client}{...props}/>)} /> */}
