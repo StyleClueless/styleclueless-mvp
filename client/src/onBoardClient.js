@@ -74,16 +74,18 @@ class onBoardClient extends Component {
             });
             return;
         }
+        let url_not_valid=false;
         json.forEach(obj => { ///check regex for url's
             const {url, type} = obj;
             if (!isUrlValid(url)) {
+                url_not_valid=true;
                 this.props.enqueueSnackbar("url is not valid " + url + "-> please fix csv.", {
                     variant: 'warning',
                 });
-                return;
+
             }
         })
-
+        if(url_not_valid)return;
         console.log(json);
         const db_structure = json.map(element => {
             const {sku, demography, url} = element;
