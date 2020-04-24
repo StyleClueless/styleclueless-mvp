@@ -23,7 +23,7 @@ export const taggingOptions
 
     [
         {
-            title: 'demography',
+            title: 'class',
 
             values:
                 [
@@ -37,7 +37,7 @@ export const taggingOptions
             color: 'dark'
         },
         {
-            title: 'class', values:
+            title: 'demography', values:
                 ["men",
                     "women"
                     , "girls"
