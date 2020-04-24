@@ -35,6 +35,7 @@ const server=app;
 
 // app.use(express.static('../client//public/'));
 app.use('/tagging_import/add', require('./addTaggingImportProcess'))
+app.use('/userLogin/', require('./loginUser'))
 
 const clientBuild='../client/build/';
 app.use('/static', express.static(path.join(__dirname, clientBuild+'static')));

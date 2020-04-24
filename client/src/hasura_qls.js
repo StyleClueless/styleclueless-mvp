@@ -28,10 +28,10 @@ export const TEST_QUERY = gql`
 
 export const GET_TAGGING_URLS= gql`
 query getTaggingUrl($company_id: uuid!) {
-    tagging(where: {company_id: {_eq: $company_id}}, distinct_on: class) {
-        s3_url
+  tagging(where: {company_id: {_eq: $company_id}, s3_url: {_is_null: false}}, distinct_on: class) {
+    s3_url
     class
-    }
+  }
 }
 `;
 export const GET_ALL_TAGGING_FROM_OUTFIT= gql`

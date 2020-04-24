@@ -13,12 +13,16 @@ class Home extends Component {
     state = { items: [],item_dict:{}}
 
     async componentWillMount() {
-        console.log('ItemsList');
-        const {client,company_id}=this.props;
+        console.log('HOME');
+        const comapany_id=localStorage.getItem('styleClueLessCompanyId')
+        if(comapany_id===null){
+            this.props.history.push('/login');
+        }
+        const {client}=this.props;
         try {
             const {data} = await client.query({
                 query: GET_TAGGING_URLS,
-                variables: {company_id:global_company_id},
+                variables: {company_id:comapany_id},
                 fetchPolicy: 'network-only',
             });
             console.log(data);

@@ -16,7 +16,7 @@ class ItemsList extends Component {
         console.log(' rendering ItemsList for' + itemsType);
 
         try {
-            const tagging =await this.getItems(client, itemsType);
+            const tagging = await this.getItems(client, itemsType);
             this.setState({items: tagging, itemsType});
         }
         catch (e) {
@@ -26,9 +26,13 @@ class ItemsList extends Component {
     }
 
     getItems = async (client, itemsType) => {
+        const company_id = localStorage.getItem('styleClueLessCompanyId');
         const {data} = await client.query({
             query: GET_TAGGING_BY_CLASS,
-            variables: {company_id: global_company_id, class: itemsType},
+            variables: {
+                company_id: company_id
+                , class: itemsType
+            },
             fetchPolicy: 'network-only',
         });
         console.log(data);
@@ -36,14 +40,14 @@ class ItemsList extends Component {
         return tagging;
     }
 
-  async  componentDidUpdate(prevProps, prevState, snapshot) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         const itemsType = this.props.match.params.itemsType;
         console.log("componentDidUpdate " + itemsType);
         console.log("componentDidUpdate " + JSON.stringify(prevState));
-        if (itemsType !== prevState.itemsType &&  prevState.items.length>=0) {
+        if (itemsType !== prevState.itemsType && prevState.items.length >= 0) {
             const {client} = this.props;
             // window.location.href=this.props.match.url;
-            const tagging =await this.getItems(client, itemsType);
+            const tagging = await this.getItems(client, itemsType);
             this.setState({items: tagging, itemsType});
         }
         // console.log("componentDidUpdate " +JSON.stringify(prevProps));
@@ -61,7 +65,7 @@ class ItemsList extends Component {
 
                 <CardsWrapper>
                     {
-                        items && items!==undefined && items.map(item => (
+                        items && items !== undefined && items.map(item => (
                             <ItemCard
                                 key={item.id}
                                 label={item.sku}

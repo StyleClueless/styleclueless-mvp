@@ -15,6 +15,7 @@ import Tagging from "./Tagging";
 import onBoardingDashboard from "./onBoardingDashboard";
 import { SnackbarProvider, withSnackbar } from 'notistack';
 import onBoardTagging from "./onBoardTagging";
+import Login from "./routes/login";
 
 export const App = () => {
     let scrollEl
@@ -74,6 +75,8 @@ export const App = () => {
                         <Route path="/store/:itemsType/:itemCode"  exact render={(props) => (<ItemView test="hi"  client={apollo_client} {...props}/>)} />
                         <Route path="/store/:itemsType" exact render={(props) => (<ItemsList test="hi"  client={apollo_client} {...props}/>)}/>
                         <Route path="/" exact  render={(props) => (<Home test="hi" client={apollo_client}{...props}/>)} />
+                        <Route path="/Login" exact  render={(props) => (<Login test="login page" client={apollo_client}{...props}/>)} />
+
                     </Switch>
                 </div>
 

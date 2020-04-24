@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const company_id = "061e449f-04d7-4898-a1a8-b3d8a052b328"
 export const renderS3UrlFromPrefix = (s3_url, scale_factor = 300) => {
     if(s3_url===null || s3_url==='null')return '';
@@ -64,7 +66,6 @@ export const taggingOptions
             color: 'light'
         }
     ];
-export const global_company_id = "061e449f-04d7-4898-a1a8-b3d8a052b328";
 export const isUrlValid = (userInput) => {
     // debugger;
     var expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
@@ -77,3 +78,31 @@ export const isUrlValid = (userInput) => {
         return true;
 }
 export const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000/' : 'https://www.styleclueless.com/';
+export const postRequest = async (url, body) => {
+    try {
+        // debugger;
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Access-Control-Allow-Origin': '*',
+            },
+        };
+        let rawResponse = await axios.post(
+            BASE_URL + url,
+            body,
+            axiosConfig
+        );
+        let content = '';
+        if (rawResponse.status < 200 || rawResponse.status >= 300) {
+            console.error(JSON.stringify(rawResponse));
+            throw new Error('BAD REQUEST FOR POST WITH url=>' + url + 'BODY=>'+body);
+        }
+        if (rawResponse !== null && rawResponse !== undefined) {
+            content = rawResponse.data;
+        }
+        return content;
+    } catch (e) {
+        console.error('GLOBAL POST REQUEST ERROR' + e);
+        throw new Error(e);
+    }
+};

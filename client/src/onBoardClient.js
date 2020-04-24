@@ -5,41 +5,14 @@ import {withApollo, ApolloConsumer} from 'react-apollo';
 import {CardsWrapper} from "./components/cards-wrapper";
 import CSVReader from 'react-csv-reader'
 import {CsvToHtmlTable} from 'react-csv-to-table';
-import axios from "axios";
-import {BASE_URL, global_company_id, isUrlValid, renderS3UrlFromPrefix} from "./utils";
+import {BASE_URL, global_company_id, isUrlValid, postRequest, renderS3UrlFromPrefix} from "./utils";
 import {GET_ALL_COMPANIES, GET_TAGGING, GET_TAGGING_IMPORT, TEST_QUERY} from "./hasura_qls";
 import {Link} from "react-router-dom";
 import {withSnackbar} from 'notistack';
 import {Box, Button, Column, Columns, Tag} from "bloomer";
 
 ////this is to build new component of TAGGING SYSTEM
-const postRequest = async (url, body) => {
-    try {
-        let axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                'Access-Control-Allow-Origin': '*',
-            },
-        };
-        let rawResponse = await axios.post(
-            BASE_URL + url,
-            body,
-            axiosConfig
-        );
-        let content = '';
-        if (rawResponse.status < 200 || rawResponse.status >= 300) {
-            console.error(JSON.stringify(rawResponse));
-            throw new Error('Dupelicate Company or Email');
-        }
-        if (rawResponse !== null && rawResponse !== undefined) {
-            content = rawResponse.data;
-        }
-        return content;
-    } catch (e) {
-        console.error('GLOBAL POST REQUEST ERROR' + e);
-        throw new Error(e);
-    }
-};
+
 
 class onBoardClient extends Component {
     state = {dataProvider: null, company_name: null, company_id: null, sampleData: [], tagging_import: []};
