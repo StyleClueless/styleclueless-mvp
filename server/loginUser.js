@@ -37,6 +37,7 @@ query clientsByEmailPassword($email: String!, $password: String!) {
   clients(where: {email: {_eq: $email}, password: {_eq: $password}}) {
     email
     company_id
+    company{logo_url,company_name}
   }
 }
 `;

@@ -29,7 +29,7 @@ class Login extends Component {
 
         try {
             const login_user = await postRequest('userLogin/', {email,password})
-            const {company_id,admin}=login_user;
+            const {company_id,admin,company}=login_user;
             if(admin){
                 this.props.enqueueSnackbar("Welcome Admin", {
                     variant: 'success',
@@ -39,6 +39,7 @@ class Login extends Component {
                 return
             }
             localStorage.setItem('styleClueLessCompanyId',company_id);
+            localStorage.setItem('styleClueLessCompany',company);
 
             this.props.enqueueSnackbar("LOGIN DONE", {
                 variant: 'success',

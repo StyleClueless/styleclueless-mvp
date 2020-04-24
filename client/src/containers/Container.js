@@ -1,8 +1,11 @@
 import React from 'react';
 import { envVars } from '../util/env-vars'
+import {renderS3UrlFromPrefix} from "../utils";
 
-const Container = (props) => {
-
+export const Container = (props) => {
+  debugger;
+let company=localStorage.getItem("styleClueLessCompany");
+if(company!==null)company=JSON.parse(company);
   return (
     <html lang="en" className='h-100'>
     <head>
@@ -11,12 +14,13 @@ const Container = (props) => {
       <link rel="stylesheet" href="https://unpkg.com/tachyons@4/css/tachyons.min.css" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap" />
-      <link rel="stylesheet" href="/client/public/main.css" />
-      <script src='/dist/index.js' />
+      {/*<link rel="stylesheet" href="/client/public/main.css" />*/}
+      {/*<script src='/dist/index.js' />*/}
     </head>
     <body className='h-100 flex flex-column'>
       <div className='flex justify-center pt2 mh3'>
-        <img className='mw6-ns mw-100' src={`${envVars().CLOUDINARY_BASE_URL}/brand-logo.png`} />
+        {/*<img className='mw6-ns mw-100' src={`${envVars().CLOUDINARY_BASE_URL}/brand-logo.png`} />*/}
+        <img className='mw6-ns mw-100' src={renderS3UrlFromPrefix(company?company.s3_url:'' ,"max")} />
       </div>
       <div id="app" className='flex-auto'>
         {props.children}
@@ -26,4 +30,4 @@ const Container = (props) => {
   )
 }
 
-export default Container
+export default Container;
