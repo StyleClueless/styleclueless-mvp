@@ -76,3 +76,4 @@ export const isUrlValid = (userInput) => {
     else
         return true;
 }
+export const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000/' : 'https://www.styleclueless.com/';

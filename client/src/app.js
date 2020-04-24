@@ -14,6 +14,7 @@ import onBoardClient from "./onBoardClient";
 import Tagging from "./Tagging";
 import onBoardingDashboard from "./onBoardingDashboard";
 import { SnackbarProvider, withSnackbar } from 'notistack';
+import onBoardTagging from "./onBoardTagging";
 
 export const App = () => {
     let scrollEl
@@ -63,9 +64,10 @@ export const App = () => {
                     <Switch>
 
                         <Route exact path="/StartOnBoarding/" component={onBoardingDashboard} exact/>
-                        <Route exact path="/onBoardingCompany/:company_id" component={onBoardClient} exact/>
+                        <Route exact path="/onBoardingCompany/:company_id/:company_name" component={onBoardClient} exact/>
+                        <Route exact path="/onBoardingTagging/:company_id/:company_name" component={onBoardTagging} exact/>
 
-                        <Route exact path="/OnBoarding/Tagging/:tagging_info/:tagging_id" component={Tagging} exact/>
+                        <Route exact path="/OnBoarding/Tagging/:tagging_id/:tagging_info" component={Tagging} exact/>
                         {/*<Route path="/store/:itemsType/:itemCode" exact render={(props) => (<ItemView client={apollo_client} {...props}/>)} />*/}
                         {/*<Route path="/store/:itemsType" exact render={(props) => (<ItemsList client={apollo_client} {...props}/>)}/>*/}
                         {/*<Route path="/" exact  render={(props) => (<Home test="hi" client={apollo_client}{...props}/>)} /> */}

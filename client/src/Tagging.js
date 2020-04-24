@@ -30,16 +30,17 @@ import {INSERT_TAGGING_HASURA, TAGGING_BY_PK, UPDATE_TAGGING} from "./hasura_qls
 
 
 class Tagging extends Component {
-    state = {item: null, tagging_info: null, taggingOptionsTagging: []};
+    state = {item: null, new_id:null,tagging_info: null, taggingOptionsTagging: []};
 
-    async componentWillMount() {
+    async componentWillMount(input_db_id='') {
         console.log('TAGGING MOUNTED');
         console.log(this.props);
-        this.props.enqueueSnackbar("testthis", {
+        const {item}=this.state;
+       const  db_id =input_db_id===''?this.props.match.params.tagging_id:input_db_id;
+        const tagging_info = JSON.parse(this.props.match.params.tagging_info);
+        this.props.enqueueSnackbar("testthis for "+db_id + JSON.stringify(tagging_info), {
             variant: 'success',
         });
-        const db_id = this.props.match.params.tagging_id;
-        const tagging_info = JSON.parse(this.props.match.params.tagging_info);
 
         const {data: {tagging_by_pk}} = await this.props.client.query({
             query: TAGGING_BY_PK,
@@ -61,6 +62,7 @@ class Tagging extends Component {
             item: tagging_by_pk,
             taggingOptionsTagging: taggingOptionsTaggingFromItem
         });
+        return true;
 
 
     }
@@ -111,17 +113,26 @@ class Tagging extends Component {
                 });
             console.log(returning);
 
-            const {untagged_array} = tagging_info
+            // const {untagged_array} = tagging_info
+            tagging_info.number_of_tagged++;
+            const untagged_array = JSON.parse(localStorage.getItem('untagged_array'));
             debugger;
             const new_untagged_array = untagged_array.filter(untagged_item => untagged_item.id !== item.id)
-            tagging_info.untagged_array = new_untagged_array;
+            localStorage.setItem('untagged_array',JSON.stringify(new_untagged_array));
+            // tagging_info.untagged_array = new_untagged_array;
             if (new_untagged_array.length > 0) {
+                // this.setState({
+                //     tagging_info:null,
+                //     item: null,
+                //     taggingOptionsTagging: []
+                // });
                 this.props.enqueueSnackbar("Finished Item Tagging - Moving To Next Item!", {
                     variant: 'warning',
                 });
-                await timeoutPromise(1500);
-                this.props.history.push(`/OnBoarding/Tagging/${JSON.stringify(tagging_info)}/${untagged_array[0].id}/`);
-
+                const new_id=new_untagged_array[0].id;
+                await timeoutPromise(3000);
+                this.props.history.push(`/OnBoarding/Tagging/${new_id}/${JSON.stringify(tagging_info)}/`);
+               await this.componentWillMount(new_id);
             }
             else {
                 this.props.enqueueSnackbar("Finished Tagging - GOING BACK TO MAIN!", {

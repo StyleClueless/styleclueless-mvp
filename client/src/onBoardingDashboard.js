@@ -45,7 +45,7 @@ class onBoardingDashboard extends Component {
 
                     <div style={{textAlign:'center', marginBottm:"8%"}} key={company.id}>
 
-                        <Link to={`/onBoardingCompany/${company.id}/`}>
+                        <Link to={`/onBoardingCompany/${company.id}/${company.company_name}`}>
                     <h1>{company.company_name}
 
                     </h1>

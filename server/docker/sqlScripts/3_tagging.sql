@@ -31,8 +31,12 @@ TABLESPACE pg_default;
 ALTER TABLE public.tagging
     OWNER to postgres;
 
-CREATE UNIQUE INDEX index_tagging_on_company_id_sku
+CREATE UNIQUE INDEX unique_index_tagging_on_company_id_sku
     ON public.tagging USING btree
     (company_id,sku)
     TABLESPACE pg_default;
 
+CREATE INDEX index_tagging_on_company_id
+    ON public.tagging USING btree
+    (company_id)
+    TABLESPACE pg_default;

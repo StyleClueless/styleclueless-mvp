@@ -10,7 +10,7 @@ import {ItemCard} from "../components/item-card";
 import {withApollo} from "react-apollo";
 class ItemView extends Component {
 
-    state = {outfits: {},outfitDictionary:{}};
+    state = {outfits: [],outfitDictionary:{}};
 
     async componentWillMount() {
         const {client} = this.props;
@@ -20,7 +20,7 @@ class ItemView extends Component {
         try {
             const {outfits,tagging,outfitDictionary} =await this.getOutfits(client, itemCode);
             let all_ids=[];
-            this.setState({outfitDictionary,outfits: outfits[0],item:tagging[0]});
+            this.setState({outfitDictionary,outfits: outfits,item:tagging[0]});
         }
         catch (e) {
             console.error(e);
@@ -36,9 +36,17 @@ class ItemView extends Component {
         });
         console.log(data);
         const {outfits,tagging} = data;
+        let allIds=[];
+        for(let i=0;i<outfits.length;i++ ){
+            const outfitTagging=outfits[i].outfit;
+            for(let j=0;j<outfitTagging.length;j++){
+                const id=outfitTagging[j];
+                allIds.push(id);
+            }
+        }
         const getOutfits = await client.query({
             query: GET_ALL_TAGGING_FROM_OUTFIT,
-            variables: {outfits: outfits.outfit},
+            variables: {outfits: allIds},
             fetchPolicy: 'network-only',
         });
         console.log(getOutfits.data.tagging);
@@ -73,23 +81,15 @@ class ItemView extends Component {
             <div className='mv3 tc roboto f3 dark-gray'>
                 Pick an outfit to match
             </div>
-            {outfit &&outfit && (
+            {outfits && (
             <CardsWrapper>
-            {outfit.map(outfitId => (
-            <div className='pa2 mb4 w-50 relative flex flex-column items-center' key={outfitId}>
+            {outfits.map(outfitInfo => (
+            <div className='pa2 mb4 w-50 relative flex flex-column items-center' key={outfitInfo.id}>
 
             <div className='w4 w5-ns h4 h5-ns relative'>
-            {/*{outfit.outfit&&outfit.outfit.map(part => (*/}
-            {/*))}*/}
 
-                {outfitDictionary &&outfitDictionary[outfitId]&&
-                <div>
-                    <OutfitPart  outfit={outfitDictionary[outfitId]} />
+                {this.renderOutfit(outfitInfo)}
 
-                    {/*{outfitDictionary[outfitId].id}*/}
-                </div>
-
-                }
             </div>
             </div>
             ))}
@@ -97,6 +97,21 @@ class ItemView extends Component {
             )}
         </div>
     )
+    }
+    renderOutfit=(outfitInfo)=>{
+        const {outfitDictionary} = this.state;
+
+        const outfitArray=outfitInfo.outfit;
+     const allOutfits=outfitArray.map(itemId=> {
+        return this.renderSingleItem(outfitDictionary[itemId])
+
+     });
+        return allOutfits;
+    }
+    renderSingleItem=(item)=>{
+        return(
+            <OutfitPart  outfit={item} />
+        )
     }
 }
 
@@ -142,7 +157,7 @@ const OutfitPart = ({ outfit }) => {
     const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', '/upload/c_scale,h_110,q_auto:good/c_scale,h_380,q_auto:good')
   const dbClass = dbClassMapping[partName]
   return outfit ? (
-    <Link id={id} className={'link absolute ' + outfitPartsDictionary[itemClass].classes} to={`/store/${itemClass}/${id}`}>
+    <Link className={'link absolute ' + outfitPartsDictionary[itemClass].classes} to={`/store/${itemClass}/${id}`}>
       <img
         className='w-70'
         // src={`${cloudinaryPath}/${dbClass}/${outfit[dbClass]}.png`}
