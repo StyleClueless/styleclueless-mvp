@@ -39,7 +39,7 @@ class Login extends Component {
                 return
             }
             localStorage.setItem('styleClueLessCompanyId',company_id);
-            localStorage.setItem('styleClueLessCompany',company);
+            localStorage.setItem('styleClueLessCompany',JSON.stringify(company));
 
             this.props.enqueueSnackbar("LOGIN DONE", {
                 variant: 'success',
