@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import {withSnackbar} from 'notistack';
 import {Box, Button, Column, Columns, Tag} from "bloomer";
 
+import {CSVLink, CSVDownload} from "react-csv";
 
 
 class onBoardTagging extends Component {
@@ -47,7 +48,7 @@ class onBoardTagging extends Component {
     renderTagging = (tag, tagged_array, untagged_array) => {
         const {company_id} = this.state;
         const number_of_items = tagged_array.length + untagged_array.length;
-        localStorage.setItem('untagged_array',JSON.stringify(untagged_array));
+        localStorage.setItem('untagged_array', JSON.stringify(untagged_array));
         const tagging_info = {
             company_id,
             number_of_item: number_of_items,
@@ -88,9 +89,32 @@ class onBoardTagging extends Component {
         const {sampleData, tagging_import, company_name} = this.state;
         const tagged_array = tagging_import.filter(tag => tag.style && tag.style.length > 0);
         const untagged_array = tagging_import.filter(tag => !tag.style || tag.style.length === 0).map(item => ({id: item.id}))
+        const csvData = [
+            ["firstname", "lastname", "email"],
+            ["Ahmed", "Tomi", "ah@smthing.co.com"],
+            ["Raed", "Labes", "rl@smthing.co.com"],
+            ["Yezzi", "Min l3b", "ymin@cocococo.com"]
+        ];
+        let csv = "";
+        let csvArray = [];
+        let keys = (tagging_import[0] && Object.keys(tagging_import[0])) || [];
+        csvArray.push(keys);
+        csv += keys.join(',') + '\n';
+        for (var line of tagging_import) {
+            const {style} = line;
+            if (style && style.length > 0) {
+                // csv += keys.map(key => line[key]).join(',') + '\n';
+                const lineArray = keys.map(key => line[key]);
+                csvArray.push(lineArray);
+                csv += lineArray.join(',') + '\n';
+
+            }
+        }
         return (
 
             <div style={{textAlign: 'center', marginBottm: "8%"}}>
+
+
                 <div>
                     <Box>
                         {company_name}
@@ -105,13 +129,18 @@ class onBoardTagging extends Component {
 
                     </Columns>
 
+                    {csvArray.length>2&& <div>
+                    <h1>Download Csv Of Tagged For Outfits</h1>
+                        <h2>Tagged Items : {csvArray.length}</h2>
+                    <CSVLink  filename={new Date().getTime()+"-tagged_item.csv"}
+                        data={csvArray}>Download</CSVLink>
 
+                    {/*<CSVDownload data={csvData} target="_blank" />*/}
 
-
-
+                </div> }
                 </div>
-                {tagging_import && tagging_import.length > 0 &&
-
+                {tagging_import && tagging_import.length > 0
+               &&
                 <div>
                     <Box>
                         TAGGING {tagging_import.length}
@@ -119,11 +148,11 @@ class onBoardTagging extends Component {
 
                     </Box>
                     {
-                    tagging_import.map(
-                        (tag) => this.renderTagging(tag, tagged_array, untagged_array)
-                    )
+                        tagging_import.map(
+                            (tag) => this.renderTagging(tag, tagged_array, untagged_array)
+                        )
 
-                }
+                    }
 
 
                 </div>

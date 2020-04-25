@@ -2,6 +2,7 @@ dependencies:
   '@material-ui/core': 4.9.11
   '@material-ui/icons': 4.9.1
   notistack: 0.9.10
+  react-csv: 2.0.3
 packages:
   /@babel/runtime/7.9.2:
     dependencies:
@@ -290,6 +291,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
+  /react-csv/2.0.3:
+    dev: false
+    resolution:
+      integrity: sha512-exyAdFLAxtuM4wNwLYrlKyPYLiJ7e0mv9tqPAd3kq+k1CiJFtznevR3yP0icv5q/y200w+lzNgi7TQn1Wrhu0w==
   /react-is/16.13.1:
     dev: false
     resolution:
@@ -321,3 +326,4 @@ specifiers:
   '@material-ui/core': ^4.9.11
   '@material-ui/icons': ^4.9.1
   notistack: ^0.9.10
+  react-csv: ^2.0.3
