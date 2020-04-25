@@ -87,7 +87,26 @@ mutation insertTaggigImportBulk($objects: [tagging_insert_input!]!) {
 }
 `;
 
+const i={
+    "objects": [
 
+        {"outfit_id": "7cfcc942-c2af-4482-848c-934bb7344f50","tagging_id": "5d26bcd3-4725-40b5-94dd-b0de404b32b5"
+        ,"created_at":"now()","updated_at":"now()"
+        },
+        {"outfit_id": "7cfcc942-c2af-4482-848c-934bb7344f50","tagging_id": "9aa8a0eb-e186-4e45-971a-52c26b6e06b8"
+            ,"created_at":"now()","updated_at":"now()"
+        },
+        {"outfit_id": "7cfcc942-c2af-4482-848c-934bb7344f50","tagging_id": "c55973e7-d7f3-405e-b9bd-fbd6a2813241"
+            ,"created_at":"now()","updated_at":"now()"
+        },
+        {"outfit_id": "1a501d2d-ce3a-4d0a-ada3-cc564e918b77","tagging_id": "c55973e7-d7f3-405e-b9bd-fbd6a2813241"
+            ,"created_at":"now()","updated_at":"now()"},
+        {"outfit_id": "1a501d2d-ce3a-4d0a-ada3-cc564e918b77","tagging_id": "217aa1e0-c57f-438f-a17a-b3b6e6872ce1"
+            ,"created_at":"now()","updated_at":"now()"},
+        {"outfit_id": "1a501d2d-ce3a-4d0a-ada3-cc564e918b77","tagging_id": "3e35acfc-c23a-4802-bc67-9f346dcf8ba4"
+            ,"created_at":"now()","updated_at":"now()"}
+    ]
+};
 export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
     console.log("uploadFilesToS3AndUpdateDbUrl"+JSON.stringify(id_urls));
     const label = consoleLabel('uploadFilesToS3AndUpdateDbUrl');

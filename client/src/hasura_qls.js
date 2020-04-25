@@ -34,18 +34,39 @@ query getTaggingUrl($company_id: uuid!) {
   }
 }
 `;
+// export const GET_ALL_TAGGING_FROM_OUTFIT= gql`
+// query allOutfitsByTaggingIds($outfits:[uuid!]) {
+//   tagging(where: {id: {_in:$outfits }}) {
+//     class
+//     id
+//     design
+//     shade
+//     style
+//     s3_url
+//     deleted
+//   }
+// }
+//
+// `;
 export const GET_ALL_TAGGING_FROM_OUTFIT= gql`
-query allOutfitsByTaggingIds($outfits:[uuid!]) {
-  tagging(where: {id: {_in:$outfits }}) {
-    class
-    id
-    design
-    shade
-    style
-    s3_url
-    deleted
+query allTaggingByOutfitsIds($outfits: [uuid!]) {
+  outfits(where: {outfit_id: {_in: $outfits}}) {
+    tagging_id
+    outfit_id
+    tagging {
+      id
+      class
+      deleted
+      s3_url
+      company_id
+      created_at
+      design
+      demography
+      imported_at
+    }
   }
 }
+
 
 `;
 
@@ -197,21 +218,28 @@ mutation insertTagging($tagging_import_id: uuid, $style: String, $class: String!
 
 export const TAGGING_BY_PK = gql`
 query getTaggingImport($id: uuid!) {
-    tagging_by_pk(id: $id) {
-        company_id
-        created_at
-        class
-        design
-        shade
-        style
-        deleted
-        id
-        s3_url
-        sku
-        demography
-        updated_at
-        url
+  tagging_by_pk(id: $id) {
+    company_id
+    created_at
+    class
+    design
+    shade
+    style
+    deleted
+    id
+    s3_url
+    sku
+    demography
+    updated_at
+    url
+    outfits {
+      tagging_id
+      outfit_id
+      created_at
+      deleted
+      updated_at
     }
+  }
 }
 `;
 
