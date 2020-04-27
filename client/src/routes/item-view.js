@@ -165,7 +165,7 @@ const outfitParts = [
     }
     ,  {
         name: 'onepiece',
-        classes: 'bottom-0 left-4 w3 w4-ns'
+        classes: 'bottom-0 left-2 w3 w4-ns'
     },
     {
         name: 'accessories',

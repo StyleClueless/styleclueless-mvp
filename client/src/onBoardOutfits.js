@@ -24,7 +24,7 @@ import {Box, Button, Column, Columns, Tag} from "bloomer";
 
 
 class onBoardOutfits extends Component {
-    state = {dataProvider: null, company_name: null, company_id: null, sampleData: [], tagging_import: []};
+    state = {clicked:false,dataProvider: null, company_name: null, company_id: null, sampleData: [], tagging_import: []};
 
     // history = useHistory();
 
@@ -49,6 +49,7 @@ class onBoardOutfits extends Component {
 
     insertTableToDb = async () => { ///outfits
         const {sampleData} = this.state;
+        this.setState({clicked:true});
         const {client}=this.props;
         let json = csvJSON(sampleData);
         let validProps = true;
@@ -93,11 +94,15 @@ class onBoardOutfits extends Component {
                 variant: 'danger',
             });
         }
+        finally {
+            this.setState({clicked:false});
+
+        }
 
     }
 
     render() {
-        const {sampleData, tagging_import, company_name, company_id} = this.state;
+        const {clicked,sampleData, tagging_import, company_name, company_id} = this.state;
         const tagged_array = tagging_import.filter(tag => tag.style && tag.style.length > 0);
         const untagged_array = tagging_import.filter(tag => !tag.style || tag.style.length === 0).map(item => ({id: item.id}))
         return (
@@ -120,9 +125,11 @@ class onBoardOutfits extends Component {
                 </div>
                 {sampleData && sampleData.length > 0 &&
                 <div>
+                    {!clicked&&
                     <Column hasTextAlign='centered'>
                         <Button onClick={this.insertTableToDb} isColor='alert' isOutlined>insertTableToDb</Button>
                     </Column>
+                    }
                     <CsvToHtmlTable
                         data={sampleData}
                         csvDelimiter=","
