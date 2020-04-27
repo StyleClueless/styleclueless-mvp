@@ -13,10 +13,11 @@ import {
 import {global_company_id, renderS3UrlFromPrefix} from "../utils";
 import {ItemCard} from "../components/item-card";
 import {withApollo} from "react-apollo";
+import {Button, Column} from "bloomer";
 
 class ItemView extends Component {
 
-    state = {outfitDictionary: {}, taggingDictionary: {}};
+    state = {loading:true,outfitDictionary: {}, taggingDictionary: {}};
 
     async componentWillMount() {
         const {client} = this.props;
@@ -25,7 +26,7 @@ class ItemView extends Component {
 
         try {
             const {taggingDictionary, outfitDictionary, tagging_by_pk} = await this.getOutfits(client, itemCode);
-            this.setState({outfitDictionary, itemCode,taggingDictionary, item: tagging_by_pk});
+            this.setState({outfitDictionary, itemCode,taggingDictionary, item: tagging_by_pk,loading:false});
         }
         catch (e) {
             console.error(e);
@@ -90,7 +91,7 @@ class ItemView extends Component {
     }
 
     render() {
-        const {item, itemCode, outfitDictionary, taggingDictionary} = this.state;
+        const {loading,item, itemCode, outfitDictionary, taggingDictionary} = this.state;
       const outfitDictionaryKeys=  Object.keys(outfitDictionary);
         // debugger;
         return (
@@ -99,11 +100,21 @@ class ItemView extends Component {
                     {/*<img className='vh-third' src={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${itemCode}.png`} />*/}
                     <img className='vh-third' src={`${item && item.s3_url ? renderS3UrlFromPrefix(item.s3_url) : ''}`}/>
                 </div>
-                <ItemLabel>{outfitDictionaryKeys.length} : Outfits</ItemLabel>
+
+
                 {/*<ItemLabel>{itemCode} : {outfitDictionaryKeys.length}</ItemLabel>*/}
+                {loading?
+                    <div style={{textAlign:'center'}}>
+                        <Button  isColor='warning' isLoading>isLoading={true}</Button>
+                    </div>
+                :
+               <div>
+                   <ItemLabel>{outfitDictionaryKeys.length} : Outfits</ItemLabel>
                 <div className='mv3 tc roboto f3 dark-gray'>
                     Pick an outfit to match
                 </div>
+               </div>
+                }
                 {outfitDictionary && outfitDictionaryKeys.length > 0 && (
                     <CardsWrapper>
                         {Object.keys(outfitDictionary).map((outfitKey, i) => (
