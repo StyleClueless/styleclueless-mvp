@@ -161,15 +161,15 @@ const options = ["top"
 const outfitParts = [
     {
         name: 'bottom',
-        classes: 'bottom-0 left-4 w3 w4-ns'
+        classes: 'bottom-1 left-4 w3 w4-ns'
     }
     ,  {
         name: 'onepiece',
-        classes: 'bottom-0 left-2 w3 w4-ns'
+        classes: 'bottom-4 left-2 w3 w4-ns putUp'
     },
     {
         name: 'accessories',
-        classes: 'bottom-0 left-4 w3 w4-ns'
+        classes: 'bottom-4 left-4 w3 w4-ns putUp'
     },
     {
         name: 'top',
@@ -181,7 +181,7 @@ const outfitParts = [
     },
     {
         name: 'shoes',
-        classes: 'bottom-0 right-1-ns right-0 w2 w3-ns'
+        classes: 'bottom-0 right-4-ns right-0 w2 w3-ns'
     }
 ]
 let outfitPartsDictionary = {};
@@ -191,7 +191,7 @@ outfitParts.forEach((item, i) => {
 })
 
 const OutfitPart = (item,tagging) => {
-    debugger;
+    // debugger;
 
     let classes = '';
     let partName = '';
@@ -203,9 +203,9 @@ const OutfitPart = (item,tagging) => {
     const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', '/upload/c_scale,h_110,q_auto:good/c_scale,h_380,q_auto:good')
     const dbClass = dbClassMapping[partName]
     return outfit_item && itemClass ? (
-        <Link className={'link absolute ' + outfitPartsDictionary[itemClass].classes} to={`/store/${itemClass}/${id}`}>
+        <Link className={'link'} to={`/store/${itemClass}/${id}`}>
             <img
-                className='w-70'
+                className={'w75 absolute ' + outfitPartsDictionary[itemClass].classes}
                 // src={`${cloudinaryPath}/${dbClass}/${outfit[dbClass]}.png`}
                 src={imgUrl}
             />
