@@ -25,7 +25,7 @@ class ItemView extends Component {
 
         try {
             const {taggingDictionary, outfitDictionary, tagging_by_pk} = await this.getOutfits(client, itemCode);
-            this.setState({outfitDictionary, taggingDictionary, item: tagging_by_pk});
+            this.setState({outfitDictionary, itemCode,taggingDictionary, item: tagging_by_pk});
         }
         catch (e) {
             console.error(e);
@@ -91,6 +91,7 @@ class ItemView extends Component {
 
     render() {
         const {item, itemCode, outfitDictionary, taggingDictionary} = this.state;
+      const outfitDictionaryKeys=  Object.keys(outfitDictionary);
         // debugger;
         return (
             <div>
@@ -98,11 +99,12 @@ class ItemView extends Component {
                     {/*<img className='vh-third' src={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${itemCode}.png`} />*/}
                     <img className='vh-third' src={`${item && item.s3_url ? renderS3UrlFromPrefix(item.s3_url) : ''}`}/>
                 </div>
-                <ItemLabel>{itemCode}</ItemLabel>
+                <ItemLabel>{outfitDictionaryKeys.length} : Outfits</ItemLabel>
+                {/*<ItemLabel>{itemCode} : {outfitDictionaryKeys.length}</ItemLabel>*/}
                 <div className='mv3 tc roboto f3 dark-gray'>
                     Pick an outfit to match
                 </div>
-                {outfitDictionary && Object.keys(outfitDictionary).length > 0 && (
+                {outfitDictionary && outfitDictionaryKeys.length > 0 && (
                     <CardsWrapper>
                         {Object.keys(outfitDictionary).map((outfitKey, i) => (
                             <div className='pa2 mb4 w-50 relative flex flex-column items-center' key={outfitKey}>

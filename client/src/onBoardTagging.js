@@ -62,7 +62,7 @@ class onBoardTagging extends Component {
         console.log(tag);
         return (
 
-            <Link key={tag.id} to={`/OnBoarding/Tagging/${tag.id}/${JSON.stringify(tagging_info)}/`}>
+            <Link key={tag.id} to={`/OnBoarding/Tagging/${tag.id}/${tag.sku}/${JSON.stringify(tagging_info)}/`}>
 
                 <div key={new Date().getTime()}>
 

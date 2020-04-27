@@ -30,13 +30,14 @@ import {INSERT_TAGGING_HASURA, TAGGING_BY_PK, UPDATE_TAGGING} from "./hasura_qls
 
 
 class Tagging extends Component {
-    state = {item: null, new_id:null,tagging_info: null, taggingOptionsTagging: []};
+    state = {sku:null,item: null, new_id:null,tagging_info: null, taggingOptionsTagging: []};
 
     async componentWillMount(input_db_id='') {
         console.log('TAGGING MOUNTED');
         console.log(this.props);
         const {item}=this.state;
        const  db_id =input_db_id===''?this.props.match.params.tagging_id:input_db_id;
+       const  sku =this.props.match.params.tagging_sku;
         const tagging_info = JSON.parse(this.props.match.params.tagging_info);
         this.props.enqueueSnackbar("testthis for "+db_id + JSON.stringify(tagging_info), {
             variant: 'success',
@@ -58,6 +59,7 @@ class Tagging extends Component {
             }
         );
         this.setState({
+            sku,
             tagging_info,
             item: tagging_by_pk,
             taggingOptionsTagging: taggingOptionsTaggingFromItem
@@ -155,7 +157,7 @@ class Tagging extends Component {
     }
 
     render() {
-        const {item, taggingOptionsTagging, tagging_info} = this.state;
+        const {item, taggingOptionsTagging, tagging_info,sku} = this.state;
         console.log(taggingOptionsTagging);
         const imageUrl = item ? renderS3UrlFromPrefix(item.s3_url) : '';
         // const RenderPalette=renderPalette('https://s.gravatar.com/avatar/b9534af76521f9544f5d6bea6207bf94?size=496&default=retro');
@@ -185,7 +187,9 @@ class Tagging extends Component {
                 <Columns>
 
                     <div key={imageUrl + new Date().getTime() + Math.random()} style={{textAlign: 'center'}}>
+                        {sku}
                         <Column>
+
                             <img src={imageUrl}></img>
                         </Column>
 

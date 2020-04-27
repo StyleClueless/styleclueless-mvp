@@ -82,7 +82,7 @@ export const App = () => {
                             <Route exact path="/onBoardingTagging/:company_id/:company_name"
                                    component={onBoardTagging} exact/>
 
-                            <Route exact path="/OnBoarding/Tagging/:tagging_id/:tagging_info" component={Tagging}
+                            <Route exact path="/OnBoarding/Tagging/:tagging_id/:tagging_sku/:tagging_info" component={Tagging}
                                    exact/>
                             {/*<Route path="/store/:itemsType/:itemCode" exact render={(props) => (<ItemView client={apollo_client} {...props}/>)} />*/}
                             {/*<Route path="/store/:itemsType" exact render={(props) => (<ItemsList client={apollo_client} {...props}/>)}/>*/}
