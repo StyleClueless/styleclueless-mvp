@@ -131,7 +131,7 @@ class onBoardTagging extends Component {
 
                     {csvArray.length>2&& <div>
                     <h1>Download Csv Of Tagged For Outfits</h1>
-                        <h2>Tagged Items : {csvArray.length}</h2>
+                        <h2>Tagged Items : {csvArray.length-1}</h2>
                     <CSVLink  filename={new Date().getTime()+"-tagged_item.csv"}
                         data={csvArray}>Download</CSVLink>
 

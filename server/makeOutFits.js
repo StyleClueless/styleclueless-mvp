@@ -1,7 +1,6 @@
-import {consoleLabel} from "./utils";
 import {apolloClient} from "./apollo_client_hasura";
-import {TEST_QUERY} from "../client/src/hasura_qls";
 import gql from 'graphql-tag';
+import outfitsArray from "./outfits.json";
 export const makeRandomOutfits = async () => {
 
     const client = apolloClient;
@@ -78,13 +77,16 @@ export const makeRandomOutfits = async () => {
 
 export const INSERT_OUTFIT_BATCH = gql`
 
-mutation insertoutfitBatch($objects:[outfits_insert_input!]!) {
-    insert_outfits(objects: $objects) {
-        returning {
-            id,outfit,created_at
-        }
-        affected_rows
+mutation insertTaggigImportBulk($objects: [outfits_insert_input!]!) {
+  insert_outfits(objects: $objects) {
+    returning {
+      deleted
+      created_at
+      updated_at
+      outfit_id
+      tagging_id
     }
+  }
 }
 `;
 
@@ -127,4 +129,46 @@ query getAllCompanyTagging($company_id: uuid!) {
 `;
 export const global_company_id="061e449f-04d7-4898-a1a8-b3d8a052b328";
 
-makeRandomOutfits()
+// makeRandomOutfits()
+export const INSERT_OUTFITS_BULK = gql`
+mutation insertTaggigImportBulk($objects: [outfits_insert_input!]!) {
+  insert_outfits(objects: $objects) {
+    returning {
+      deleted
+      created_at
+      updated_at
+      outfit_id
+      tagging_id
+    }
+  }
+}
+`;
+export const makeOutfits = async () => {
+
+    const client = apolloClient;
+
+    try {
+
+
+        // console.log(data);
+        const {data:{insert_outfits:{returning}}} = await client.mutate({
+            mutation: INSERT_OUTFIT_BATCH,
+            variables:{objects:outfitsArray}
+
+
+
+            ,
+            fetchPolicy: 'no-cache',
+        });
+
+        console.log(returning);
+
+
+        // return bulk_data_insert_info;
+    }
+    catch (e) {
+        console.error(e);
+        return {e};
+    }
+}
+makeOutfits();

@@ -174,7 +174,11 @@ class Tagging extends Component {
         return (
             <div key={Math.random() * 15000}>
                 {/*TAGGING TAGGING COMPONENET*/}
-
+                <Button isColor='warning' render={
+                    props => <Column onClick={()=>{this.props.history.goBack();}}  hasTextAlign='centered'><p {...props}>Go Back
+                        </p>
+                    </Column>
+                }/>
 
                 {/*<SelectHighlighted options_array={['no_shade','moreShade','blat']}  title={'shade'} updateParent={this.updateValue} color={'primary'}*/}
                 {/*/>*/}

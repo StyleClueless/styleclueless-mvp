@@ -35,6 +35,7 @@ const server=app;
 
 // app.use(express.static('../client//public/'));
 app.use('/tagging_import/add', require('./addTaggingImportProcess'))
+app.use('/outfits/add', require('./addOutfitsProcess'))
 app.use('/userLogin/', require('./loginUser'))
 
 const clientBuild='../client/build/';

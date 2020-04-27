@@ -17,6 +17,7 @@ import {SnackbarProvider, withSnackbar} from 'notistack';
 import onBoardTagging from "./onBoardTagging";
 import Login from "./routes/login";
 import {renderS3UrlFromPrefix} from "./utils";
+import onBoardOutfits from "./onBoardOutfits";
 
 export const App = () => {
     let scrollEl
@@ -27,7 +28,7 @@ export const App = () => {
         if (typeof window !== 'undefined') window.scrollTop = 0
     }
     const logoUrl = () => {
-        debugger;
+        // debugger;
         let logo_url = localStorage.getItem('styleClueLessCompany') ?
             renderS3UrlFromPrefix(JSON.parse(localStorage.getItem("styleClueLessCompany")).logo_url,70) : '';
         return logo_url;
@@ -76,6 +77,8 @@ export const App = () => {
                             <Route exact path="/StartOnBoarding/" component={onBoardingDashboard} exact/>
                             <Route exact path="/onBoardingCompany/:company_id/:company_name"
                                    component={onBoardClient} exact/>
+                            <Route exact path="/onBoardingOutfits/:company_id/:company_name"
+                                   component={onBoardOutfits} exact/>
                             <Route exact path="/onBoardingTagging/:company_id/:company_name"
                                    component={onBoardTagging} exact/>
 

@@ -243,3 +243,18 @@ query getTaggingImport($id: uuid!) {
 }
 `;
 
+
+
+export const INSERT_OUTFITS_BULK = gql`
+mutation insertTaggigImportBulk($objects: [outfits_insert_input!]!) {
+  insert_outfits(objects: $objects) {
+    returning {
+      deleted
+      created_at
+      updated_at
+      outfit_id
+      tagging_id
+    }
+  }
+}
+`;

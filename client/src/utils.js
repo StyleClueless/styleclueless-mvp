@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const company_id = "061e449f-04d7-4898-a1a8-b3d8a052b328"
 export const renderS3UrlFromPrefix = (s3_url, scale_factor = 300) => {
-    if(s3_url===null || s3_url==='null')return '';
+    if (s3_url === null || s3_url === 'null') return '';
     const base_url = 'http://styleclueless-raw.s3-website-ap-southeast-1.amazonaws.com/';
     const scaleFactor = scale_factor;
     let scaleString = "";
@@ -95,7 +95,7 @@ export const postRequest = async (url, body) => {
         let content = '';
         if (rawResponse.status < 200 || rawResponse.status >= 300) {
             console.error(JSON.stringify(rawResponse));
-            throw new Error('BAD REQUEST FOR POST WITH url=>' + url + 'BODY=>'+body);
+            throw new Error('BAD REQUEST FOR POST WITH url=>' + url + 'BODY=>' + body);
         }
         if (rawResponse !== null && rawResponse !== undefined) {
             content = rawResponse.data;
@@ -106,3 +106,64 @@ export const postRequest = async (url, body) => {
         throw new Error(e);
     }
 };
+export const csvJSON = function (csv) {
+
+    var lines = csv.split("\n")
+    var result = []
+    var headers = lines[0].split(",")
+
+    lines.map(function (line, indexLine) {
+        if (indexLine < 1) return // Jump header line
+
+        var obj = {}
+        var currentline = line.split(",")
+
+        headers.map(function (header, indexHeader) {
+            obj[header] = currentline[indexHeader]
+        })
+
+        result.push(obj)
+    })
+
+    result.pop() // remove the last item because undefined values
+
+    return result // JavaScript object
+}
+export const renderCsv = (data, fileInfo) => {
+    console.dir(data, fileInfo);
+    const data_insert = data.slice(1);
+    let new_format_csv = '';
+    for (let i = 0; i < data.length; i++) {
+        const data_array = data[i];
+        for (let j = 0; j < data_array.length; j++) {
+            const data_in = data_array[j];
+
+            new_format_csv += data_in.length > 0 ? i === 0 ? data_in.trim().toLowerCase() : data_in.trim() : ' ';
+            if (j !== data_array.length - 1) {
+                new_format_csv += ',';
+            }
+            else {
+                new_format_csv += '\n'
+            }
+        }
+    }
+
+    console.log(data);
+    console.log(new_format_csv);
+    return new_format_csv;
+}
+export const isUUID =( uuid )=> {
+    let s = "" + uuid;
+
+    s = s.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');
+    if (s === null) {
+        return false;
+    }
+    return true;
+}
+export const uuidv4=()=> {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}

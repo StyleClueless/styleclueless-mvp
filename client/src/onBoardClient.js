@@ -5,7 +5,7 @@ import {withApollo, ApolloConsumer} from 'react-apollo';
 import {CardsWrapper} from "./components/cards-wrapper";
 import CSVReader from 'react-csv-reader'
 import {CsvToHtmlTable} from 'react-csv-to-table';
-import {BASE_URL, global_company_id, isUrlValid, postRequest, renderS3UrlFromPrefix} from "./utils";
+import {BASE_URL, csvJSON, global_company_id, isUrlValid, postRequest, renderCsv, renderS3UrlFromPrefix} from "./utils";
 import {GET_ALL_COMPANIES, GET_TAGGING, GET_TAGGING_IMPORT, TEST_QUERY} from "./hasura_qls";
 import {Link} from "react-router-dom";
 import {withSnackbar} from 'notistack';
@@ -38,31 +38,6 @@ class onBoardClient extends Component {
     }
 
 
-    renderCsv = (data, fileInfo) => {
-        console.dir(data, fileInfo);
-        const data_insert = data.slice(1);
-        let new_format_csv = '';
-        for (let i = 0; i < data.length; i++) {
-            const data_array = data[i];
-            for (let j = 0; j < data_array.length; j++) {
-                const data_in = data_array[j];
-
-                new_format_csv += data_in.length > 0 ? i === 0 ? data_in.trim().toLowerCase() : data_in.trim() : ' ';
-                if (j !== data_array.length - 1) {
-                    new_format_csv += ',';
-                }
-                else {
-                    new_format_csv += '\n'
-                }
-            }
-        }
-
-        console.log(data);
-        console.log(new_format_csv);
-        this.setState({sampleData: new_format_csv});
-
-
-    }
     insertTableToDb = async () => {
         const {sampleData} = this.state;
         let json = csvJSON(sampleData);
@@ -134,12 +109,17 @@ class onBoardClient extends Component {
                                 <Box>Go To Tagging DashBoard</Box>
                             </Link>
                         </Column>
+                        <Column hasTextAlign='centered'>
 
+                            <Link to={`/onBoardingOutfits/${company_id}/${company_name}`}>
+                                <Box>Go To Outfits Import</Box>
+                            </Link>
+                        </Column>
                     </Columns>
                     <Box>import items from csv
                     </Box>
 
-                    <CSVReader onFileLoaded={(data, fileInfo) => this.renderCsv(data, fileInfo)}>
+                    <CSVReader onFileLoaded={(data, fileInfo) =>   this.setState({sampleData: renderCsv(data, fileInfo)})}>
 
                     </CSVReader>
 
@@ -164,26 +144,3 @@ class onBoardClient extends Component {
 }
 
 export default withApollo(withSnackbar(onBoardClient));
-var csvJSON = function (csv) {
-
-    var lines = csv.split("\n")
-    var result = []
-    var headers = lines[0].split(",")
-
-    lines.map(function (line, indexLine) {
-        if (indexLine < 1) return // Jump header line
-
-        var obj = {}
-        var currentline = line.split(",")
-
-        headers.map(function (header, indexHeader) {
-            obj[header] = currentline[indexHeader]
-        })
-
-        result.push(obj)
-    })
-
-    result.pop() // remove the last item because undefined values
-
-    return result // JavaScript object
-}

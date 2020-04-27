@@ -128,7 +128,11 @@ footer {
     right: 15%;
     height: 27%
 }
-
+.outfit-img .onepiece {
+    bottom: 4rem;
+    right: 25%;
+    height: 27%
+}
 .outfit-img .jacket {
     right: 2rem;
     top: 0;
