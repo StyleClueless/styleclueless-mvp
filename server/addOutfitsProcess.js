@@ -42,6 +42,25 @@ router.post('/', async function (req, res) {
                 }
             }
         })
+        console.log("NEW COMBINATIONS=>"+insert_array.length);
+
+        try {
+
+            const {data: {insert_outfits: {returning}}} = await client.mutate({
+                mutation: INSERT_OUTFITS_BULK,
+                variables: {objects: insert_array},
+                fetchPolicy: 'no-cache',
+            });
+            const size_added=returning?returning.length:0;
+            console.log("added items =>"+size_added);
+            res.send(returning);
+            return;
+
+        }
+        catch (e) {
+            console.error(e);
+            return {e};
+        }
 
         var splitArray = function (arr, size) {
 
@@ -54,7 +73,6 @@ router.post('/', async function (req, res) {
 
             return arrays;
         }
-        console.log("NEW COMBINATIONS=>"+insert_array.length);
 
         const bulk_insert_size = 7000;
         const newArrays = splitArray(insert_array, bulk_insert_size);
