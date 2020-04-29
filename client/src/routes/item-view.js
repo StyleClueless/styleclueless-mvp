@@ -17,7 +17,7 @@ import {Button, Column} from "bloomer";
 
 class ItemView extends Component {
 
-    state = {loading:true,outfitDictionary: {}, taggingDictionary: {}};
+    state = {loading: true, outfitDictionary: {}, taggingDictionary: {}};
 
     async componentWillMount() {
         const {client} = this.props;
@@ -26,7 +26,7 @@ class ItemView extends Component {
 
         try {
             const {taggingDictionary, outfitDictionary, tagging_by_pk} = await this.getOutfits(client, itemCode);
-            this.setState({outfitDictionary, itemCode,taggingDictionary, item: tagging_by_pk,loading:false});
+            this.setState({outfitDictionary, itemCode, taggingDictionary, item: tagging_by_pk, loading: false});
         }
         catch (e) {
             console.error(e);
@@ -89,6 +89,7 @@ class ItemView extends Component {
     componentWillUnmount() {
 
     }
+
     splitToArrayOfSize2 = (array) => {
         let arrays = [];
         while (array.length) {
@@ -97,58 +98,68 @@ class ItemView extends Component {
         // debugger;
         return arrays;
     }
+
     render() {
-        const {loading,item, itemCode, outfitDictionary, taggingDictionary} = this.state;
-      const outfitDictionaryKeys=  Object.keys(outfitDictionary);
+        const {loading, item, itemCode, outfitDictionary, taggingDictionary} = this.state;
+        const outfitDictionaryKeys = Object.keys(outfitDictionary);
         // debugger;
         return (
-            <div>
-                <div className='flex justify-center'>
-                    {/*<img className='vh-third' src={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${itemCode}.png`} />*/}
-                    <img className='vh-third' src={`${item && item.s3_url ? renderS3UrlFromPrefix(item.s3_url) : ''}`}/>
-                </div>
-
-
-                {/*<ItemLabel>{itemCode} : {outfitDictionaryKeys.length}</ItemLabel>*/}
-                {loading?
-                    <div style={{textAlign:'center'}}>
-                        <Button  isColor='warning' isLoading>isLoading={true}</Button>
+            <div className='products'>
+                <div>
+                    <div className='flex justify-center'>
+                        {/*<img className='vh-third' src={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${itemCode}.png`} />*/}
+                        <img className='vh-third'
+                             src={`${item && item.s3_url ? renderS3UrlFromPrefix(item.s3_url) : ''}`}/>
                     </div>
-                :
-               <div>
-                   <ItemLabel>{outfitDictionaryKeys.length} : Outfits</ItemLabel>
-                <div className='mv3 tc roboto f3 dark-gray'>
-                    Pick an outfit to match
-                </div>
-               </div>
-                }
-                {outfitDictionary && outfitDictionaryKeys.length > 0 && (
-                    <CardsWrapper>
-                        {Object.keys(outfitDictionary).map((outfitKey, i) => (
-                            <div className='pa2 mb4 w-50 relative flex flex-column items-center' key={outfitKey}>
 
-                                <div className='w4 w5-ns h4 h5-ns relative'>
 
-                                    {this.renderOutfit(outfitDictionary[outfitKey])}
+                    {/*<ItemLabel>{itemCode} : {outfitDictionaryKeys.length}</ItemLabel>*/}
+                    {loading ?
+                        <div style={{textAlign: 'center'}}>
+                            <Button isColor='warning' isLoading>isLoading={true}</Button>
+                        </div>
+                        :
+                        <div>
+                            <ItemLabel>{outfitDictionaryKeys.length} : Outfits</ItemLabel>
+                            <div className='mv3 tc roboto f3 dark-gray'>
+                                Pick an outfit to match
+                            </div>
+                        </div>
+                    }
+                    {outfitDictionary && outfitDictionaryKeys.length > 0 && (
+                        <CardsWrapper>
+                            {this.splitToArrayOfSize2(Object.values(outfitDictionary)).map((outfits_array_of_two, i) => (
+                                <div className='row'>
+
+
+                                    {this.renderOutfitOfTwo(outfits_array_of_two)}
 
                                 </div>
-                            </div>
-                        ))}
-                    </CardsWrapper>
-                )}
+                            ))}
+                        </CardsWrapper>
+                    )}
+                </div>
             </div>
         )
     }
 
-    renderOutfit = (outfitInfo) => {
-        const {outfitDictionary} = this.state;
+    renderOutfitOfTwo = (outfits_arrays_of_two) => {
+        return outfits_arrays_of_two.map(outfit_from_the_array => {
 
-        const outfitArray = outfitInfo;
-        const allOutfits = outfitArray.map(item => {
-            return this.renderSingleItem(item)
-
+            return (<div className='column'>
+                    <div className='outfit-img'>
+                    {this.renderOutfit(outfit_from_the_array)}
+                    </div>
+                </div>
+            )
         });
-        return allOutfits;
+    }
+    renderOutfit = (outfitInfo) => {
+        return outfitInfo.map(item => {
+            return (
+                this.renderSingleItem(item)
+            )
+        });
     }
     renderSingleItem = (item) => {
         return (
@@ -170,7 +181,7 @@ const outfitParts = [
         name: 'bottom',
         classes: 'bottom-1 left-4 w3 w4-ns'
     }
-    ,  {
+    , {
         name: 'onepiece',
         classes: 'bottom-4 left-2 w3 w4-ns putUp'
     },
@@ -197,7 +208,7 @@ outfitParts.forEach((item, i) => {
     outfitPartsDictionary[item.name] = item;
 })
 
-const OutfitPart = (item,tagging) => {
+const OutfitPart = (item, tagging) => {
     // debugger;
 
     let classes = '';
@@ -212,7 +223,7 @@ const OutfitPart = (item,tagging) => {
     return outfit_item && itemClass ? (
         <Link className={'link'} to={`/store/${itemClass}/${id}`}>
             <img
-                className={'w75 absolute ' + outfitPartsDictionary[itemClass].classes}
+                className={itemClass}
                 // src={`${cloudinaryPath}/${dbClass}/${outfit[dbClass]}.png`}
                 src={imgUrl}
             />

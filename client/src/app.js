@@ -18,7 +18,7 @@ import onBoardTagging from "./onBoardTagging";
 import Login from "./routes/login";
 import {renderS3UrlFromPrefix} from "./utils";
 import onBoardOutfits from "./onBoardOutfits";
-
+import './older.css'
 export const App = () => {
     let scrollEl
     let lastRouteName
@@ -69,7 +69,7 @@ export const App = () => {
                             ))}
                         </div>
                     </div>
-                    <div className='flex-auto overflow-auto pv2' ref={el => {
+                    <div className='container' ref={el => {
                         scrollEl = el
                     }}>
                         <Switch>
