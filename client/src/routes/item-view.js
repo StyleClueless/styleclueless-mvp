@@ -89,7 +89,14 @@ class ItemView extends Component {
     componentWillUnmount() {
 
     }
-
+    splitToArrayOfSize2 = (array) => {
+        let arrays = [];
+        while (array.length) {
+            arrays.push(array.splice(0, 2));
+        }
+        // debugger;
+        return arrays;
+    }
     render() {
         const {loading,item, itemCode, outfitDictionary, taggingDictionary} = this.state;
       const outfitDictionaryKeys=  Object.keys(outfitDictionary);
