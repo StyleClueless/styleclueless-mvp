@@ -10,7 +10,7 @@ import {
     GET_TAGGING_BY_CLASS,
     TAGGING_BY_PK
 } from "../hasura_qls";
-import {global_company_id, renderS3UrlFromPrefix} from "../utils";
+import {global_company_id, renderS3UrlFromPrefix, splitToArrayOfSize2} from "../utils";
 import {ItemCard} from "../components/item-card";
 import {withApollo} from "react-apollo";
 import {Button, Column} from "bloomer";
@@ -90,14 +90,7 @@ class ItemView extends Component {
 
     }
 
-    splitToArrayOfSize2 = (array) => {
-        let arrays = [];
-        while (array.length) {
-            arrays.push(array.splice(0, 2));
-        }
-        // debugger;
-        return arrays;
-    }
+
 
     render() {
         const {loading, item, itemCode, outfitDictionary, taggingDictionary} = this.state;
@@ -128,8 +121,8 @@ class ItemView extends Component {
                     }
                     {outfitDictionary && outfitDictionaryKeys.length > 0 && (
                         <CardsWrapper>
-                            {this.splitToArrayOfSize2(Object.values(outfitDictionary)).map((outfits_array_of_two, i) => (
-                                <div className='row'>
+                            {splitToArrayOfSize2(Object.values(outfitDictionary)).map((outfits_array_of_two, i) => (
+                                    <div className='row'>
 
 
                                     {this.renderOutfitOfTwo(outfits_array_of_two)}

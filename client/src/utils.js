@@ -167,3 +167,13 @@ export const uuidv4=()=> {
         return v.toString(16);
     });
 }
+export const splitToArrayOfSize2 = (array) => {
+    // debugger;
+    array=JSON.parse(JSON.stringify(array));
+    let arrays = [];
+    while (array.length) {
+        arrays.push(array.splice(0, 2));
+    }
+
+    return arrays;
+}

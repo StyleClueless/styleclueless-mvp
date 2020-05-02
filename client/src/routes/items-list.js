@@ -1,7 +1,7 @@
 import React, {useState, useEffect, Component} from 'react'
 import {withApollo} from "react-apollo";
 import {ItemCard} from "../components/item-card";
-import {global_company_id, renderS3UrlFromPrefix} from "../utils";
+import {global_company_id, renderS3UrlFromPrefix, splitToArrayOfSize2} from "../utils";
 import {CardsWrapper} from "../components/cards-wrapper";
 import {GET_TAGGING, GET_TAGGING_BY_CLASS} from "../hasura_qls";
 
@@ -57,25 +57,40 @@ class ItemsList extends Component {
 
     }
 
+    renderRowOfTwo = (tagging_arrays_of_two,itemsType) => {
+        return tagging_arrays_of_two.map(item => {
+            return (<div className='column' key={item.id}>
+                    {/*{item}*/}
+                    <ItemCard
+                        key={item.id}
+                        label={item.sku}
+                        href={`/store/${itemsType}/${item.id}`}
+                        // imgUrl={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${item.code}.png`}
+                        imgUrl={renderS3UrlFromPrefix(item.png_s3_url, 350)}
+                    />
+                </div>
+            )
+        });
+    }
+
     render() {
         const {items, itemsType} = this.state;
+        // debugger;
         return (
 
-            <div>
+            <div  className='products'>
 
-                <CardsWrapper>
                     {
-                        items && items !== undefined && items.map(item => (
-                            <ItemCard
-                                key={item.id}
-                                label={item.sku}
-                                href={`/store/${itemsType}/${item.id}`}
-                                // imgUrl={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${item.code}.png`}
-                                imgUrl={renderS3UrlFromPrefix(item.png_s3_url, 350)}
-                            />
-                        ))
+
+                        items && items !== undefined && items.length > 0 && splitToArrayOfSize2(items).map(item_of_two => (
+
+                                <div className='row' key={item_of_two[0].id}>
+                                    {this.renderRowOfTwo(item_of_two,itemsType)}
+                                </div>
+                            )
+                        )
                     }
-                </CardsWrapper>
+
             </div>
 
         );
