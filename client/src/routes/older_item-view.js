@@ -97,7 +97,7 @@ class ItemView extends Component {
                 <div className='row'>
                     <ItemLabel>{itemCode}</ItemLabel>
                     {/*<img className='vh-third' src={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${itemCode}.png`} />*/}
-                    <img className='vh-third' src={`${item && item.s3_url ? renderS3UrlFromPrefix(item.s3_url) : ''}`}/>
+                    <img className='vh-third' src={`${item && item.png_s3_url ? renderS3UrlFromPrefix(item.png_s3_url) : ''}`}/>
                 </div>
 
                 <div className='row'>
@@ -191,7 +191,7 @@ const OutfitPart = (item,tagging) => {
     let outfit_item = item.tagging;
     let {id} = outfit_item;
     let itemClass = outfit_item.class;
-    let imgUrl = outfit_item && outfit_item.s3_url ? renderS3UrlFromPrefix(outfit_item.s3_url, 110) : ''
+    let imgUrl = outfit_item && outfit_item.png_s3_url ? renderS3UrlFromPrefix(outfit_item.png_s3_url, 110) : ''
 
 
     return outfit_item && itemClass ? (

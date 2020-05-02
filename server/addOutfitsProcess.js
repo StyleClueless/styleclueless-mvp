@@ -34,7 +34,7 @@ router.post('/', async function (req, res) {
         const db_structure = json.map(element => {
             const uuid = uuidv4();
             for (const [key, val] of Object.entries(element)) {
-                if (isUUID(val)) {
+                if (key!=='input.code'&&isUUID(val)) {
                     insert_array.push({
                         outfit_id: uuid, tagging_id: val
                         , created_at: "now()", updated_at: "now()"

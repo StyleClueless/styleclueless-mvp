@@ -159,7 +159,7 @@ class Tagging extends Component {
     render() {
         const {item, taggingOptionsTagging, tagging_info,sku} = this.state;
         console.log(taggingOptionsTagging);
-        const imageUrl = item ? renderS3UrlFromPrefix(item.s3_url) : '';
+        const imageUrl = item ? renderS3UrlFromPrefix(item.png_s3_url) : '';
         // const RenderPalette=renderPalette('https://s.gravatar.com/avatar/b9534af76521f9544f5d6bea6207bf94?size=496&default=retro');
         // const RenderPalette=
         //     <Color crossOrigin={true} src={imageUrl}>

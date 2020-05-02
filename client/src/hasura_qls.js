@@ -30,6 +30,7 @@ export const GET_TAGGING_URLS= gql`
 query getTaggingUrl($company_id: uuid!) {
   tagging(where: {company_id: {_eq: $company_id}, s3_url: {_is_null: false}}, distinct_on: class) {
     s3_url
+    png_s3_url
     class
   }
 }
@@ -58,6 +59,7 @@ query allTaggingByOutfitsIds($outfits: [uuid!]) {
       class
       deleted
       s3_url
+      png_s3_url
       company_id
       created_at
       design
@@ -82,6 +84,7 @@ query allOutfitsByTaggingId($tagging_id: uuid!) {
     class
     design
     s3_url
+    png_s3_url
   }
 }
 
@@ -93,6 +96,7 @@ query getTaggings($company_id:uuid!) {
   tagging(where: {company_id: {_eq: $company_id}}) {
     sku
     s3_url
+    png_s3_url
     company_id
     id
     class
@@ -115,6 +119,7 @@ query getTaggings($company_id: uuid!,$class:String!) {
   tagging(where: {company_id: {_eq: $company_id}, class: {_eq: $class}}) {
     sku
     s3_url
+    png_s3_url
     company_id
     id
     class
@@ -148,6 +153,7 @@ query getAllCompanyTagging($company_id: uuid!) {
             gender
             id
             s3_url
+            png_s3_url
             sku
             type
             updated_at
@@ -174,6 +180,7 @@ query getAllCompanyTagging($company_id: uuid!,$type:String!) {
             gender
             id
             s3_url
+            png_s3_url
             sku
             type
             updated_at
@@ -228,6 +235,7 @@ query getTaggingImport($id: uuid!) {
     deleted
     id
     s3_url
+    png_s3_url
     sku
     demography
     updated_at

@@ -55,7 +55,7 @@ class onBoardTagging extends Component {
             number_of_tagged: tagged_array.length,
             // untagged_array: untagged_array
         }
-        const newUrl = renderS3UrlFromPrefix(tag.s3_url);
+        const newUrl = renderS3UrlFromPrefix(tag.png_s3_url);
         // const redirectRoute='/tagging/'+tag.sku;
         const redirectRoute = '/onBoarding/tagging/' + tag.id;
         // const redirectRoute='/tagging/';

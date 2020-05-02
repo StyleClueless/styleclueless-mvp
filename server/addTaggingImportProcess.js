@@ -1,6 +1,7 @@
 import {apolloClient} from "./apollo_client_hasura";
 import {upload} from "./fetchImageAndUploadToBucket";
 import {consoleLabel} from "./utils";
+import {getRequest} from "./utils";
 
 const router = require('express').Router();
 const gql = require('graphql-tag');
@@ -38,10 +39,11 @@ router.post('/', async function (req, res) {
 
 module.exports = router;
 const UPADTE_S3_URL = gql`
-mutation updateS3UrlForTagging($id: uuid!, $s3_url: String!) {
-    update_tagging(where: {id: {_eq: $id}}, _set: {s3_url: $s3_url,updated_at:"now()"}) {
+mutation updateS3UrlForTagging($id: uuid!, $s3_url: String!, $png_s3_url: String!) {
+    update_tagging(where: {id: {_eq: $id}}, _set: {s3_url: $s3_url,png_s3_url: $png_s3_url,updated_at:"now()"}) {
         returning {
             s3_url
+            png_s3_url
             id
             url
             updated_at
@@ -119,12 +121,14 @@ export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
             const s3_filename=path+sku+'.jpg';
             console.log(`${url } fetch and upload to ${s3_filename}` )
             const upload_file_to_s3_from_buffer=await upload(url,s3_filename)
-
+            const png_convert_url="https://djsq3zkhsd.execute-api.ap-southeast-1.amazonaws.com/dev?s3_path="+s3_filename;
+            const convert_to_transparent_png= await getRequest(png_convert_url);
+            const {s3_path}=convert_to_transparent_png;
             const
                 data_update_s3_path_in_db
                     = await client.mutate({
                     mutation: UPADTE_S3_URL,
-                    variables: {id,s3_url:s3_filename},
+                    variables: {id,s3_url:s3_filename,png_s3_url:s3_path},
                 });
             // console.log(data_update_s3_path_in_db);
             return {data_update_s3_path_in_db,upload_file_to_s3_from_buffer};

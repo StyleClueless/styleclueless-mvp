@@ -59,3 +59,9 @@ bucket:
 
 s3-website-ap-southeast-1.amazonaws.com.
 https://hasura.io/blog/working-with-schemaless-data-with-graphql-on-postgres-574a1ee2e87f/
+
+
+
+https://itnext.io/create-a-highly-scalable-image-processing-service-on-aws-lambda-and-api-gateway-in-10-minutes-7cbb2893a479
+
+

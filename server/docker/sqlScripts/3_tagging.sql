@@ -8,6 +8,7 @@ CREATE TABLE public.tagging
     sku  character varying default NULL,
     url   character varying NOT NULL,
     s3_url   character varying default NULL,
+    png_s3_url   character varying default NULL,
     demography  character varying default NULL,
     class  character varying default NULL,
     design  character varying default NULL,
