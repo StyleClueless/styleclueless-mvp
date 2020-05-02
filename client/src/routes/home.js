@@ -57,7 +57,7 @@ class Home extends Component {
                 key={cat}
                 href={`/store/${cat.toLowerCase()}`}
                 // imgUrl={`${cloudinaryPath}/${dbClassMapping[cat.toLowerCase()]}/cover.png`}
-                imgUrl={item_dict && Object.keys(item_dict).length > 0 && item_dict[cat] !== undefined ? renderS3UrlFromPrefix(item_dict[cat].s3_url) : ''}
+                imgUrl={item_dict && Object.keys(item_dict).length > 0 && item_dict[cat] !== undefined ? renderS3UrlFromPrefix(item_dict[cat].png_s3_url) : ''}
                 label={cat}
             />
         )

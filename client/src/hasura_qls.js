@@ -28,7 +28,7 @@ export const TEST_QUERY = gql`
 
 export const GET_TAGGING_URLS= gql`
 query getTaggingUrl($company_id: uuid!) {
-  tagging(where: {company_id: {_eq: $company_id}, s3_url: {_is_null: false}}, distinct_on: class) {
+  tagging(where: {company_id: {_eq: $company_id}, png_s3_url: {_is_null: false}}, distinct_on: class) {
     s3_url
     png_s3_url
     class
