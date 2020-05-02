@@ -1,6 +1,6 @@
 import {apolloClient} from "./apollo_client_hasura";
 import {upload} from "./fetchImageAndUploadToBucket";
-import {consoleLabel} from "./utils";
+import {consoleLabel, goToPngConvert} from "./utils";
 import {getRequest} from "./utils";
 
 const router = require('express').Router();
@@ -109,13 +109,7 @@ const i={
             ,"created_at":"now()","updated_at":"now()"}
     ]
 };
-const goToPngConvert=async(png_convert_url)=>{
-    const label = consoleLabel('goToPngConvert'+png_convert_url);
-    console.time(label);
-    const data=await getRequest(png_convert_url);
-    console.timeEnd(label);
-    return data;
-}
+
 export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
     console.log("uploadFilesToS3AndUpdateDbUrl"+JSON.stringify(id_urls));
     const label = consoleLabel('uploadFilesToS3AndUpdateDbUrl');

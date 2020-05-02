@@ -1,2 +1,2 @@
 require = require("esm")(module);
-module.exports = require('./makeOutFits');
+module.exports = require('./makePng');
