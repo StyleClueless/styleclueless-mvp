@@ -112,9 +112,9 @@ const i={
 const goToPngConvert=async(png_convert_url)=>{
     const label = consoleLabel('goToPngConvert'+png_convert_url);
     console.time(label);
+    const data=await getRequest(png_convert_url);
     console.timeEnd(label);
-    return await getRequest(png_convert_url);
-
+    return data;
 }
 export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
     console.log("uploadFilesToS3AndUpdateDbUrl"+JSON.stringify(id_urls));
