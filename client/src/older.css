@@ -124,21 +124,25 @@ footer {
 }
 
 .outfit-img .shoes {
-    bottom: 2rem;
+    bottom: 3rem;
     right: 15%;
     height: 27%
 }
 .outfit-img .onepiece {
-    bottom: 4rem;
-    right: 25%;
-    height: 27%
+    bottom: 11rem;
+    right: 45%;
+    height: 55%
 }
 .outfit-img .jacket {
     right: 2rem;
     top: 0;
     height: 55%
 }
-
+.outfit-img .accessories {
+    right: 2rem;
+    top: 0rem;
+    height:40%
+}
 a {
     color: #333
 }
