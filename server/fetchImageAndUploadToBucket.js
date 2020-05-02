@@ -1,3 +1,5 @@
+import {consoleLabel} from "./utils";
+
 const request = require('request-promise')
 const AWS = require('aws-sdk')
 AWS.config.update({
@@ -10,6 +12,8 @@ const s3 = new AWS.S3()
 
 const BUKCET_NAME="styleclueless-raw";
 export const upload=async(url,path) =>{
+    const label = consoleLabel('upload to S3=>'+url+'to path=>'+path);
+    console.time(label);
     const options = {
         uri: url,
         encoding: null
@@ -21,5 +25,6 @@ export const upload=async(url,path) =>{
         Key   : path,
         Body  : body,
     }).promise()
+    console.timeEnd(label);
     return uploadResult
 }

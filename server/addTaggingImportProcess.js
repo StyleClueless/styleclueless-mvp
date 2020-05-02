@@ -109,6 +109,13 @@ const i={
             ,"created_at":"now()","updated_at":"now()"}
     ]
 };
+const goToPngConvert=async(png_convert_url)=>{
+    const label = consoleLabel('goToPngConvert'+png_convert_url);
+    console.time(label);
+    console.timeEnd(label);
+    return await getRequest(png_convert_url);
+
+}
 export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
     console.log("uploadFilesToS3AndUpdateDbUrl"+JSON.stringify(id_urls));
     const label = consoleLabel('uploadFilesToS3AndUpdateDbUrl');
@@ -122,7 +129,7 @@ export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
             console.log(`${url } fetch and upload to ${s3_filename}` )
             const upload_file_to_s3_from_buffer=await upload(url,s3_filename)
             const png_convert_url="https://djsq3zkhsd.execute-api.ap-southeast-1.amazonaws.com/dev?s3_path="+s3_filename;
-            const convert_to_transparent_png= await getRequest(png_convert_url);
+            const convert_to_transparent_png= await goToPngConvert(png_convert_url);
             const {s3_path}=convert_to_transparent_png;
             const
                 data_update_s3_path_in_db
