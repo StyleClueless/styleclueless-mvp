@@ -32,6 +32,9 @@ router.post('/', async function (req, res) {
 
         let insert_array = [];
         const db_structure = json.map(element => {
+            if(element['input.code']===undefined){
+                return;
+            }
             const uuid = uuidv4();
             for (const [key, val] of Object.entries(element)) {
                 if (key!=='input.code'&&isUUID(val)) {
