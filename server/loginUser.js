@@ -6,11 +6,12 @@ const router = require('express').Router();
 const gql = require('graphql-tag');
 
 router.post('/', async function (req, res) {
-    const label = consoleLabel('/ADDTAGINGIMPORT PROCESS POST ');
+    const label = consoleLabel('/loginByEmailPassword PROCESS POST ');
     console.time(label);
     try {
         const body = req.body || '';
-        const {email,password}=body;
+        let {email,password}=body;
+        email=email.toString().toLowerCase();
         if(email==='admin@styleclueless.com' && password==='u_n!q$password'){
             res.status(200).send({admin:true})
         }
