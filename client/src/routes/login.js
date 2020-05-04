@@ -28,6 +28,8 @@ class Login extends Component {
         const {email,password} = this.state;
 
         try {
+            localStorage.setItem('styleClueLessCompanyId','');
+            localStorage.setItem('styleClueLessCompany',JSON.stringify({}));
             const login_user = await postRequest('userLogin/', {email,password})
             const {company_id,admin,company}=login_user;
             if(admin){
