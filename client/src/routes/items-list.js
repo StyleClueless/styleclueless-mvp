@@ -66,7 +66,8 @@ class ItemsList extends Component {
                         label={item.sku}
                         href={`/store/${itemsType}/${item.id}`}
                         // imgUrl={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${item.code}.png`}
-                        imgUrl={renderS3UrlFromPrefix(item.png_s3_url, 350)}
+                        // imgUrl={renderS3UrlFromPrefix(item.png_s3_url, 350)}
+                        imgUrl={renderS3UrlFromPrefix(item.s3_url, 350)}
                     />
                 </div>
             )
