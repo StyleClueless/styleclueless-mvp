@@ -23,7 +23,6 @@ class ItemView extends Component {
         const {client} = this.props;
         const itemCode = this.props.match.params.itemCode;
         console.log(' rendering ITEMVIEW for' + itemCode);
-
         try {
             const {taggingDictionary, outfitDictionary, tagging_by_pk} = await this.getOutfits(client, itemCode);
             this.setState({outfitDictionary, itemCode, taggingDictionary, item: tagging_by_pk, loading: false});
@@ -82,14 +81,25 @@ class ItemView extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-
-        // console.log("componentDidUpdate " +JSON.stringify(prevProps));
+        debugger;
+        const itemCode = this.props.match.params.itemCode;
+        const {client}=this.props;
+        try {
+            if (itemCode !== prevState.itemCode ) {
+                this.setState({outfitDictionary:{}, item: null});
+                const {taggingDictionary, outfitDictionary, tagging_by_pk} = await this.getOutfits(client, itemCode);
+                this.setState({outfitDictionary, itemCode, taggingDictionary, item: tagging_by_pk, loading: false});
+            }
+        }
+        catch (e) {
+            console.error(e);
+        }
+        console.log("componentDidUpdate ITEMVIEW");
     }
 
     componentWillUnmount() {
 
     }
-
 
 
     render() {
@@ -122,7 +132,7 @@ class ItemView extends Component {
                     {outfitDictionary && outfitDictionaryKeys.length > 0 && (
                         <CardsWrapper>
                             {splitToArrayOfSize2(Object.values(outfitDictionary)).map((outfits_array_of_two, i) => (
-                                    <div className='row'>
+                                <div className='row'>
 
 
                                     {this.renderOutfitOfTwo(outfits_array_of_two)}
@@ -141,7 +151,7 @@ class ItemView extends Component {
 
             return (<div className='column'>
                     <div className='outfit-img'>
-                    {this.renderOutfit(outfit_from_the_array)}
+                        {this.renderOutfit(outfit_from_the_array)}
                     </div>
                 </div>
             )
