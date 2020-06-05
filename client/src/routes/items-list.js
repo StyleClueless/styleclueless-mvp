@@ -1,7 +1,7 @@
 import React, {useState, useEffect, Component} from 'react'
 import {withApollo} from "react-apollo";
 import {ItemCard} from "../components/item-card";
-import {global_company_id, renderS3UrlFromPrefix, splitToArrayOfSize2} from "../utils";
+import {global_company_id, renderPhotoUrl, renderS3UrlFromPrefix, splitToArrayOfSize2} from "../utils";
 import {CardsWrapper} from "../components/cards-wrapper";
 import {GET_TAGGING, GET_TAGGING_BY_CLASS} from "../hasura_qls";
 
@@ -67,7 +67,7 @@ class ItemsList extends Component {
                         href={`/store/${itemsType}/${item.id}`}
                         // imgUrl={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${item.code}.png`}
                         // imgUrl={renderS3UrlFromPrefix(item.png_s3_url, 350)}
-                        imgUrl={renderS3UrlFromPrefix(item.s3_url, 350)}
+                        imgUrl={renderS3UrlFromPrefix(renderPhotoUrl(item), 350)}
                     />
                 </div>
             )

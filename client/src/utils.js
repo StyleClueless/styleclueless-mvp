@@ -1,6 +1,13 @@
 import axios from "axios";
 
 export const company_id = "061e449f-04d7-4898-a1a8-b3d8a052b328"
+export const renderPhotoUrl=(item)=>{
+    /// png is transpernt
+    const type=localStorage.getItem("url_type");
+    const {png_s3_url,s3_url}=item;
+    if(type==='png') return png_s3_url;
+    return s3_url;
+}
 export const renderS3UrlFromPrefix = (s3_url, scale_factor = 300) => {
     if (s3_url === null || s3_url === 'null') return '';
     const base_url = 'http://styleclueless-raw.s3-website-ap-southeast-1.amazonaws.com/';

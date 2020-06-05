@@ -19,14 +19,34 @@ import Login from "./routes/login";
 import {renderS3UrlFromPrefix} from "./utils";
 import onBoardOutfits from "./onBoardOutfits";
 import './older.css'
+import useEventListener from '@use-it/event-listener'
+
+const ESCAPE_KEYS = ['27', 'Escape'];
+const ENTER_KEYS = ['13', 'Enter'];
+
+
 export const App = () => {
     let scrollEl
     let lastRouteName
+    // localStorage.setItem('url_type','jpg');/// set default type of url
     const scrollToTop = () => {
         console.log('scroolontop')
         if (scrollEl) scrollEl.scrollTop = 0
         if (typeof window !== 'undefined') window.scrollTop = 0
     }
+    function handler({ key }) {
+        if (ESCAPE_KEYS.includes(String(key))) {
+            console.log('Escape key pressed - setting PNG URL - REFRESH TO APPLY!');
+            localStorage.setItem('url_type','png');/// set default type of url to png now!
+
+        }
+        if (ENTER_KEYS.includes(String(key))) {
+            console.log('ENTER key pressed - setting JPG URL - REFRESH TO APPLY!');
+            localStorage.setItem('url_type','jpg');/// set default type of url to png now!
+        }
+    }
+        useEventListener('keydown', handler);
+
     const logoUrl = () => {
         // debugger;
         let logo_url = localStorage.getItem('styleClueLessCompany') ?

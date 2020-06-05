@@ -10,7 +10,7 @@ import {
     GET_TAGGING_BY_CLASS,
     TAGGING_BY_PK
 } from "../hasura_qls";
-import {global_company_id, renderS3UrlFromPrefix, splitToArrayOfSize2} from "../utils";
+import {global_company_id, renderPhotoUrl, renderS3UrlFromPrefix, splitToArrayOfSize2} from "../utils";
 import {ItemCard} from "../components/item-card";
 import {withApollo} from "react-apollo";
 import {Button, Column} from "bloomer";
@@ -81,7 +81,7 @@ class ItemView extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        debugger;
+        // debugger;
         const itemCode = this.props.match.params.itemCode;
         const {client}=this.props;
         try {
@@ -113,7 +113,7 @@ class ItemView extends Component {
                         {/*<img className='vh-third' src={`${cloudinaryPath}/${dbClassMapping[itemsType]}/${itemCode}.png`} />*/}
                         <img className='vh-third'
                              // src={`${item && item.png_s3_url ? renderS3UrlFromPrefix(item.png_s3_url) : ''}`}/>
-                        src={`${item && item.s3_url ? renderS3UrlFromPrefix(item.s3_url) : ''}`}/>
+                        src={`${item && item.s3_url ? renderS3UrlFromPrefix(renderPhotoUrl(item)) : ''}`}/>
                     </div>
                     {item&&item.sku&& <div>{item.sku}</div>}
 
@@ -222,7 +222,7 @@ const OutfitPart = (item, tagging) => {
     let {id} = outfit_item;
     let itemClass = outfit_item.class;
     // let imgUrl = outfit_item && outfit_item.png_s3_url ? renderS3UrlFromPrefix(outfit_item.png_s3_url, 400) : ''
-    let imgUrl = outfit_item && outfit_item.s3_url ? renderS3UrlFromPrefix(outfit_item.s3_url, 400) : ''
+    let imgUrl = outfit_item && outfit_item.s3_url ? renderS3UrlFromPrefix(renderPhotoUrl(outfit_item), 400) : ''
 
     const cloudinaryPath = envVars().CLOUDINARY_BASE_URL.replace('/upload', '/upload/c_scale,h_110,q_auto:good/c_scale,h_380,q_auto:good')
     const dbClass = dbClassMapping[partName]
