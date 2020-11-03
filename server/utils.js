@@ -74,26 +74,49 @@ export const downBucketPathToPath = async (bucketName, folder,path) => {
         const params = {Bucket: bucketName, Folder: folder};
         let bucket_content = await listS3Folder(params);
         const first_listing=bucket_content.Contents;
-        let all = await Promise.all(first_listing.map(async (file) => {
+
+        const download_files = first_listing.map((file, i) => async () => {
             try {
-const s3_path=file.Key;
+                const s3_path=file.Key;
                 let params = {Bucket: bucketName, Key: s3_path};
                 let local_new_path = path+ s3_path;
                 let folder_path= local_new_path.substring(0, local_new_path.lastIndexOf("/")) + '/';
+                console.log("downloading to "+ local_new_path)
                 await mkdirRecursive(folder_path);
                 await downloadS3File(params, local_new_path);
                 return local_new_path;
             }
             catch (e) {
                 console.error(e);
+                return null;
             }
-        }));
-        return all.filter((x) => x != undefined);
+        });
+        for (let i = 0; i < download_files.length; i++) {
+            await download_files[i]();
+        }
+        console.log(download_files);
+        // let all = await Promise.all(first_listing.map(async (file) => {
+        //     try {
+        //         const s3_path=file.Key;
+        //         let params = {Bucket: bucketName, Key: s3_path};
+        //         let local_new_path = path+ s3_path;
+        //         let folder_path= local_new_path.substring(0, local_new_path.lastIndexOf("/")) + '/';
+        //         await mkdirRecursive(folder_path);
+        //         await downloadS3File(params, local_new_path);
+        //         return local_new_path;
+        //     }
+        //     catch (e) {
+        //         console.error(e);
+        //     }
+        // }));
+        // return all.filter((x) => x != undefined);
     } finally {
         const end = new Date().getTime();
         console.log(`downBucketPathToPath from ${BUKCET_NAME}  in ${folder} to ${path}took : ${(end - start) / 1000} sec`);
     }
 }
+
+
 const downloadS3File = async (s3Input, path) => {
     try{
         return new Promise(async (resolve, reject) => {
