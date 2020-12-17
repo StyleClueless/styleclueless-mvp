@@ -39,7 +39,8 @@ class Tagging extends Component {
        const  db_id =input_db_id===''?this.props.match.params.tagging_id:input_db_id;
        const  sku =this.props.match.params.tagging_sku;
         const tagging_info = JSON.parse(this.props.match.params.tagging_info);
-        this.props.enqueueSnackbar("testthis for "+db_id + JSON.stringify(tagging_info), {
+        debugger;
+        this.props.enqueueSnackbar("Tagging Comp: for "+db_id + JSON.stringify(tagging_info), {
             variant: 'success',
         });
 
@@ -48,6 +49,7 @@ class Tagging extends Component {
             variables: {id: db_id},
             fetchPolicy: 'network-only',
         });
+        debugger;
         const taggingOptionsTaggingFromItem = taggingOptions.map((tagging_option, i) => {
                 let selected = '';
                 if (tagging_by_pk !== null && tagging_by_pk[tagging_option.title]) {
@@ -58,12 +60,14 @@ class Tagging extends Component {
                 return Object.assign({}, tagging_option, {selected});
             }
         );
+        debugger;
         this.setState({
             sku,
             tagging_info,
             item: tagging_by_pk,
             taggingOptionsTagging: taggingOptionsTaggingFromItem
         });
+        debugger;
         return true;
 
 
@@ -93,6 +97,7 @@ class Tagging extends Component {
 
     updateInDb = async () => {
         let {item, taggingOptionsTagging, tagging_info} = this.state;
+        debugger;
         const jsonObject = {};
 
         // this.props.enqueueSnackbar("updating " +item.id, {
@@ -118,6 +123,7 @@ class Tagging extends Component {
             // const {untagged_array} = tagging_info
             tagging_info.number_of_tagged++;
             const untagged_array = JSON.parse(localStorage.getItem('untagged_array'));
+            // if(untagged_array===null)return;
             debugger;
             const new_untagged_array = untagged_array.filter(untagged_item => untagged_item.id !== item.id)
             localStorage.setItem('untagged_array',JSON.stringify(new_untagged_array));
@@ -131,10 +137,11 @@ class Tagging extends Component {
                 this.props.enqueueSnackbar("Finished Item Tagging - Moving To Next Item!", {
                     variant: 'warning',
                 });
-                const new_id=new_untagged_array[0].id;
+                debugger;
+                const new_item=new_untagged_array[0];
                 await timeoutPromise(3000);
-                this.props.history.push(`/OnBoarding/Tagging/${new_id}/${JSON.stringify(tagging_info)}/`);
-               await this.componentWillMount(new_id);
+                this.props.history.push(`/OnBoarding/Tagging/${new_item.id}/${new_item.sku}/${JSON.stringify(tagging_info)}/`);
+               await this.componentWillMount(new_item.id);
             }
             else {
                 this.props.enqueueSnackbar("Finished Tagging - GOING BACK TO MAIN!", {
@@ -158,6 +165,7 @@ class Tagging extends Component {
 
     render() {
         const {item, taggingOptionsTagging, tagging_info,sku} = this.state;
+        debugger;
         console.log(taggingOptionsTagging);
         const imageUrl = item ? renderS3UrlFromPrefix(item.png_s3_url) : '';
         // const RenderPalette=renderPalette('https://s.gravatar.com/avatar/b9534af76521f9544f5d6bea6207bf94?size=496&default=retro');

@@ -46,6 +46,8 @@ class onBoardTagging extends Component {
         this.setState({tagging_import});
     }
     renderTagging = (tag, tagged_array, untagged_array) => {
+
+    debugger;
         const {company_id} = this.state;
         const number_of_items = tagged_array.length + untagged_array.length;
         localStorage.setItem('untagged_array', JSON.stringify(untagged_array));
@@ -87,8 +89,9 @@ class onBoardTagging extends Component {
 
     render() {
         const {sampleData, tagging_import, company_name} = this.state;
+        debugger;
         const tagged_array = tagging_import.filter(tag => tag.style && tag.style.length > 0);
-        const untagged_array = tagging_import.filter(tag => !tag.style || tag.style.length === 0).map(item => ({id: item.id}))
+        const untagged_array = tagging_import.filter(tag => !tag.style || tag.style.length === 0).map(item => ({sku:item.sku,id: item.id}))
         const csvData = [
             ["firstname", "lastname", "email"],
             ["Ahmed", "Tomi", "ah@smthing.co.com"],
