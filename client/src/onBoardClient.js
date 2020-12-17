@@ -70,7 +70,7 @@ class onBoardClient extends Component {
 
         try {
             this.props.enqueueSnackbar("importing started!! ", {
-                variant: 'warning',
+                variant: 'success',
             });
             const send_to_server = await postRequest('tagging_import/add', db_structure)
             console.log(send_to_server);
@@ -81,7 +81,7 @@ class onBoardClient extends Component {
         catch
             (e) {
             this.props.enqueueSnackbar("importing failed due to " + e, {
-                variant: 'danger',
+                variant: 'warning',
             });
         }
 

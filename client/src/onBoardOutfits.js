@@ -91,7 +91,7 @@ class onBoardOutfits extends Component {
             (e) {
             debugger;
             this.props.enqueueSnackbar("outfits insert failed due to " + e, {
-                variant: 'danger',
+                variant: 'warning',
             });
         }
         finally {

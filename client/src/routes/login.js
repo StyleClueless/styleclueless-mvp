@@ -53,7 +53,7 @@ class Login extends Component {
 
             console.error(e);
             this.props.enqueueSnackbar("login did not completed please check email:password " + e, {
-                variant: 'danger',
+                variant: 'warning',
             });
         }
 

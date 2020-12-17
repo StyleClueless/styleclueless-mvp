@@ -12,22 +12,28 @@ router.post('/', async function (req, res) {
     try {
         const body = req.body || '';
         const add_to_db = await insertImportToDb(body);
-        console.log(add_to_db);
-        const ids_urls = add_to_db.map(hasura_insert => {
-            try{
-                // const {data: {insert_tagging_import: {returning}}} = hasura_insert;
-                // const {id, url,sku} = returning[0];
-                const {id, url,sku,company_id} = hasura_insert;
-                return {id, url,sku,company_id};
-            }
-            catch (e){
-                return {id:null, url:null,sku:null,e};
-            }
-        })
-        res.send(add_to_db);
-        ///todo : add here worker....
-        const upload_to_s3_update_db=await uploadFilesToS3AndUpdateDbUrl(ids_urls);
-        console.log(upload_to_s3_update_db);
+        if(add_to_db!=null){
+            console.log(add_to_db);
+            const ids_urls = add_to_db.map(hasura_insert => {
+                try{
+                    // const {data: {insert_tagging_import: {returning}}} = hasura_insert;
+                    // const {id, url,sku} = returning[0];
+                    const {id, url,sku,company_id} = hasura_insert;
+                    return {id, url,sku,company_id};
+                }
+                catch (e){
+                    return {id:null, url:null,sku:null,e};
+                }
+            })
+            res.send(add_to_db);
+            ///todo : add here worker....
+            const upload_to_s3_update_db=await uploadFilesToS3AndUpdateDbUrl(ids_urls);
+            console.log(upload_to_s3_update_db);
+        }
+        else{
+            throw new Error("Failed to do insert")
+        }
+
     }
     catch (e) {
         console.error(e);
@@ -181,7 +187,7 @@ export const insertImportToDb = async (db_insert_array) => {
     }
     catch (e) {
         console.error(e);
-        return {e};
+        return null;
     }
     // const insert_to_hasura_tagging = db_insert_array.map((tagging_insert_info, i) => async () => {
     //     try {
