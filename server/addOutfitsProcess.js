@@ -29,15 +29,15 @@ router.post('/', async function (req, res) {
         const json = req.body || '';
         if(!json||json.length<=0)res.status(500).end("NO VALID ARRAY TO INSERT");
         console.log("started importing outfits for outfits of size=>"+json.length);
-
+        //// creating alot of outfits , from {id,j.id,a.id} -> [ { id,j.id} , {id,a.id } ]
         let insert_array = [];
         const db_structure = json.map(element => {
-            if(element['input.code']===undefined){
+            if(element['input.id']===undefined){
                 return;
             }
             const uuid = uuidv4();
             for (const [key, val] of Object.entries(element)) {
-                if (key!=='input.code'&&isUUID(val)) {
+                if (key!=='input.id'&&isUUID(val)) {
                     insert_array.push({
                         outfit_id: uuid, tagging_id: val
                         , created_at: "now()", updated_at: "now()"
