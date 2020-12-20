@@ -13,7 +13,7 @@ export const ItemCard = ({href, imgUrl, label}) => (
 
                 className='product-image'
                 // className='w-70-ns w-100 vh-third obj-contain'
-                src={imgUrl}/> : <img src={"https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png"}></img>}
+                src={imgUrl}/> : <img  className={'product-image'} src={"https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png"}></img>}
         {/*<ItemLabel>{label}</ItemLabel>*/}
         <ItemLabel>{label}</ItemLabel>
     </Link>
