@@ -55,6 +55,7 @@ export const loginByEmailPassword = async (db_post) => {
                 = await client.query({
                 query: CLIENT_BY_EMAIL_PASSWORD,
                 variables: db_post,
+                fetchPolicy: 'network-only'
             });
         console.log(login_by_email);
         let return_values=login_by_email.data.clients[0];
