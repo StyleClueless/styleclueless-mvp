@@ -20,6 +20,7 @@ export const renderS3UrlFromPrefix = (s3_url, scale_factor = 300) => {
     const url = base_url + s3_url;
     const n = url.lastIndexOf("/");
     const newUrl = url.substring(0, n + 1) + scaleString + url.substring(n + 1)
+    console.log("trying to loadUrl of <img>"+ newUrl);
     return newUrl
 }
 export const timeoutPromise = async (ms) => {
