@@ -1,24 +1,10 @@
 import {apolloClient} from "./apollo_client_hasura";
 import {upload} from "./fetchImageAndUploadToBucket";
-import {consoleLabel} from "./utils";
+import {consoleLabel,isUUID,uuidv4} from "./utils";
 
 const router = require('express').Router();
 const gql = require('graphql-tag');
-export const isUUID = (uuid) => {
-    let s = "" + uuid;
 
-    s = s.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');
-    if (s === null) {
-        return false;
-    }
-    return true;
-}
-export const uuidv4 = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}
 
 router.post('/', async function (req, res) {
     const label = consoleLabel('/ADDTAGINGIMPORT PROCESS POST ');
@@ -45,9 +31,21 @@ router.post('/', async function (req, res) {
                 }
             }
         })
+
         console.log("NEW COMBINATIONS=>"+insert_array.length);
+        let dupe=false;
+        let ids={};
+        //iterate to check there is no bad outfits
+        insert_array.forEach((element,i)=>{
+            const unique_key=element.outfit_id+"_"+element.tagging_id;
+            if(ids[unique_key]===undefined){
+                ids[unique_key]=true;
+            }
+            else{
+                dupe=true;
 
-
+            }
+        })
 
         var splitArray = function (arr, size) {
 
@@ -60,9 +58,13 @@ router.post('/', async function (req, res) {
 
             return arrays;
         }
-
+        if (dupe)
+        {
+            res.status(500).end(unique_key+ " is dupe");
+        return ;
+        }
         const bulk_insert_size = 7000;
-        const newArrays = splitArray(insert_array, bulk_insert_size);
+        let newArrays = splitArray(insert_array, bulk_insert_size);
         const arrayLength=newArrays.length;
         const insert_to_hasura_tagging = newArrays.map((bulk_insert_array, i) => async () => {
             try {
@@ -104,7 +106,7 @@ router.post('/', async function (req, res) {
 module.exports = router;
 
 export const INSERT_OUTFITS_BULK = gql`
-mutation insertTaggigImportBulk($objects: [outfits_insert_input!]!) {
+mutation insertOutfitsImportBulk($objects: [outfits_insert_input!]!) {
   insert_outfits(objects: $objects) {
     returning {
       deleted
@@ -113,6 +115,19 @@ mutation insertTaggigImportBulk($objects: [outfits_insert_input!]!) {
       outfit_id
       tagging_id
     }
+  }
+}
+`;
+export const DELETE_OUTFITS = gql`
+mutation deleteOutfits($tagging_id: uuid) { 
+  delete_outfits (
+    where: {
+      tagging_id: {
+        _eq: $tagging_id
+      }
+    }
+  ) {
+    affected_rows
   }
 }
 `;

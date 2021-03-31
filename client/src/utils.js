@@ -11,7 +11,8 @@ export const renderPhotoUrl=(item)=>{
 export const renderS3UrlFromPrefix = (s3_url, scale_factor = 300) => {
     if (s3_url === null || s3_url === 'null') return '';
     // const base_url = 'http://styleclueless-raw.s3-website-ap-southeast-1.amazonaws.com/';
-    const base_url = 'https://d2zudpyfgtlevj.cloudfront.net/';
+     const base_url = 'https://d2zudpyfgtlevj.cloudfront.net/';
+   // const base_url = 'https://d3dxbwhu5whpva.cloudfront.net/';
     const scaleFactor = scale_factor;
     let scaleString = "";
     if (Number(scale_factor) > 0) {
