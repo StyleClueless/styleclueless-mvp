@@ -12,8 +12,20 @@ router.post('/', async function (req, res) {
     try {
 
         const client = apolloClient;
-        const json = req.body || '';
+        const json = req.body || req.body.csv? req.body.csv: '';
         if(!json||json.length<=0)res.status(500).end("NO VALID ARRAY TO INSERT");
+        const {company_id,delete_outfits_of_company}=req.body;
+        if(delete_outfits_of_company===true){
+
+            const
+                delete_old
+                    = await client.mutate({
+                    mutation: DELETE_OUTFITS_OF_COMPANY,
+                    variables: {company_id},
+                });
+            console.log("delete old outfits of company>"+JSON.stringify(delete_old));
+
+        }
         console.log("started importing outfits for outfits of size=>"+json.length);
         //// creating alot of outfits , from {id,j.id,a.id} -> [ { id,j.id} , {id,a.id } ]
         let insert_array = [];
@@ -36,8 +48,9 @@ router.post('/', async function (req, res) {
         let dupe=false;
         let ids={};
         //iterate to check there is no bad outfits
+        let  unique_key;
         insert_array.forEach((element,i)=>{
-            const unique_key=element.outfit_id+"_"+element.tagging_id;
+            unique_key  =element.outfit_id+"_"+element.tagging_id;
             if(ids[unique_key]===undefined){
                 ids[unique_key]=true;
             }
@@ -118,16 +131,11 @@ mutation insertOutfitsImportBulk($objects: [outfits_insert_input!]!) {
   }
 }
 `;
-export const DELETE_OUTFITS = gql`
-mutation deleteOutfits($tagging_id: uuid) { 
-  delete_outfits (
-    where: {
-      tagging_id: {
-        _eq: $tagging_id
-      }
-    }
-  ) {
+export const DELETE_OUTFITS_OF_COMPANY = gql`
+mutation deleteOutfits($company_id: uuid) {
+  delete_outfits(where: {tagging: {company_id: {_eq: $company_id}}}) {
     affected_rows
   }
 }
+
 `;

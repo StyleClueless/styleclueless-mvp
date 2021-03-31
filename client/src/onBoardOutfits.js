@@ -46,8 +46,10 @@ class onBoardOutfits extends Component {
 
     }
 
-
-    insertTableToDb = async () => { ///outfits
+    insertTableToDbDeleteOld=async=>{
+        this.insertTableToDb(true);
+    }
+    insertTableToDb = async (delete_old) => { ///outfits
         const {sampleData} = this.state;
         this.setState({clicked:true});
         const {client}=this.props;
@@ -69,7 +71,7 @@ class onBoardOutfits extends Component {
             this.props.enqueueSnackbar("outfits importing started - this may take some time (few mins) please WAIT! ", {
                 variant: 'warning',
             });
-            const send_to_server = await postRequest('outfits/add', json)
+            const send_to_server = await postRequest('outfits/add', {csv:json,company_id:this.state.company_id,delete_outfits_of_company:delete_old})
             console.log(send_to_server);
             // const {data:{insert_outfits:{returning}}} = await client.mutate({
             //     mutation: INSERT_OUTFITS_BULK,
@@ -128,6 +130,9 @@ class onBoardOutfits extends Component {
                     {!clicked&&
                     <Column hasTextAlign='centered'>
                         <Button onClick={this.insertTableToDb} isColor='alert' isOutlined>insertTableToDb</Button>
+                        <br/>
+                        <Button onClick={this.insertTableToDbDeleteOld} isColor='alert' isOutlined>insertTableToDb_Delete_Old</Button>
+
                     </Column>
                     }
                     <CsvToHtmlTable
