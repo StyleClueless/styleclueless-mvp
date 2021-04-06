@@ -33,6 +33,7 @@ class ItemView extends Component {
 
     }
 
+
     getOutfits = async (client, itemCode) => {
         // const {data} = await client.query({
         //     query: ALL_OUTFITS_BY_TAGGING_ID,
@@ -50,6 +51,7 @@ class ItemView extends Component {
         //     }
         // }
 
+     //   debugger;
         const {data: {tagging_by_pk}} = await this.props.client.query({
             query: TAGGING_BY_PK,
             variables: {id: itemCode},
@@ -77,8 +79,26 @@ class ItemView extends Component {
                 outfitDictionary[prop.outfit_id] = [prop];
             }
         });
+        let allSets=[];
+        ///now we will compare sets as we dont want outfits to be twice so we take only the main id
+        // we do so by SETS
+
+        for (const [key, value] of Object.entries(outfitDictionary)) {
+            let setExists=false;
+            const array=new Set(value.map(item => item.tagging_id));
+            for(let i=0;i<allSets.length;i++){
+                if(this.isSetsEqual(allSets[i],array)){
+                    setExists=true;
+                    delete outfitDictionary[key];///delete it as its not unique!
+                }
+            }
+            if(!setExists)allSets.push(array);
+        }
+
+     //   debugger;
         return {tagging_by_pk, outfitDictionary, taggingDictionary};
     }
+    isSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         // debugger;
