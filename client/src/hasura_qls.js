@@ -62,6 +62,7 @@ query allTaggingByOutfitsIds($outfits: [uuid!]) {
   outfits(where: {outfit_id: {_in: $outfits}}) {
     tagging_id
     outfit_id
+    owner_id
     tagging {
       id
       class
@@ -248,9 +249,10 @@ query getTaggingImport($id: uuid!) {
     demography
     updated_at
     url
-    outfits {
+    outfits (where: {owner_id: {_eq: $id}}) {
       tagging_id
       outfit_id
+      owner_id
       created_at
       deleted
       updated_at

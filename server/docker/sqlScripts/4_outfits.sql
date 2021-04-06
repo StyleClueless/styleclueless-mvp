@@ -5,6 +5,7 @@ CREATE TABLE public.outfits
 --    id uuid NOT NULL DEFAULT gen_random_uuid(),
     tagging_id uuid NOT NULL,
     outfit_id uuid NOT NULL,
+    owner_id uuid NOT NULL,
 --    outfit JSONB NOT NULL,
 --    top  character varying default NULL,
 --    bottom character varying default NULL,
@@ -36,6 +37,10 @@ CREATE INDEX index_outfits_on_tagging_id
     ON public.outfits USING btree
     (tagging_id)
     TABLESPACE pg_default;
+    CREATE INDEX index_outfits_on_owner_id
+        ON public.outfits USING btree
+        (owner_id)
+        TABLESPACE pg_default;
 CREATE UNIQUE INDEX unique_index_outfits_on_tagging_id_outfit_id
     ON public.outfits USING btree
     (tagging_id,outfit_id)

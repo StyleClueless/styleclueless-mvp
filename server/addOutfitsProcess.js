@@ -30,14 +30,15 @@ router.post('/', async function (req, res) {
         //// creating alot of outfits , from {id,j.id,a.id} -> [ { id,j.id} , {id,a.id } ]
         let insert_array = [];
         const db_structure = json.map(element => {
-            if(element['input.id']===undefined){
+            const itemKey=element['input.id'];
+            if(itemKey===undefined){
                 return;
             }
             const uuid = uuidv4();
             for (const [key, val] of Object.entries(element)) {
                 if (key!=='input.id'&&isUUID(val)) {
                     insert_array.push({
-                        outfit_id: uuid, tagging_id: val
+                        outfit_id: uuid, tagging_id: val,owner_id:itemKey
                         , created_at: "now()", updated_at: "now()"
                     });
                 }
@@ -126,6 +127,7 @@ mutation insertOutfitsImportBulk($objects: [outfits_insert_input!]!) {
       created_at
       updated_at
       outfit_id
+      owner_id
       tagging_id
     }
   }
