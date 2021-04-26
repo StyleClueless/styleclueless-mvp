@@ -74,6 +74,7 @@ certbot renew --dns-route53 --logs-dir /home/username/letsencrypt/log/ --config-
 so for us =>
 
 certbot renew --dns-route53 --logs-dir /home/ubuntu/letsencrypt/log/ --config-dir /home/ubuntu/letsencrypt/config/ --work-dir /home/ubuntu/letsencrypt/work/ --non-interactive --server https://acme-v02.api.letsencrypt.org/directory --post-hook "sudo service nginx reload"
+certbot renew --dns-route53 --logs-dir /home/ubuntu/letsencrypt/log/ --config-dir /home/ubuntu/letsencrypt/config/ --work-dir /home/ubuntu/letsencrypt/work/ --non-interactive --server https://acme-v02.api.letsencrypt.org/directory"
 
 match nginx conf to match all of this.
 This is similar to the first command but instead it will try to renew all the certificates that have been created. The --post-hook lets you specify a command to run after the renew succeeds. We make this part of the command so that this command can be added to the cronjobs to automatically try and renew the certificate every day. 
