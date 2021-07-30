@@ -138,7 +138,7 @@ export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
                     variables: {id,s3_url:s3_filename,png_s3_url:s3_path},
                 });
             // console.log(data_update_s3_path_in_db);
-            return {data_update_s3_path_in_db,upload_file_to_s3_from_buffer,png_convert_url};
+            return {data_update_s3_path_in_db,upload_file_to_s3_from_buffer,s3_path};
         }
         catch (e) {
             console.error(e);
@@ -149,11 +149,11 @@ export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
     let return_values = [];
     for (let i = 0; i < insert_to_hasura_tagging.length; i++) {
         let return_value = await insert_to_hasura_tagging[i]();
-        let {data_update_s3_path_in_db,upload_file_to_s3_from_buffer,png_convert_url}=return_value;
+        let {data_update_s3_path_in_db,upload_file_to_s3_from_buffer,s3_path}=return_value;
 
-        while (upload_file_to_s3_from_buffer == null || png_convert_url==null){ /// doing retries of upload till success
+        while (upload_file_to_s3_from_buffer == null || s3_path==null){ /// doing retries of upload till success
             return_value=  await insert_to_hasura_tagging[i]();
-          let  {data_update_s3_path_in_db,upload_file_to_s3_from_buffer,png_convert_url}=return_value
+          let  {data_update_s3_path_in_db,upload_file_to_s3_from_buffer,s3_path}=return_value
         }
 
         return_values[i] = return_value;
