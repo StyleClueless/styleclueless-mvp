@@ -150,7 +150,7 @@ export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
     for (let i = 0; i < insert_to_hasura_tagging.length; i++) {
         let return_value = await insert_to_hasura_tagging[i]();
         let {data_update_s3_path_in_db,upload_file_to_s3_from_buffer,s3_path}=return_value;
-
+        console.log(s3_path + "-"+data_update_s3_path_in_db);
         while (upload_file_to_s3_from_buffer == null || s3_path==null){ /// doing retries of upload till success
             return_value=  await insert_to_hasura_tagging[i]();
           let  {data_update_s3_path_in_db,upload_file_to_s3_from_buffer,s3_path}=return_value
