@@ -126,11 +126,14 @@ export const uploadFilesToS3AndUpdateDbUrl = async (id_urls) => {
             const {url,sku,id,company_id} = tagging_insert_info;
             const path=`${company_id }/`;
             const s3_filename=path+sku+'.jpg';
-            console.log(`${url } fetch and upload to ${s3_filename}` )
+            console.log(`${i }  - ${url } fetch and upload to ${s3_filename}` )
             const upload_file_to_s3_from_buffer=await upload(url,s3_filename)
             const png_convert_url="https://djsq3zkhsd.execute-api.ap-southeast-1.amazonaws.com/dev?s3_path="+s3_filename;
             const convert_to_transparent_png= await goToPngConvert(png_convert_url);
             const {s3_path}=convert_to_transparent_png;
+            if(s3_path==null || s3_path==undefined){
+                return {s3_path:null}
+            }
             const
                 data_update_s3_path_in_db
                     = await client.mutate({
