@@ -1,2 +1,2 @@
 require = require("esm")(module);
-module.exports = require('./downLoadBucket');
+module.exports = require('./replacePngFileName');

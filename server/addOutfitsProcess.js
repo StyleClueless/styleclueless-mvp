@@ -1,6 +1,7 @@
 import {apolloClient} from "./apollo_client_hasura";
 import {upload} from "./fetchImageAndUploadToBucket";
 import {consoleLabel,isUUID,uuidv4} from "./utils";
+import {GET_TAGGING} from "./makePng";
 
 const router = require('express').Router();
 const gql = require('graphql-tag');
@@ -15,6 +16,39 @@ router.post('/', async function (req, res) {
         const json = req.body || req.body.csv? req.body.csv: '';
         if(!json||json.length<=0)res.status(500).end("NO VALID ARRAY TO INSERT");
         const {company_id,delete_outfits_of_company}=req.body;
+        const {data} = await client.query({
+            query: GET_TAGGING,
+            variables: {company_id: company_id},
+            fetchPolicy: 'network-only',
+        });
+        let {tagging} = data;
+        const valid_ids = tagging.reduce(function(map, obj) {
+            map[obj.id] = true;
+            return map;
+        }, {});
+        let insert_array = [];
+
+        const db_structure = json.map(element => {
+            const itemKey=element['input.id'];
+            if(itemKey===undefined){
+                return;
+            }
+            const uuid = uuidv4();
+            for (const [key, val] of Object.entries(element)) {
+                if(  isUUID(val) &&!( valid_ids[val]&&valid_ids[itemKey] ) ){
+                    const message=val + " ->" +  +valid_ids[val]+" and   " +itemKey +"  -> "+ valid_ids[itemKey];
+                    console.error(message);
+                    throw  new Error(message);
+                }
+                if (key!=='input.id'&&isUUID(val)) {
+
+                    insert_array.push({
+                        outfit_id: uuid, tagging_id: val,owner_id:itemKey
+                        , created_at: "now()", updated_at: "now()"
+                    });
+                }
+            }
+        })
         if(delete_outfits_of_company===true){
 
             const
@@ -28,22 +62,7 @@ router.post('/', async function (req, res) {
         }
         console.log("started importing outfits for outfits of size=>"+json.length);
         //// creating alot of outfits , from {id,j.id,a.id} -> [ { id,j.id} , {id,a.id } ]
-        let insert_array = [];
-        const db_structure = json.map(element => {
-            const itemKey=element['input.id'];
-            if(itemKey===undefined){
-                return;
-            }
-            const uuid = uuidv4();
-            for (const [key, val] of Object.entries(element)) {
-                if (key!=='input.id'&&isUUID(val)) {
-                    insert_array.push({
-                        outfit_id: uuid, tagging_id: val,owner_id:itemKey
-                        , created_at: "now()", updated_at: "now()"
-                    });
-                }
-            }
-        })
+
 
         console.log("NEW COMBINATIONS=>"+insert_array.length);
         let dupe=false;
@@ -94,7 +113,8 @@ router.post('/', async function (req, res) {
             }
             catch (e) {
                 console.error(e);
-                return {e};
+                throw new Error(e);
+
             }
 
         });
