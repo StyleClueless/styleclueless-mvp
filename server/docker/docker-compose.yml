@@ -1,5 +1,6 @@
 version: '3'
 services:
+
   db:
     container_name: db
     image: postgres
@@ -57,11 +58,21 @@ services:
     build:
       context: ../
     image: styleclueless.backend:dev
+  removebg:
+      ports:
+      - "3000:3000"
+      volumes:
+        - /temp/:/temp/
+      container_name: removebg
+      restart: always
+      build:
+        context: ./removebg
+      image: removebg
 #  frontend:
 #      container_name: frontend
 #      build:
 #        context: ../../client
-#        dockerfile: Dockerfile
+#        dockerfile: Dockerfile2
 #      image: styleclueless.frontend:dev
 #      ports:
 #      - "3000:3000"

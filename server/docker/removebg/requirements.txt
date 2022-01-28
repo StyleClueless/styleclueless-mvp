@@ -1,0 +1,7 @@
+Flask==2.0.2
+rembg==2.0.3
+numpy==1.21
+Pillow==9.0.0
+urllib3==1.25.7
+ansicolors==1.1.8
+rfc3339==6.2

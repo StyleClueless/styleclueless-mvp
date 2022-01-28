@@ -1,0 +1,14 @@
+FROM python:3.8-slim-buster
+RUN \
+  apt-get update && \
+  apt-get install git -y
+RUN git clone https://github.com/danielgatis/rembg.git
+RUN mkdir /temp
+WORKDIR /rembg
+
+COPY . .
+
+RUN pip3 install .
+
+ENTRYPOINT ["rembg"]
+CMD []
