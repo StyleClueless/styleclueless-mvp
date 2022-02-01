@@ -60,7 +60,7 @@ services:
     image: styleclueless.backend:dev
   removebg:
       ports:
-      - "3000:3000"
+      - "3001:3001"
       volumes:
         - /temp/:/temp/
       container_name: removebg
