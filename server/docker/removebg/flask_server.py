@@ -7,6 +7,7 @@ import time
 from flask import Flask,request,jsonify, g, request
 from rfc3339 import rfc3339
 import os
+import boto3
 
 import socket
 from rembg.bg import remove
@@ -21,8 +22,10 @@ FLASK_APP = 'removebg'
 
 app = Flask(__name__)
 
-
-
+accessKeyId = 'AKIAQPMQ2HDZUU4W7HQS'
+secretAccessKey = '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'
+region= 'ap-southeast-1'
+BUKCET_NAME='styleclueless-raw'
 
 def timing(f):
     def wrap(*args):
@@ -32,25 +35,66 @@ def timing(f):
         print('{:s} function took {:.3f} ms'.format(f.__name__, (time2-time1)*1000.0))
         return ret
     return wrap
+def aws_session():
+    return boto3.session.Session(aws_access_key_id=accessKeyId,
+                                aws_secret_access_key=secretAccessKey,
+                                region_name=region)
+
+def upload_data_to_bucket(local_file_name, bucket_name, s3_key):
+    session = aws_session()
+    s3_resource = session.resource('s3')
+    s3_resource.Bucket(bucket_name).upload_file(local_file_name,s3_key)
+    return
 
 
-@app.route('/removebg/', methods=['post'])
+def download_data_from_bucket(bucket_name, s3_key):
+    session = aws_session()
+    s3_resource = session.resource('s3')
+    obj = s3_resource.Object(bucket_name, s3_key)
+    io_stream = io.BytesIO()
+    obj.download_fileobj(io_stream)
+
+    io_stream.seek(0)
+    data = io_stream.read()
+
+    return data
+
+@app.route('/removebg/', methods=['get'])
 def handler():
 
     try:
-        im = Image.open(BytesIO(request.get_data())) # under request data as binary
-        filename=str(time.time()) + "tmp.png";
+        s3_path = request.args.get('s3_path')
+        timeNow=str(time.time())
+
+        object_content=download_data_from_bucket(BUKCET_NAME,s3_path);
+        # im = Image.open(BytesIO(request.get_data())) # under request data as binary
+        im = Image.open(BytesIO(object_content)) # under request data as binary
+        filename=timeNow + "tmp.png";
         im.save(filename, "PNG")
         I=np.fromfile(filename);
         result = remove(I)
         img = Image.open(io.BytesIO(result)).convert("RGBA")
+        transparent_image_filename=timeNow+"temp.png";
+        img.save(transparent_image_filename)
+        new_s3_path= s3_path+'.png';
+        upload_data_to_bucket(transparent_image_filename,BUKCET_NAME,new_s3_path)
         result={}
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        img_str = base64.b64encode(buffered.getvalue())
-        result['image'] =img_str.decode('utf-8')
         os.remove(filename)
+        os.remove(transparent_image_filename)
+        result['s3_path'] =new_s3_path
+
         return jsonify(result)
+        #
+        # buffered = BytesIO()
+        # img.save(buffered, format="PNG")
+        #
+        # img_str = base64.b64encode(buffered.getvalue())
+        # base64string=img_str.decode('utf-8');
+        # upload_data_to_bucket(img_str,BUKCET_NAME,new_s3_path)
+        #
+        # result['image'] =base64string
+        #
+        # return jsonify(result)
 
     except Exception:
         app.logger.error("HERE=>"+traceback.format_exc())
