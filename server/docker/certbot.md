@@ -55,8 +55,10 @@ aws_access_key_id=XXXXXX
 aws_secret_access_key=XXXX/XXXXX
 
 certbot certonly -d example.com -d *.example.com --dns-route53 --logs-dir /home/username/letsencrypt/log/ --config-dir /home/username/letsencrypt/config/ --work-dir /home/username/letsencrypt/work/ -m email@example.com --agree-tos --non-interactive --server https://acme-v02.api.letsencrypt.org/directory
-certbot certonly -d styleclueless.com -d *.styleclueless.com --dns-route53 --logs-dir /home/ubuntu/letsencrypt/log/ --config-dir /home/ubuntu/letsencrypt/config/ --work-dir /home/ubuntu/letsencrypt/work/ -m info@styleclueless.com --agree-tos --non-interactive --server https://acme-v02.api.letsencrypt.org/directory
 
+<<<<<<<<<<<<<<RUN THIS TO RENEW CERTIFCATE >>>>>>>>>>>>
+certbot certonly -d styleclueless.com -d *.styleclueless.com --dns-route53 --logs-dir /home/ubuntu/letsencrypt/log/ --config-dir /home/ubuntu/letsencrypt/config/ --work-dir /home/ubuntu/letsencrypt/work/ -m info@styleclueless.com --agree-tos --non-interactive --server https://acme-v02.api.letsencrypt.org/directory
+<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 IMPORTANT NOTES:
  - Congratulations! Your certificate and chain have been saved at:
    /home/ubuntu/letsencrypt/config/live/styleclueless.com/fullchain.pem
