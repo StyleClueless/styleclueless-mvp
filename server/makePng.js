@@ -13,6 +13,18 @@ query getTaggingUrl($company_id: uuid!) {
   }
 }
 `;
+/*
+*
+* mutation deleteBk($company_id: uuid!) {
+
+  delete_tagging (where: {company_id: {_eq: $company_id},s3_url:{_like:"%_BK%"}})  {
+returning{
+    id}
+    affected_rows
+  }
+}
+
+* */
 const UPADTE_S3_URL = gql`
 mutation updateS3UrlForTagging($id: uuid!, $s3_url: String!, $png_s3_url: String!) {
     update_tagging(where: {id: {_eq: $id}}, _set: {s3_url: $s3_url,png_s3_url: $png_s3_url,updated_at:"now()"}) {
@@ -27,6 +39,8 @@ mutation updateS3UrlForTagging($id: uuid!, $s3_url: String!, $png_s3_url: String
 }
 
 `;
+
+
 
 
 

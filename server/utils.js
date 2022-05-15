@@ -10,9 +10,41 @@ AWS.config.update({
     region: 'ap-southeast-1',
     signatureVersion: 'v4'
 });
+
 export const s3 = new AWS.S3()
 
+export const getFiles= (dir, files_)=>{
+    files_ = files_ || [];
+    var files = fs.readdirSync(dir);
+    for (var i in files){
+        var name = dir + '/' + files[i];
+        if (fs.statSync(name).isDirectory()){
+            getFiles(name, files_);
+        } else {
+            files_.push(name);
+        }
+    }
+    return files_;
+}
+
 export const BUKCET_NAME="styleclueless-raw";
+export const uploadFile = async (path, key) => {
+
+    const fileContent = await fs.promises.readFile(path);
+ //   "ContentType": "application/xml",
+
+    // Setting up S3 upload parameters
+    const params = {
+        "Bucket":BUKCET_NAME,
+        "Key": key,
+        "Body": fileContent
+    }
+
+    // Uploading files to the bucket
+    const data2 = await s3.upload(params).promise();
+    console.log(`File uploaded successfully. ${data2.Location}`);
+    return data2.Location;
+}
 
 export const  consoleLabel=(msg='')=> {
     const fnName = callerId.getData().functionName || 'anonymous';

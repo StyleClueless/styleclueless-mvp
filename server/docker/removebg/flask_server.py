@@ -8,7 +8,7 @@ from flask import Flask,request,jsonify, g, request
 from rfc3339 import rfc3339
 import os
 import boto3
-
+from crop import cropPIL
 import socket
 from rembg.bg import remove
 import numpy as np
@@ -59,6 +59,7 @@ def download_data_from_bucket(bucket_name, s3_key):
 
     return data
 
+
 @app.route('/removebg/', methods=['get'])
 def handler():
 
@@ -69,19 +70,37 @@ def handler():
         object_content=download_data_from_bucket(BUKCET_NAME,s3_path);
         # im = Image.open(BytesIO(request.get_data())) # under request data as binary
         im = Image.open(BytesIO(object_content)) # under request data as binary
+
+        # cropped_first=cropPIL(im)
+        # first=timeNow+"tempfirst_cropped.png";
+        # cropped_first.save(first + "firstCropped.png");
+
         filename=timeNow + "tmp.png";
         im.save(filename, "PNG")
         I=np.fromfile(filename);
         result = remove(I)
+
         img = Image.open(io.BytesIO(result)).convert("RGBA")
+        cropped=cropPIL(img)
+
         transparent_image_filename=timeNow+"temp.png";
         img.save(transparent_image_filename)
+        cropped_filename=transparent_image_filename + timeNow + "lastCropped.png"
+        cropped.save(cropped_filename);
+
         new_s3_path= s3_path+'.png';
+        new_s3_path_cropped= s3_path+'_cropped_.png';
         upload_data_to_bucket(transparent_image_filename,BUKCET_NAME,new_s3_path)
+
+
+        upload_data_to_bucket(cropped_filename,BUKCET_NAME,new_s3_path_cropped)
         result={}
         os.remove(filename)
+        os.remove(cropped_filename)
         os.remove(transparent_image_filename)
-        result['s3_path'] =new_s3_path
+       #  result['s3_path'] =new_s3_path
+        result['s3_path'] =new_s3_path_cropped
+        # result['cropped_s3_path'] =new_s3_path_cropped
 
         return jsonify(result)
         #
