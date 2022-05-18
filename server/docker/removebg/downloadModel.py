@@ -1,4 +1,4 @@
-import urllib3
+import urllib
 import os
 def download_url(url, root, filename=None):
     """Download a file from a url and place it in root.
@@ -17,11 +17,11 @@ def download_url(url, root, filename=None):
 
     try:
         print('Downloading ' + url + ' to ' + fpath)
-        urllib3.request.urlretrieve(url, fpath)
-    except (urllib3.error.URLError, IOError) as e:
+        urllib.request.urlretrieve(url, fpath)
+    except (urllib.error.URLError, IOError) as e:
         if url[:5] == 'https':
             url = url.replace('https:', 'http:')
             print('Failed download. Trying https -> http instead.'
                     ' Downloading ' + url + ' to ' + fpath)
-            urllib3.request.urlretrieve(url, fpath)
+            urllib.request.urlretrieve(url, fpath)
 
