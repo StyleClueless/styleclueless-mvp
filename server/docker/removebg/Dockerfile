@@ -7,7 +7,7 @@ RUN apt update
 RUN apt install -y wget
 RUN chmod +x downloadModel.sh
 RUN ./downloadModel.sh
-echo $HOME
+RUN echo $HOME
 
 RUN mkdir $HOME/.u2net/
 
