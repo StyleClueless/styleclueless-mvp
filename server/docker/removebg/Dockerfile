@@ -14,7 +14,7 @@ COPY requirements.txt /removebg
 #COPY u2net.onnx $HOME/.u2net/
 
 RUN pip install -r requirements.txt
-RUN python ./downloadModel.py
 COPY . /removebg
+RUN python ./downloadModel.py
 ENTRYPOINT ["python"]
 CMD ["flask_server.py"]
