@@ -14,6 +14,8 @@ import io
 from PIL import Image
 from io import BytesIO
 
+from downloadModel import download_url
+
 FLASK_APP = 'removebg'
 
 app = Flask(__name__)
@@ -22,8 +24,10 @@ accessKeyId = 'AKIAQPMQ2HDZUU4W7HQS'
 secretAccessKey = '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'
 region= 'ap-southeast-1'
 BUKCET_NAME='styleclueless-raw'
-
-
+print ("downloading model if needed")
+fpath='~/u2net/u2net.onnx'
+if not(os.path.isfile(fpath)):
+    download_url('https://sc-raw.s3.eu-central-1.amazonaws.com/u2net.onnx', '~/u2net/')
 
 
 def timing(f):

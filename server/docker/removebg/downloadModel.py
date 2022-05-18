@@ -1,5 +1,5 @@
 import urllib3
-
+import os
 def download_url(url, root, filename=None):
     """Download a file from a url and place it in root.
     Args:
@@ -25,4 +25,3 @@ def download_url(url, root, filename=None):
                     ' Downloading ' + url + ' to ' + fpath)
             urllib3.request.urlretrieve(url, fpath)
 
-    download_url('https://sc-raw.s3.eu-central-1.amazonaws.com/u2net.onnx', '~/u2net/')
