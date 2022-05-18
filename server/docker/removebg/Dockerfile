@@ -4,7 +4,7 @@ WORKDIR /removebg
 COPY requirements.txt /removebg
 COPY downloadModel.sh /removebg
 RUN apt update
-RUN apt install wget
+RUN apt install --Y wget
 RUN chmod +x downloadModel.sh
 RUN ./downloadModel.sh
 COPY u2net.onnx $HOME/.u2net/
