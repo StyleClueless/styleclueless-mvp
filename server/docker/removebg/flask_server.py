@@ -26,8 +26,7 @@ region= 'ap-southeast-1'
 BUKCET_NAME='styleclueless-raw'
 print ("downloading model if needed")
 fpath='~/u2net/u2net.onnx'
-if not(os.path.isfile(fpath)):
-    download_url('https://sc-raw.s3.eu-central-1.amazonaws.com/u2net.onnx', '~/u2net/')
+download_url('https://sc-raw.s3.eu-central-1.amazonaws.com/u2net.onnx', '~/u2net/')
 
 
 def timing(f):
