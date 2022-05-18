@@ -6,10 +6,11 @@ COPY downloadModel.sh /removebg
 RUN apt update
 RUN apt install -y wget
 RUN chmod +x downloadModel.sh
-RUN ./downloadModel.sh
 RUN echo $HOME
 
 RUN mkdir $HOME/.u2net/
+RUN ./downloadModel.sh
+
 
 RUN pip install -r requirements.txt
 COPY . /removebg
