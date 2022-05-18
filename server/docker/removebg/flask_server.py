@@ -13,6 +13,7 @@ import numpy as np
 import io
 from PIL import Image
 from io import BytesIO
+from pathlib import Path
 
 from downloadModel import download_url
 
@@ -25,7 +26,12 @@ secretAccessKey = 'piDk/fGduwnyzaqQgrYIRzkslaSMSMyrbi35ikjU'
 region= 'ap-southeast-1'
 BUKCET_NAME='styleclueless-raw'
 print ("downloading model if needed")
+model_name='u2net'
 fpath='~/u2net/u2net.onnx'
+home = os.getenv("U2NET_HOME", os.path.join("~", ".u2net"))
+path = Path(home).expanduser() / f"{model_name}.onnx"
+print(path)
+path.parents[0].mkdir(parents=True, exist_ok=True)
 download_url('https://sc-raw.s3.eu-central-1.amazonaws.com/u2net.onnx', '~/u2net/')
 
 
