@@ -74,15 +74,22 @@ def handler():
     try:
         s3_path = request.args.get('s3_path')
         timeNow=str(time.time())
+        result={}
 
         object_content=download_data_from_bucket(BUKCET_NAME,s3_path);
         # im = Image.open(BytesIO(request.get_data())) # under request data as binary
         im = Image.open(BytesIO(object_content)) # under request data as binary
 
-        # cropped_first=cropPIL(im)
-        # first=timeNow+"tempfirst_cropped.png";
-        # cropped_first.save(first + "firstCropped.png");
+        cropped_first=cropPIL(im)
+        first=timeNow+"tempfirst_cropped.png";
+        filename_first=first + "firstCropped.png";
+        cropped_first.save(filename_first);
+        new_s3_path_first_cropped= s3_path+'first.png';
+        upload_data_to_bucket(filename_first,BUKCET_NAME,new_s3_path_first_cropped)
+        os.remove(filename_first)
+        result['s3_path'] = new_s3_path_first_cropped
 
+        return jsonify(result)
         filename=timeNow + "tmp.png";
         im.save(filename, "PNG")
         I=np.fromfile(filename);
@@ -100,7 +107,6 @@ def handler():
         new_s3_path_cropped= s3_path+'_cropped_.png';
         upload_data_to_bucket(transparent_image_filename,BUKCET_NAME,new_s3_path)
         upload_data_to_bucket(cropped_filename,BUKCET_NAME,new_s3_path_cropped)
-        result={}
         os.remove(filename)
         os.remove(cropped_filename)
         os.remove(transparent_image_filename)
