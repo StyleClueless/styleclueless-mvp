@@ -15,6 +15,6 @@ COPY requirements.txt /removebg
 
 RUN pip install -r requirements.txt
 COPY . /removebg
-RUN python ./downloadModel.py
+#RUN python ./downloadModel.py
 ENTRYPOINT ["python"]
 CMD ["flask_server.py"]
