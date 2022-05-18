@@ -58,7 +58,8 @@ export const makePngs = async (company_id) => {
         try {
             console.log(Number(i/tagging.length))
             const {id,s3_url}=tagging_item;
-            const png_convert_url="https://djsq3zkhsd.execute-api.ap-southeast-1.amazonaws.com/dev?s3_path="+s3_url;
+            const png_convert_url="https://www.styleclueless.com/removebg/?s3_path="+s3_url;
+       //     const png_convert_url="https://djsq3zkhsd.execute-api.ap-southeast-1.amazonaws.com/dev?s3_path="+s3_url;
             const convert_to_transparent_png= await goToPngConvert(png_convert_url);
             const {s3_path}=convert_to_transparent_png;
             const
@@ -88,6 +89,6 @@ export const makePngs = async (company_id) => {
     console.log(return_values)
 
 }
-const company_id_input='c5a66f3a-b46b-4165-815a-86ec68741b6f';
+const company_id_input='f1e6d72f-731f-4c15-89e9-82830a9f8f0c';
 
 makePngs(company_id_input);
