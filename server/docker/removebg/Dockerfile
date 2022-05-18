@@ -11,6 +11,7 @@ RUN echo $HOME
 RUN mkdir $HOME/.u2net/
 RUN ./downloadModel.sh
 
+COPY u2net.onnx $HOME/.u2net/
 
 RUN pip install -r requirements.txt
 COPY . /removebg
