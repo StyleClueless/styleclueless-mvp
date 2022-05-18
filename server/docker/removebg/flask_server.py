@@ -1,7 +1,6 @@
 #codin:utf8
 import datetime
 import traceback
-import time
 import colors
 import time
 from flask import Flask,request,jsonify, g, request
@@ -9,15 +8,12 @@ from rfc3339 import rfc3339
 import os
 import boto3
 from crop import cropPIL
-import socket
 from rembg.bg import remove
 import numpy as np
 import io
 from PIL import Image
 from io import BytesIO
-import base64
-import re
-import json
+
 FLASK_APP = 'removebg'
 
 app = Flask(__name__)
@@ -26,6 +22,9 @@ accessKeyId = 'AKIAQPMQ2HDZUU4W7HQS'
 secretAccessKey = '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'
 region= 'ap-southeast-1'
 BUKCET_NAME='styleclueless-raw'
+
+
+
 
 def timing(f):
     def wrap(*args):
