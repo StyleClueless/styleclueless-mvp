@@ -99,8 +99,6 @@ def handler():
         new_s3_path= s3_path+'.png';
         new_s3_path_cropped= s3_path+'_cropped_.png';
         upload_data_to_bucket(transparent_image_filename,BUKCET_NAME,new_s3_path)
-
-
         upload_data_to_bucket(cropped_filename,BUKCET_NAME,new_s3_path_cropped)
         result={}
         os.remove(filename)
