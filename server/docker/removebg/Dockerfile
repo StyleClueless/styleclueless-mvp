@@ -1,6 +1,6 @@
 FROM python:3.8.5-slim-buster
 RUN mkdir /removebg
-
+RUN echo 'this'
 WORKDIR /removebg
 COPY requirements.txt /removebg
 #COPY downloadModel.sh /removebg
