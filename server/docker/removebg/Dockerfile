@@ -7,7 +7,9 @@ RUN apt update
 RUN apt install -y wget
 RUN chmod +x downloadModel.sh
 RUN ./downloadModel.sh
-COPY u2net.onnx $HOME/.u2net/
+echo $HOME
+
+RUN mkdir $HOME/.u2net/
 
 RUN pip install -r requirements.txt
 COPY . /removebg
